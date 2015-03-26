@@ -22,7 +22,7 @@ static NSString * _instanceName;
     return _apiKey;
 }
 
-+ (NSString *)getInstancdName {
++ (NSString *)getInstanceName {
     return _instanceName;
 }
 

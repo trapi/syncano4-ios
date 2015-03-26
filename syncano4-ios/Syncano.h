@@ -11,5 +11,5 @@
 @interface Syncano : NSObject
 + (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
 + (NSString *)getApiKey;
-+ (NSString *)getInstancdName;
++ (NSString *)getInstanceName;
 @end
