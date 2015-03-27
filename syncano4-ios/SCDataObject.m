@@ -7,7 +7,27 @@
 //
 
 #import "SCDataObject.h"
+#import "SCAPIClient.h"
 
 @implementation SCDataObject
 
++ (NSString *)classNameForAPI {
+    return @"DataObject";
+}
+
+//TODO: do the serialization to nsdictionary for API
+- (NSDictionary *)serialized {
+    return [NSDictionary new];
+}
+
+- (NSString *)pathForObject {
+    NSString *path = [NSString stringWithFormat:@"classes/%@/objects/%@",[[self class] classNameForAPI],self.objectId];
+    return path;
+}
+
+- (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion {
+    return [[SCAPIClient sharedSCAPIClient] postTaskWithPath:[self pathForObject] params:[self serialized]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        completion(task,responseObject,error);
+    }];
+}
 @end

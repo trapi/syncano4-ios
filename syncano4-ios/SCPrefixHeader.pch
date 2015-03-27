@@ -8,5 +8,5 @@
 
 #ifdef __OBJC__
 #import "SCMacros.h"
-
+#import "SCConstants.h"
 #endif
