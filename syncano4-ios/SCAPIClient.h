@@ -8,6 +8,8 @@
 
 #import "AFHTTPSessionManager.h"
 
+typedef void (^SCAPICompletionBlock)(NSURLSessionDataTask *task, id responseObject, NSError *error);
+
 @interface SCAPIClient : AFHTTPSessionManager
 AUSINGLETON_FOR_CLASS(SCAPIClient);
 @end
