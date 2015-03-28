@@ -13,12 +13,15 @@
 @property (nonatomic,copy) NSString *apiKey;
 @property (nonatomic,copy) NSString *instanceName;
 
+//Singleton
 + (Syncano *)defaultInstanceWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
-
 + (NSString *)getApiKey;
 + (NSString *)getInstanceName;
 
-+ (Syncano *)testInstance;
+//Normal
+- (instancetype)initWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
++ (Syncano *)newSyncanoWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
 
-- (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
+//Only for tesing
++ (Syncano *)testInstance;
 @end
