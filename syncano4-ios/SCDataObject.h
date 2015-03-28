@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class SCQuery;
+@class Syncano;
 
 @interface SCDataObject : NSObject
 @property (nonatomic,copy) NSNumber *objectId;
@@ -23,5 +24,5 @@
 + (NSString *)classNameForAPI;
 
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion;
-
+- (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion;
 @end

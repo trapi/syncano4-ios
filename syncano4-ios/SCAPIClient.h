@@ -11,6 +11,10 @@
 
 SINGLETON_FOR_CLASS(SCAPIClient);
 
++ (SCAPIClient *)apiClientForSyncano:(Syncano *)syncano;
+
+- (void)initializeClient;
+
 - (NSURLSessionDataTask *)getTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
 - (NSURLSessionDataTask *)postTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
 - (NSURLSessionDataTask *)putTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;

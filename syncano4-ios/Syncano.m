@@ -19,15 +19,27 @@
     return instance;
 }
 
++ (Syncano *)defaultInstanceWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
+    Syncano *syncano = [Syncano instance];
+    [syncano setApiKey:apiKey instanceName:instanceName];
+    return syncano;
+}
+
++ (NSString *)getApiKey {
+    return [[Syncano instance] apiKey];
+}
+
++ (NSString *)getInstanceName {
+    return [[Syncano instance] instanceName];
+}
+
 - (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
     _apiKey = apiKey;
     _instanceName = instanceName;
 }
 
 + (Syncano *)testInstance {
-    Syncano *syncano = [Syncano instance];
-    [syncano setApiKey:@"1429b1898655e3c576d4352cb7ed383946dbc8e4" instanceName:@"mytestinstance"];
-    return syncano;
+    return [Syncano defaultInstanceWithApiKey:@"1429b1898655e3c576d4352cb7ed383946dbc8e4" instanceName:@"mytestinstance"];
 }
 
 @end

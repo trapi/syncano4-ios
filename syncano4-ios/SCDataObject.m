@@ -8,6 +8,7 @@
 
 #import "SCDataObject.h"
 #import "SCAPIClient.h"
+#import "Syncano.h"
 
 @implementation SCDataObject
 
@@ -31,6 +32,12 @@
 
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion {
     return [[SCAPIClient sharedSCAPIClient] postTaskWithPath:[self pathForObject] params:[self serialized]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        completion(task,responseObject,error);
+    }];
+}
+
+- (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion {
+    return [[SCAPIClient apiClientForSyncano:syncano] postTaskWithPath:[self pathForObject] params:[self serialized]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         completion(task,responseObject,error);
     }];
 }

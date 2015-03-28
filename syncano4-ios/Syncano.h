@@ -9,9 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface Syncano : NSObject
+
 @property (nonatomic,copy) NSString *apiKey;
 @property (nonatomic,copy) NSString *instanceName;
-+ (Syncano *)instance;
-- (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
+
++ (Syncano *)defaultInstanceWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
+
++ (NSString *)getApiKey;
++ (NSString *)getInstanceName;
+
 + (Syncano *)testInstance;
+
+- (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
 @end
