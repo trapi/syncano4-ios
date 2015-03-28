@@ -17,7 +17,7 @@ SPEC_BEGIN(SCAPISpec)
 
 describe(@"SCAPI", ^{
     beforeAll(^{
-        [Syncano setApiKey:@"1429b1898655e3c576d4352cb7ed383946dbc8e4" instanceName:@"mytestinstance"];
+        [Syncano testInstance];
     });
     it(@"sending authenticated GET classes request", ^{
         __block NSError *_error = [NSError new];

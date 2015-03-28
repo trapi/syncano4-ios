@@ -10,6 +10,6 @@
 #import "SCDataObject.h"
 
 @interface SCQuery : NSObject
-- (instancetype)initWithDataObject:(SCDataObject *)dataObject;
-+ (SCQuery *)queryForDataObject:(SCDataObject *)dataObject;
+- (instancetype)initWithDataObjectClassName:(NSString *)dataObjectClassName;
++ (SCQuery *)queryForDataObjectWithClassName:(NSString *)dataObjectClassName;
 @end

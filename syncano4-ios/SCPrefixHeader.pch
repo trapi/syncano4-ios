@@ -9,4 +9,6 @@
 #ifdef __OBJC__
 #import "SCMacros.h"
 #import "SCConstants.h"
+#import "SCDataObject.h"
+#import "SCQuery.h"
 #endif

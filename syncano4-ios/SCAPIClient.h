@@ -9,7 +9,7 @@
 #import "AFHTTPSessionManager.h"
 @interface SCAPIClient : AFHTTPSessionManager
 
-AUSINGLETON_FOR_CLASS(SCAPIClient);
+SINGLETON_FOR_CLASS(SCAPIClient);
 
 - (NSURLSessionDataTask *)getTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
 - (NSURLSessionDataTask *)postTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;

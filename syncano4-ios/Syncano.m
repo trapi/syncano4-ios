@@ -8,22 +8,26 @@
 
 #import "Syncano.h"
 
-static NSString * _apiKey;
-static NSString * _instanceName;
-
 @implementation Syncano
 
-+ (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
++ (Syncano *)instance {
+    static dispatch_once_t pred;
+    __strong static Syncano * instance= nil;
+    dispatch_once( &pred, ^{
+        instance = [[self alloc] init];
+    });
+    return instance;
+}
+
+- (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
     _apiKey = apiKey;
     _instanceName = instanceName;
 }
 
-+ (NSString *)getApiKey {
-    return _apiKey;
-}
-
-+ (NSString *)getInstanceName {
-    return _instanceName;
++ (Syncano *)testInstance {
+    Syncano *syncano = [Syncano instance];
+    [syncano setApiKey:@"1429b1898655e3c576d4352cb7ed383946dbc8e4" instanceName:@"mytestinstance"];
+    return syncano;
 }
 
 @end

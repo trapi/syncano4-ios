@@ -11,7 +11,7 @@
  * Singleton for .h file
  */
 
-#define AUSINGLETON_FOR_CLASS(classname) \
+#define SINGLETON_FOR_CLASS(classname) \
 + (classname *)shared##classname
 
 
@@ -19,19 +19,13 @@
  * Singleton for .m file
  */
 
-#define AUSINGLETON_IMPL_FOR_CLASS(classname) \
+#define SINGLETON_IMPL_FOR_CLASS(classname) \
 \
-static classname *shared##classname = nil; \
++ (classname *)shared##classname {                      \
 \
-+ (classname *)shared##classname \
-{ \
-@synchronized(self) \
-{ \
-if (shared##classname == nil) \
-{ \
-shared##classname = [[self alloc] init]; \
-} \
-} \
-\
-return shared##classname; \
+static dispatch_once_t pred;                        \
+__strong static classname * shared##classname = nil;\
+dispatch_once( &pred, ^{                            \
+shared##classname = [[self alloc] init]; });    \
+return shared##classname;                           \
 }

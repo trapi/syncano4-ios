@@ -15,6 +15,10 @@
     return @"DataObject";
 }
 
++ (SCQuery *)query {
+    return [SCQuery queryForDataObjectWithClassName:[[self class] classNameForAPI]];
+}
+
 //TODO: do the serialization to nsdictionary for API
 - (NSDictionary *)serialized {
     return [NSDictionary new];

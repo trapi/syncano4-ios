@@ -9,19 +9,19 @@
 #import "SCQuery.h"
 
 @interface SCQuery ()
-@property (nonatomic,retain) SCDataObject *dataObject;
+@property (nonatomic,retain) NSString *dataObjectClassName;
 @end
 
 @implementation SCQuery
-- (instancetype)initWithDataObject:(SCDataObject *)dataObject {
+- (instancetype)initWithDataObjectClassName:(NSString *)dataObjectClassName {
     self = [super init];
     if (self) {
-        self.dataObject = dataObject;
+        self.dataObjectClassName = dataObjectClassName;
     }
     return self;
 }
-+ (SCQuery *)queryForDataObject:(SCDataObject *)dataObject {
-    SCQuery *query = [[SCQuery alloc] initWithDataObject:dataObject];
++ (SCQuery *)queryForDataObjectWithClassName:(NSString *)dataObjectClassName {
+    SCQuery *query = [[SCQuery alloc] initWithDataObjectClassName:dataObjectClassName];
     return query;
 }
 @end

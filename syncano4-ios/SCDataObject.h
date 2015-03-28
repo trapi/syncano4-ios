@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class SCQuery;
 
 @interface SCDataObject : NSObject
 @property (nonatomic,copy) NSNumber *objectId;
@@ -16,6 +17,8 @@
 @property (nonatomic,copy) NSString *name;
 @property (nonatomic,copy) NSString *classDescription;
 @property (nonatomic,copy) NSArray *links;
+
++ (SCQuery *)query;
 
 + (NSString *)classNameForAPI;
 

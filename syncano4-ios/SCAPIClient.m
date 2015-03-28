@@ -10,11 +10,11 @@
 #import "Syncano.h"
 
 @implementation SCAPIClient
-AUSINGLETON_IMPL_FOR_CLASS(SCAPIClient)
+SINGLETON_IMPL_FOR_CLASS(SCAPIClient)
 
 - (instancetype)init {
 //    NSURL *instanceURL = [NSURL URLWithString:@"http://ip.jsontest.com"];
-    NSURL *instanceURL = [NSURL URLWithString:[Syncano getInstanceName] relativeToURL:[NSURL URLWithString:kBaseURL]];
+    NSURL *instanceURL = [NSURL URLWithString:[Syncano instance].instanceName relativeToURL:[NSURL URLWithString:kBaseURL]];
     self = [super initWithBaseURL:instanceURL];
     if (self) {
         self.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -26,7 +26,7 @@ AUSINGLETON_IMPL_FOR_CLASS(SCAPIClient)
 
 - (void)authorizeRequest {
     //[self.requestSerializer setValue:[NSString stringWithFormat:@" Token %@",[Syncano getApiKey]] forHTTPHeaderField:@"Authorization"];    
-   [self.requestSerializer setValue:[Syncano getApiKey] forHTTPHeaderField:@"X-API-KEY"];
+   [self.requestSerializer setValue:[Syncano instance].apiKey forHTTPHeaderField:@"X-API-KEY"];
 }
 
 //TODO: NEEDS TO BE IMPLEMENTED
