@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		118426881AC98225001035A7 /* ClassHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 118426871AC98225001035A7 /* ClassHelper.m */; };
+		1184268B1AC983A1001035A7 /* SCParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1184268A1AC983A1001035A7 /* SCParseManager.m */; };
+		1184268D1AC9851C001035A7 /* SCDataObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1184268C1AC9851C001035A7 /* SCDataObjectSpec.m */; };
 		119991641AC446E4007B994C /* Syncano.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 119991631AC446E4007B994C /* Syncano.h */; };
 		119991661AC446E4007B994C /* Syncano.m in Sources */ = {isa = PBXBuildFile; fileRef = 119991651AC446E4007B994C /* Syncano.m */; };
 		1199916C1AC446E4007B994C /* libsyncano4-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 119991601AC446E4007B994C /* libsyncano4-ios.a */; };
@@ -43,6 +46,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		118426861AC98225001035A7 /* ClassHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassHelper.h; sourceTree = "<group>"; };
+		118426871AC98225001035A7 /* ClassHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassHelper.m; sourceTree = "<group>"; };
+		118426891AC983A1001035A7 /* SCParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCParseManager.h; sourceTree = "<group>"; };
+		1184268A1AC983A1001035A7 /* SCParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCParseManager.m; sourceTree = "<group>"; };
+		1184268C1AC9851C001035A7 /* SCDataObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDataObjectSpec.m; sourceTree = "<group>"; };
 		119991601AC446E4007B994C /* libsyncano4-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libsyncano4-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		119991631AC446E4007B994C /* Syncano.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Syncano.h; sourceTree = "<group>"; };
 		119991651AC446E4007B994C /* Syncano.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Syncano.m; sourceTree = "<group>"; };
@@ -89,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1184268E1AC986C6001035A7 /* ParseManager */ = {
+			isa = PBXGroup;
+			children = (
+				118426891AC983A1001035A7 /* SCParseManager.h */,
+				1184268A1AC983A1001035A7 /* SCParseManager.m */,
+			);
+			name = ParseManager;
+			sourceTree = "<group>";
+		};
 		119991571AC446E4007B994C = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +144,7 @@
 				119991701AC446E4007B994C /* Supporting Files */,
 				11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */,
 				11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */,
+				1184268C1AC9851C001035A7 /* SCDataObjectSpec.m */,
 			);
 			path = "syncano4-iosTests";
 			sourceTree = "<group>";
@@ -154,10 +172,13 @@
 		11BE43D71AC552C600FE96C5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1184268E1AC986C6001035A7 /* ParseManager */,
 				11BE43D81AC552D500FE96C5 /* APIClient */,
 				11BE43DC1AC5539600FE96C5 /* SCMacros.h */,
 				11BE43E51AC57A0500FE96C5 /* SCConstants.h */,
 				11BE43DD1AC5545C00FE96C5 /* SCPrefixHeader.pch */,
+				118426861AC98225001035A7 /* ClassHelper.h */,
+				118426871AC98225001035A7 /* ClassHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -351,6 +372,8 @@
 				11BE43E01AC55BCA00FE96C5 /* SCDataObject.m in Sources */,
 				119991661AC446E4007B994C /* Syncano.m in Sources */,
 				11BE43DB1AC5532200FE96C5 /* SCAPIClient.m in Sources */,
+				118426881AC98225001035A7 /* ClassHelper.m in Sources */,
+				1184268B1AC983A1001035A7 /* SCParseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +383,7 @@
 			files = (
 				11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */,
 				11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */,
+				1184268D1AC9851C001035A7 /* SCDataObjectSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

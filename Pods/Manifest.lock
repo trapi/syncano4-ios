@@ -25,7 +25,7 @@ DEPENDENCIES:
   - Kiwi (~> 2.3)
 
 SPEC CHECKSUMS:
-  AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
-  Kiwi: 73e1400209055ee9c8ba78c6012b6b642d0fb9f7
+  AFNetworking: caca0799b310f0c3bf1fc1af45145fc96972bcab
+  Kiwi: f038a6c61f7a9e4d7766bff5717aa3b3fdb75f55
 
 COCOAPODS: 0.35.0

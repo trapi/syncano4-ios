@@ -6,6 +6,6 @@ target "syncano4-ios" do
 pod 'AFNetworking', '~> 2.2.1'
 end
 
-target "syncano4-iosTests" :exclusive => true do
+target "syncano4-iosTests" do
 pod 'Kiwi', '~> 2.3'
 end

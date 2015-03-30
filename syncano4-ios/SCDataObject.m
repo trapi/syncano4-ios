@@ -9,6 +9,7 @@
 #import "SCDataObject.h"
 #import "SCAPIClient.h"
 #import "Syncano.h"
+#import "ClassHelper.h"
 
 @implementation SCDataObject
 
@@ -23,6 +24,10 @@
 //TODO: do the serialization to nsdictionary for API
 - (NSDictionary *)serialized {
     return [NSDictionary new];
+}
+
++ (NSDictionary *)propertiesMap {
+    return [ClassHelper propertiesForClass:[self class]];
 }
 
 - (NSString *)pathForObject {

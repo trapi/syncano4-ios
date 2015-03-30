@@ -52,8 +52,8 @@
 }
 
 - (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
-    _apiKey = apiKey;
-    _instanceName = instanceName;
+    self.apiKey = apiKey;
+    self.instanceName = instanceName;
 }
 
 @end
