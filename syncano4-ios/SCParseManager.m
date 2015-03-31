@@ -28,4 +28,18 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     NSDictionary *properties = [ClassHelper propertiesForClass:classToRegister];
     [self.registeredClasses setValue:properties forKey:NSStringFromClass(classToRegister)];
 }
+
+//This is only an idea. It have to be more precise with some validations in it.
+- (id)parseObjectOfClass:(Class)objectClass fromJSONObject:(id)JSONObject {
+    NSDictionary *objectPropertiesMap = self.registeredClasses[NSStringFromClass(objectClass)];
+    if (!objectPropertiesMap) {
+        return nil;
+    }
+    id parsedObject = [objectClass new];
+    for (NSString *key in objectPropertiesMap.allKeys) {
+        id value = JSONObject[key];
+        [parsedObject setValue:value forKey:key];
+    }
+    return parsedObject;
+}
 @end

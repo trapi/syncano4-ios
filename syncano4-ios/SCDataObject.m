@@ -10,11 +10,16 @@
 #import "SCAPIClient.h"
 #import "Syncano.h"
 #import "ClassHelper.h"
+#import "SCParseManager.h"
 
 @implementation SCDataObject
 
 + (NSString *)classNameForAPI {
     return @"DataObject";
+}
+
++ (void)registerClass {
+    [[SCParseManager sharedSCParseManager] registerClass:[self class]];
 }
 
 + (SCQuery *)query {

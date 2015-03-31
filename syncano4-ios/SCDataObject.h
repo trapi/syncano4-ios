@@ -19,6 +19,8 @@
 @property (nonatomic,copy) NSString *classDescription;
 @property (nonatomic,copy) NSArray *links;
 
++ (void)registerClass;
+
 + (SCQuery *)query;
 
 + (NSString *)classNameForAPI;
