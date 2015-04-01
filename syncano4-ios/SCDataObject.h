@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
+
 @class SCQuery;
 @class Syncano;
 
@@ -27,6 +28,4 @@
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion;
 - (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion;
 
-//No needed while we are using MAntle for parsing objects from and to API
-+ (void)registerClass;
 @end

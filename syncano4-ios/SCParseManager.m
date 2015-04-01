@@ -7,39 +7,23 @@
 //
 
 #import "SCParseManager.h"
-#import "ClassHelper.h"
 
 @interface SCParseManager ()
-@property (nonatomic,retain)NSMutableDictionary *registeredClasses;
 @end
 
 @implementation SCParseManager
-SINGLETON_IMPL_FOR_CLASS(SCParseManager)
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.registeredClasses = [NSMutableDictionary new];
-    }
-    return self;
++ (id)parsedObjectOfClass:(Class)objectClass fromJSONObject:(id)JSONObject {
+    NSError *error;
+    id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
+    
+    // Here will be code to other Syncano specific parse actions like references etc.
+    
+    return parsedobject;
 }
 
-- (void)registerClass:(Class)classToRegister {
-    NSDictionary *properties = [ClassHelper propertiesForClass:classToRegister];
-    [self.registeredClasses setValue:properties forKey:NSStringFromClass(classToRegister)];
-}
-
-//This is only an idea. It have to be more precise with some validations in it.
-- (id)parseObjectOfClass:(Class)objectClass fromJSONObject:(id)JSONObject {
-    NSDictionary *objectPropertiesMap = self.registeredClasses[NSStringFromClass(objectClass)];
-    if (!objectPropertiesMap) {
-        return nil;
-    }
-    id parsedObject = [objectClass new];
-    for (NSString *key in objectPropertiesMap.allKeys) {
-        id value = JSONObject[key];
-        [parsedObject setValue:value forKey:key];
-    }
-    return parsedObject;
++ (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject {
+    NSDictionary *serialized = [MTLJSONAdapter JSONDictionaryFromModel:dataObject];
+    return serialized;
 }
 @end

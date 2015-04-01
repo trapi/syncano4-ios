@@ -9,8 +9,8 @@
 #import "SCDataObject.h"
 #import "SCAPIClient.h"
 #import "Syncano.h"
-#import "ClassHelper.h"
 #import "SCParseManager.h"
+#import <Mantle.h>
 
 @implementation SCDataObject
 
@@ -18,13 +18,15 @@
     return @"DataObject";
 }
 
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{@"objectId" : @"id",
-             @"classDescription" : @"description"};
+//This is Mantle method we have to prevent form invoking it form child classes of SCDataObject
++(NSDictionary *)JSONKeyPathsByPropertyKey {
+    NSDictionary *commonKeysMap = @{@"objectId":@"id",
+                                    @"classDescription":@"description"};
+    return [commonKeysMap mtl_dictionaryByAddingEntriesFromDictionary:[self extendedPropertiesMapping]];
 }
 
-+ (void)registerClass {
-    [[SCParseManager sharedSCParseManager] registerClass:[self class]];
++ (NSDictionary *)extendedPropertiesMapping {
+    return @{};
 }
 
 + (SCQuery *)query {

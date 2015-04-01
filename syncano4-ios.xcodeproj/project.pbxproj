@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1131902D1ACC0E820037F182 /* SCChildDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131902C1ACC0E820037F182 /* SCChildDataObject.m */; };
+		113190301ACC0EFA0037F182 /* SCChildDataObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1131902F1ACC0EFA0037F182 /* SCChildDataObjectSpec.m */; };
 		118426881AC98225001035A7 /* ClassHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 118426871AC98225001035A7 /* ClassHelper.m */; };
 		1184268B1AC983A1001035A7 /* SCParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1184268A1AC983A1001035A7 /* SCParseManager.m */; };
 		1184268D1AC9851C001035A7 /* SCDataObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1184268C1AC9851C001035A7 /* SCDataObjectSpec.m */; };
@@ -46,6 +48,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1131902B1ACC0E820037F182 /* SCChildDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChildDataObject.h; sourceTree = "<group>"; };
+		1131902C1ACC0E820037F182 /* SCChildDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChildDataObject.m; sourceTree = "<group>"; };
+		1131902F1ACC0EFA0037F182 /* SCChildDataObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChildDataObjectSpec.m; sourceTree = "<group>"; };
 		118426861AC98225001035A7 /* ClassHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassHelper.h; sourceTree = "<group>"; };
 		118426871AC98225001035A7 /* ClassHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassHelper.m; sourceTree = "<group>"; };
 		118426891AC983A1001035A7 /* SCParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCParseManager.h; sourceTree = "<group>"; };
@@ -97,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1131902E1ACC0E870037F182 /* TestChildDataObject */ = {
+			isa = PBXGroup;
+			children = (
+				1131902B1ACC0E820037F182 /* SCChildDataObject.h */,
+				1131902C1ACC0E820037F182 /* SCChildDataObject.m */,
+			);
+			name = TestChildDataObject;
+			sourceTree = "<group>";
+		};
 		1184268E1AC986C6001035A7 /* ParseManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +159,7 @@
 				11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */,
 				11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */,
 				1184268C1AC9851C001035A7 /* SCDataObjectSpec.m */,
+				1131902F1ACC0EFA0037F182 /* SCChildDataObjectSpec.m */,
 			);
 			path = "syncano4-iosTests";
 			sourceTree = "<group>";
@@ -165,6 +180,7 @@
 				11BE43DF1AC55BCA00FE96C5 /* SCDataObject.m */,
 				11BE43E61AC57AC600FE96C5 /* SCQuery.h */,
 				11BE43E71AC57AC600FE96C5 /* SCQuery.m */,
+				1131902E1ACC0E870037F182 /* TestChildDataObject */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -372,6 +388,7 @@
 				11BE43E01AC55BCA00FE96C5 /* SCDataObject.m in Sources */,
 				119991661AC446E4007B994C /* Syncano.m in Sources */,
 				11BE43DB1AC5532200FE96C5 /* SCAPIClient.m in Sources */,
+				1131902D1ACC0E820037F182 /* SCChildDataObject.m in Sources */,
 				118426881AC98225001035A7 /* ClassHelper.m in Sources */,
 				1184268B1AC983A1001035A7 /* SCParseManager.m in Sources */,
 			);
@@ -381,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				113190301ACC0EFA0037F182 /* SCChildDataObjectSpec.m in Sources */,
 				11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */,
 				11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */,
 				1184268D1AC9851C001035A7 /* SCDataObjectSpec.m in Sources */,

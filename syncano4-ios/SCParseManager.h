@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Mantle.h>
 
 @interface SCParseManager : NSObject
-SINGLETON_FOR_CLASS(SCParseManager);
-- (void)registerClass:(Class)classToRegister;
-- (id)parseObjectOfClass:(Class)objectClass fromJSONObject:(id)JSONObject;
++ (id)parsedObjectOfClass:(Class)objectClass fromJSONObject:(id)JSONObject;
++ (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject;
 @end
