@@ -11,7 +11,6 @@
 #import "SCConstants.h"
 #import "Syncano.h"
 #import "SCDataObject.h"
-#import "ClassHelper.h"
 
 
 SPEC_BEGIN(SCDataObjectSpec)
@@ -19,9 +18,24 @@ SPEC_BEGIN(SCDataObjectSpec)
 describe(@"SCDataObject", ^{
     beforeAll(^{
     });
-    it(@"creating properties map", ^{
-        NSDictionary *propsMap = [ClassHelper propertiesForClass:[SCDataObject class]];
+    it(@"should create properties map", ^{
+        NSSet *propsMap = [SCDataObject propertyKeys];
         [[propsMap should] beNonNil];
+    });
+    it(@"should merge keys", ^{
+        SCDataObject *dataObjectMock = [SCDataObject new];
+        dataObjectMock.classDescription = @"classDescriptionString";
+        NSDictionary *serializedObject = [MTLJSONAdapter JSONDictionaryFromModel:dataObjectMock];
+        [[serializedObject[@"description"] should] equal:@"classDescriptionString"];
+    });
+    it(@"should create object from JSON NSDictionary", ^{
+        NSError *error;
+        NSDictionary *JSON = @{@"id" : @123,
+                       @"description" : @"class description" };
+        SCDataObject *dataObject = [MTLJSONAdapter modelOfClass:[SCDataObject class] fromJSONDictionary:JSON error:&error];
+        [[error should] beNil];
+        [[dataObject.objectId should] equal:@123];
+        [[dataObject.classDescription should] equal:@"class description"];
     });
 });
 

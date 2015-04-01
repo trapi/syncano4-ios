@@ -18,6 +18,11 @@
     return @"DataObject";
 }
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"objectId" : @"id",
+             @"classDescription" : @"description"};
+}
+
 + (void)registerClass {
     [[SCParseManager sharedSCParseManager] registerClass:[self class]];
 }
@@ -26,28 +31,19 @@
     return [SCQuery queryForDataObjectWithClassName:[[self class] classNameForAPI]];
 }
 
-//TODO: do the serialization to nsdictionary for API
-- (NSDictionary *)serialized {
-    return [NSDictionary new];
-}
-
-+ (NSDictionary *)propertiesMap {
-    return [ClassHelper propertiesForClass:[self class]];
-}
-
 - (NSString *)pathForObject {
     NSString *path = [NSString stringWithFormat:@"classes/%@/objects/%@",[[self class] classNameForAPI],self.objectId];
     return path;
 }
 
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion {
-    return [[SCAPIClient sharedSCAPIClient] postTaskWithPath:[self pathForObject] params:[self serialized]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+    return [[SCAPIClient sharedSCAPIClient] postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         completion(task,responseObject,error);
     }];
 }
 
 - (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion {
-    return [[SCAPIClient apiClientForSyncano:syncano] postTaskWithPath:[self pathForObject] params:[self serialized]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+    return [[SCAPIClient apiClientForSyncano:syncano] postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         completion(task,responseObject,error);
     }];
 }
