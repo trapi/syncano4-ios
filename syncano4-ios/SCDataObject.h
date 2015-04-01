@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
+#import  "SCConstants.h"
 
 @class SCQuery;
 @class Syncano;

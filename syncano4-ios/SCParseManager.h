@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Mantle.h>
 
 @interface SCParseManager : NSObject
 + (id)parsedObjectOfClass:(Class)objectClass fromJSONObject:(id)JSONObject;

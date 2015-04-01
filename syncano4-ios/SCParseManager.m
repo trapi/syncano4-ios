@@ -7,6 +7,7 @@
 //
 
 #import "SCParseManager.h"
+#import <Mantle.h>
 
 @interface SCParseManager ()
 @end
