@@ -7,7 +7,6 @@
 //
 
 #import "SCAPIClient.h"
-#import "Syncano.h"
 
 @interface SCAPIClient ()
 @property (nonatomic,copy) NSString *apiKey;
@@ -15,9 +14,6 @@
 @end
 
 @implementation SCAPIClient
-SINGLETON_IMPL_FOR_CLASS(SCAPIClient)
-
-
 
 - (instancetype)init {
 //    NSURL *instanceURL = [NSURL URLWithString:@"http://ip.jsontest.com"];

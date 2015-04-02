@@ -8,6 +8,9 @@
 
 #import "Syncano.h"
 
+@interface Syncano ()
+@end
+
 @implementation Syncano
 
 + (Syncano *)instance {
@@ -19,9 +22,10 @@
     return instance;
 }
 
-+ (Syncano *)defaultInstanceWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
++ (Syncano *)sharedInstanceWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
     Syncano *syncano = [Syncano instance];
     [syncano setApiKey:apiKey instanceName:instanceName];
+    syncano.apiClient = [SCAPIClient apiClientForSyncano:syncano];
     return syncano;
 }
 
@@ -33,11 +37,16 @@
     return [[Syncano instance] instanceName];
 }
 
++ (SCAPIClient *)sharedAPIClient {
+    return [[Syncano instance] apiClient];
+}
+
 - (instancetype)initWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
     self = [super init];
     if (self) {
         self.apiKey = apiKey;
         self.instanceName = instanceName;
+        self.apiClient = [SCAPIClient apiClientForSyncano:self];
     }
     return self;
 }
@@ -48,7 +57,7 @@
 }
 
 + (Syncano *)testInstance {
-    return [Syncano defaultInstanceWithApiKey:@"1429b1898655e3c576d4352cb7ed383946dbc8e4" instanceName:@"mytestinstance"];
+    return [Syncano sharedInstanceWithApiKey:@"1429b1898655e3c576d4352cb7ed383946dbc8e4" instanceName:@"mytestinstance"];
 }
 
 - (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {

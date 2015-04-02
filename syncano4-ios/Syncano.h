@@ -8,15 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+@class SCAPIClient;
 @interface Syncano : NSObject
 
 @property (nonatomic,copy) NSString *apiKey;
 @property (nonatomic,copy) NSString *instanceName;
+@property (nonatomic,retain) SCAPIClient *apiClient;
 
 //Singleton
-+ (Syncano *)defaultInstanceWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
++ (Syncano *)sharedInstanceWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
 + (NSString *)getApiKey;
 + (NSString *)getInstanceName;
++ (SCAPIClient *)sharedAPIClient;
 
 //Normal
 - (instancetype)initWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;

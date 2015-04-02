@@ -16,12 +16,14 @@
 SPEC_BEGIN(SCAPISpec)
 
 describe(@"SCAPI", ^{
+    
     beforeAll(^{
         [Syncano testInstance];
     });
     it(@"sending authenticated GET classes request", ^{
         __block NSError *_error = [NSError new];
-        [[SCAPIClient sharedSCAPIClient] getTaskWithPath:@"classes/" params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        SCAPIClient *apiClient = [Syncano sharedAPIClient];
+        [apiClient getTaskWithPath:@"classes/" params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
             _error = error;
         }];
         

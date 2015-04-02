@@ -7,9 +7,8 @@
 //
 
 #import "AFHTTPSessionManager.h"
+@class Syncano;
 @interface SCAPIClient : AFHTTPSessionManager
-
-SINGLETON_FOR_CLASS(SCAPIClient);
 
 + (SCAPIClient *)apiClientForSyncano:(Syncano *)syncano;
 

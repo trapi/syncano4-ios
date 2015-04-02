@@ -31,13 +31,20 @@
     return query;
 }
 
+- (SCAPIClient *)apiClient {
+    if (self.syncano) {
+        return self.syncano.apiClient;
+    }
+    return [Syncano sharedAPIClient];
+}
+
 - (void)getAllDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
-    [[SCAPIClient sharedSCAPIClient] getDataObjectsFromClassName:self.classNameForAPICalls params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+    [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (responseObject[@"objects"]) {
             NSArray *responseObjects = responseObject[@"objects"];
             NSMutableArray *parsedObjects = [[NSMutableArray alloc] initWithCapacity:responseObjects.count];
             for (NSDictionary *object in responseObjects) {
-                id parsedObject = [SCParseManager parsedObjectOfClass:self.dataObjectClass fromJSONObject:object];
+                id parsedObject = [[SCParseManager sharedSCParseManager] parsedObjectOfClass:self.dataObjectClass fromJSONObject:object];
                 [parsedObjects addObject:parsedObject];
             }
             completion(parsedObjects,nil);

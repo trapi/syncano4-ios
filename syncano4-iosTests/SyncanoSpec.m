@@ -13,7 +13,7 @@ SPEC_BEGIN(SyncanoSpec)
 
 describe(@"Syncano", ^{
     beforeAll(^{
-        [Syncano defaultInstanceWithApiKey:@"123" instanceName:@"456"];
+        [Syncano sharedInstanceWithApiKey:@"123" instanceName:@"456"];
     });
     it(@"is setting api key", ^{
         [[[Syncano getApiKey] should] equal:@"123"];

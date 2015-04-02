@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCSchema.h"
 
 @interface SCParseManager : NSObject
-+ (id)parsedObjectOfClass:(Class)objectClass fromJSONObject:(id)JSONObject;
-+ (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject;
+SINGLETON_FOR_CLASS(SCParseManager);
+- (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)JSONObject;
+- (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject;
+- (void)registerSchema:(SCSchema *)schema forAPIClassName:(NSString *)className;
 @end
