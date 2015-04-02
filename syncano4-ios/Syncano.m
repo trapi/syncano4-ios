@@ -7,6 +7,7 @@
 //
 
 #import "Syncano.h"
+#import "SCAPIClient.h"
 
 @interface Syncano ()
 @end

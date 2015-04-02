@@ -7,10 +7,11 @@
 //
 
 #import "SCDataObject.h"
+#import <Mantle.h>
 #import "SCAPIClient.h"
 #import "Syncano.h"
 #import "SCParseManager.h"
-#import <Mantle.h>
+#import "SCQuery.h"
 
 @implementation SCDataObject
 

@@ -7,7 +7,7 @@
 //
 
 #import "SCAPIClient.h"
-
+#import "Syncano.h"
 @interface SCAPIClient ()
 @property (nonatomic,copy) NSString *apiKey;
 @property (nonatomic,copy) NSString *instanceName;

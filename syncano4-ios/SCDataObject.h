@@ -10,8 +10,8 @@
 #import <Mantle.h>
 #import  "SCConstants.h"
 
-@class SCQuery;
 @class Syncano;
+@class SCQuery;
 
 @interface SCDataObject : MTLModel<MTLJSONSerializing>
 @property (nonatomic,copy) NSNumber *objectId;

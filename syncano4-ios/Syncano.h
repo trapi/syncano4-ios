@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCAPIClient.h"
 
 @class SCAPIClient;
+
 @interface Syncano : NSObject
 
 @property (nonatomic,copy) NSString *apiKey;

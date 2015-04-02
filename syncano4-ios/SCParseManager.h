@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCMacros.h"
 #import "SCSchema.h"
+#import "SCDataObject.h"
 
 @interface SCParseManager : NSObject
 SINGLETON_FOR_CLASS(SCParseManager);

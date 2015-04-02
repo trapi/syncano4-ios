@@ -7,7 +7,10 @@
 //
 
 #import "AFHTTPSessionManager.h"
+#import "SCConstants.h"
+
 @class Syncano;
+
 @interface SCAPIClient : AFHTTPSessionManager
 
 + (SCAPIClient *)apiClientForSyncano:(Syncano *)syncano;
