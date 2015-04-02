@@ -8,5 +8,6 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^SCAPICompletionBlock)(NSURLSessionDataTask *task, id responseObject, NSError *error);
+typedef void (^SCGetDataObjectsCompletionBlock)(NSArray *objects, NSError *error);
 
 static NSString * const kBaseURL = @"https://syncanotest1-env.elasticbeanstalk.com:443/v1/instances/";

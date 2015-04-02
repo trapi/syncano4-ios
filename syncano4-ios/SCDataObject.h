@@ -18,13 +18,13 @@
 @property (nonatomic,copy) NSArray *schema;
 @property (nonatomic,copy) NSDate *created_at;
 @property (nonatomic,copy) NSDate *updated_at;
-@property (nonatomic,copy) NSString *name;
-@property (nonatomic,copy) NSString *classDescription;
+@property (nonatomic,copy) NSNumber *revision;
 @property (nonatomic,copy) NSArray *links;
 
 + (SCQuery *)query;
 
 + (NSString *)classNameForAPI;
++ (NSDictionary *)extendedPropertiesMapping;
 
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion;
 - (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion;

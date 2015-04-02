@@ -43,7 +43,6 @@ SINGLETON_IMPL_FOR_CLASS(SCAPIClient)
 }
 
 - (void)authorizeRequest {
-    //[self.requestSerializer setValue:[NSString stringWithFormat:@" Token %@",[Syncano getApiKey]] forHTTPHeaderField:@"Authorization"];    
    [self.requestSerializer setValue:[Syncano getApiKey] forHTTPHeaderField:@"X-API-KEY"];
 }
 

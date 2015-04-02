@@ -11,6 +11,8 @@
 #import "SCConstants.h"
 #import "Syncano.h"
 #import "SCDataObject.h"
+#import "SCQuery.h"
+#import "Book.h"
 
 
 SPEC_BEGIN(SCDataObjectSpec)
@@ -24,18 +26,24 @@ describe(@"SCDataObject", ^{
     });
     it(@"should merge keys", ^{
         SCDataObject *dataObjectMock = [SCDataObject new];
-        dataObjectMock.classDescription = @"classDescriptionString";
+        dataObjectMock.objectId = @1222;
         NSDictionary *serializedObject = [MTLJSONAdapter JSONDictionaryFromModel:dataObjectMock];
-        [[serializedObject[@"description"] should] equal:@"classDescriptionString"];
+        [[serializedObject[@"id"] should] equal:@1222];
     });
     it(@"should create object from JSON NSDictionary", ^{
         NSError *error;
-        NSDictionary *JSON = @{@"id" : @123,
-                       @"description" : @"class description" };
+        NSDictionary *JSON = @{@"id" : @123,};
         SCDataObject *dataObject = [MTLJSONAdapter modelOfClass:[SCDataObject class] fromJSONDictionary:JSON error:&error];
         [[error should] beNil];
         [[dataObject.objectId should] equal:@123];
-        [[dataObject.classDescription should] equal:@"class description"];
+    });
+    it(@"should fetch objects from API", ^{
+        __block NSArray *books;
+        SCQuery *query = [Book query];
+        [query getAllDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
+            books = objects;
+        }];
+        [[books shouldNotEventually] beNil];
     });
 });
 

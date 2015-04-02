@@ -7,21 +7,43 @@
 //
 
 #import "SCQuery.h"
+#import "SCAPIClient+SCDataObject.h"
+#import "SCParseManager.h"
 
 @interface SCQuery ()
-@property (nonatomic,retain) NSString *dataObjectClassName;
+@property (nonatomic,assign) Class dataObjectClass;
+@property (nonatomic,retain) NSString *classNameForAPICalls;
 @end
 
 @implementation SCQuery
-- (instancetype)initWithDataObjectClassName:(NSString *)dataObjectClassName {
+- (instancetype)initWithDataObjectClass:(Class)dataObjectClass {
     self = [super init];
     if (self) {
-        self.dataObjectClassName = dataObjectClassName;
+        self.dataObjectClass = dataObjectClass;
+        if ([dataObjectClass respondsToSelector:@selector(classNameForAPI)]) {
+            self.classNameForAPICalls = [dataObjectClass classNameForAPI];
+        }
     }
     return self;
 }
-+ (SCQuery *)queryForDataObjectWithClassName:(NSString *)dataObjectClassName {
-    SCQuery *query = [[SCQuery alloc] initWithDataObjectClassName:dataObjectClassName];
++ (SCQuery *)queryForDataObjectWithClass:dataObjectClass {
+    SCQuery *query = [[SCQuery alloc] initWithDataObjectClass:dataObjectClass];
     return query;
+}
+
+- (void)getAllDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+    [[SCAPIClient sharedSCAPIClient] getDataObjectsFromClassName:self.classNameForAPICalls params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        if (responseObject[@"objects"]) {
+            NSArray *responseObjects = responseObject[@"objects"];
+            NSMutableArray *parsedObjects = [[NSMutableArray alloc] initWithCapacity:responseObjects.count];
+            for (NSDictionary *object in responseObjects) {
+                id parsedObject = [SCParseManager parsedObjectOfClass:self.dataObjectClass fromJSONObject:object];
+                [parsedObjects addObject:parsedObject];
+            }
+            completion(parsedObjects,nil);
+        } else {
+            completion(nil,error);
+        }
+    }];
 }
 @end

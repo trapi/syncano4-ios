@@ -20,8 +20,7 @@
 
 //This is Mantle method we have to prevent form invoking it form child classes of SCDataObject
 +(NSDictionary *)JSONKeyPathsByPropertyKey {
-    NSDictionary *commonKeysMap = @{@"objectId":@"id",
-                                    @"classDescription":@"description"};
+    NSDictionary *commonKeysMap = @{@"objectId":@"id"};
     return [commonKeysMap mtl_dictionaryByAddingEntriesFromDictionary:[self extendedPropertiesMapping]];
 }
 
@@ -30,7 +29,7 @@
 }
 
 + (SCQuery *)query {
-    return [SCQuery queryForDataObjectWithClassName:[[self class] classNameForAPI]];
+    return [SCQuery queryForDataObjectWithClass:[self class]];
 }
 
 - (NSString *)pathForObject {

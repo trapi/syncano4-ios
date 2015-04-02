@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SCDataObject.h"
+#import "SCConstants.h"
 
 @interface SCQuery : NSObject
-- (instancetype)initWithDataObjectClassName:(NSString *)dataObjectClassName;
-+ (SCQuery *)queryForDataObjectWithClassName:(NSString *)dataObjectClassName;
+- (instancetype)initWithDataObjectClass:(Class)dataObjectClass;
++ (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass;
+
+- (void)getAllDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+
 @end
