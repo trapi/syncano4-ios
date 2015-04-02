@@ -38,7 +38,7 @@
 }
 
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion {
-    return [[SCAPIClient sharedSCAPIClient] postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+    return [[Syncano sharedAPIClient] postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         completion(task,responseObject,error);
     }];
 }
