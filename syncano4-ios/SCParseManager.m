@@ -11,7 +11,7 @@
 #import <objc/runtime.h>
 @interface SCParseManager ()
 @property (nonatomic,retain) NSMutableDictionary *registeredSchemas;
-@property (nonatomic,retain) NSMutableDictionary *regitseredClasses;
+@property (nonatomic,retain) NSMutableDictionary *registeredClasses;
 @end
 
 @implementation SCParseManager
@@ -53,8 +53,8 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
 
 - (void)registerClass:(__unsafe_unretained Class)classToRegister {
     if ([classToRegister respondsToSelector:@selector(propertyKeys)]) {
-        if (!self.regitseredClasses) {
-            self.regitseredClasses = [NSMutableDictionary new];
+        if (!self.registeredClasses) {
+            self.registeredClasses = [NSMutableDictionary new];
         }
         NSSet *properties = [classToRegister propertyKeys];
         NSMutableDictionary *registeredProperties = [[NSMutableDictionary alloc] initWithCapacity:properties.count];
@@ -68,7 +68,7 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
             NSString *typeName = [self typeOfPropertyNamed:property fromClass:classToRegister];
             [registeredProperties setObject:typeName forKey:property];
         }
-        [self.regitseredClasses setObject:registeredProperties forKey:className];
+        [self.registeredClasses setObject:registeredProperties forKey:className];
     }
 }
 
@@ -79,7 +79,7 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     } else {
         className = NSStringFromClass(registeredClass);
     }
-    return self.regitseredClasses[className];
+    return self.registeredClasses[className];
 }
 
 - (NSString *) typeOfPropertyNamed: (NSString *) name fromClass:(__unsafe_unretained Class)class
