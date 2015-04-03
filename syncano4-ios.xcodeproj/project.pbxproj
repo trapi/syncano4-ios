@@ -24,6 +24,7 @@
 		11BE43DB1AC5532200FE96C5 /* SCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43DA1AC5532200FE96C5 /* SCAPIClient.m */; };
 		11BE43E01AC55BCA00FE96C5 /* SCDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43DF1AC55BCA00FE96C5 /* SCDataObject.m */; };
 		11BE43E81AC57AC600FE96C5 /* SCQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43E71AC57AC600FE96C5 /* SCQuery.m */; };
+		11F80C3E1ACEDF3600134A39 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F80C3D1ACEDF3600134A39 /* Author.m */; };
 		82ACEA9C98817CFE59D8CB88 /* libPods-syncano4-iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C26CD1570D29893B2F95D7 /* libPods-syncano4-iosTests.a */; };
 		BE3B856070F9C4C08CB9F0D9 /* libPods-syncano4-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 511B5F9F9997C6EBF74E11F2 /* libPods-syncano4-ios.a */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,8 @@
 		11BE43E51AC57A0500FE96C5 /* SCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCConstants.h; sourceTree = "<group>"; };
 		11BE43E61AC57AC600FE96C5 /* SCQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCQuery.h; sourceTree = "<group>"; };
 		11BE43E71AC57AC600FE96C5 /* SCQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCQuery.m; sourceTree = "<group>"; };
+		11F80C3C1ACEDF3600134A39 /* Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Author.h; sourceTree = "<group>"; };
+		11F80C3D1ACEDF3600134A39 /* Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Author.m; sourceTree = "<group>"; };
 		33E2B257DD8BE91564E062D3 /* Pods-syncano4-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-syncano4-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-syncano4-ios/Pods-syncano4-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		511B5F9F9997C6EBF74E11F2 /* libPods-syncano4-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-syncano4-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E6F33BBA0CFCE74EA983F31 /* Pods-syncano4-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-syncano4-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-syncano4-iosTests/Pods-syncano4-iosTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -155,8 +158,10 @@
 		1199916F1AC446E4007B994C /* syncano4-iosTests */ = {
 			isa = PBXGroup;
 			children = (
-				1109EF611ACD2E2100BD18A6 /* Book.m */,
+				11F80C3C1ACEDF3600134A39 /* Author.h */,
+				11F80C3D1ACEDF3600134A39 /* Author.m */,
 				1109EF621ACD2E2100BD18A6 /* Book.h */,
+				1109EF611ACD2E2100BD18A6 /* Book.m */,
 				119991701AC446E4007B994C /* Supporting Files */,
 				11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */,
 				11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */,
@@ -405,6 +410,7 @@
 			files = (
 				1109EF631ACD2E2100BD18A6 /* Book.m in Sources */,
 				1109EF651ACD2F5700BD18A6 /* SCBookDataObjectSpec.m in Sources */,
+				11F80C3E1ACEDF3600134A39 /* Author.m in Sources */,
 				11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */,
 				11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */,
 				1184268D1AC9851C001035A7 /* SCDataObjectSpec.m in Sources */,

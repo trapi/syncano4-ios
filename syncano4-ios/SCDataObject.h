@@ -15,7 +15,6 @@
 
 @interface SCDataObject : MTLModel<MTLJSONSerializing>
 @property (nonatomic,copy) NSNumber *objectId;
-@property (nonatomic,copy) NSArray *schema;
 @property (nonatomic,copy) NSDate *created_at;
 @property (nonatomic,copy) NSDate *updated_at;
 @property (nonatomic,copy) NSNumber *revision;
@@ -26,6 +25,8 @@
 
 + (NSString *)classNameForAPI;
 + (NSDictionary *)extendedPropertiesMapping;
+
++ (void)registerClass;
 
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion;
 - (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion;

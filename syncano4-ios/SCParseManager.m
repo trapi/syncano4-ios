@@ -8,9 +8,10 @@
 
 #import "SCParseManager.h"
 #import <Mantle.h>
-
+#import <objc/runtime.h>
 @interface SCParseManager ()
 @property (nonatomic,retain) NSMutableDictionary *registeredSchemas;
+@property (nonatomic,retain) NSMutableDictionary *regitseredClasses;
 @end
 
 @implementation SCParseManager
@@ -22,7 +23,7 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
     
     // Here will be code to other Syncano specific parse actions like references etc.
-    SCSchema *schema = [self schemaForClass:objectClass];
+//    SCSchema *schema = [self schemaForClass:objectClass];
     
     return parsedobject;
 }
@@ -48,5 +49,65 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
         return self.registeredSchemas[APIClassName];
     }
     return nil;
+}
+
+- (void)registerClass:(__unsafe_unretained Class)classToRegister {
+    if ([classToRegister respondsToSelector:@selector(propertyKeys)]) {
+        if (!self.regitseredClasses) {
+            self.regitseredClasses = [NSMutableDictionary new];
+        }
+        NSSet *properties = [classToRegister propertyKeys];
+        NSMutableDictionary *registeredProperties = [[NSMutableDictionary alloc] initWithCapacity:properties.count];
+        NSString *className;
+        if ([classToRegister respondsToSelector:@selector(classNameForAPI)]) {
+            className = [classToRegister classNameForAPI];
+        } else {
+            className = NSStringFromClass(classToRegister);
+        }
+        for (NSString *property in properties) {
+            NSString *typeName = [self typeOfPropertyNamed:property fromClass:classToRegister];
+            [registeredProperties setObject:typeName forKey:property];
+        }
+        [self.regitseredClasses setObject:registeredProperties forKey:className];
+    }
+}
+
+- (NSDictionary *)registerForClass:(__unsafe_unretained Class)registeredClass {
+    NSString *className;
+    if ([registeredClass respondsToSelector:@selector(classNameForAPI)]) {
+        className = [registeredClass classNameForAPI];
+    } else {
+        className = NSStringFromClass(registeredClass);
+    }
+    return self.regitseredClasses[className];
+}
+
+- (NSString *) typeOfPropertyNamed: (NSString *) name fromClass:(__unsafe_unretained Class)class
+{
+    objc_property_t property = class_getProperty( class, [name UTF8String] );
+    if ( property == NULL )
+        return ( NULL );
+    NSString *typeName = [NSString stringWithUTF8String:property_getTypeString(property)];
+    typeName = [typeName stringByReplacingOccurrencesOfString:@"T@\"" withString:@""];
+    typeName = [typeName stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+    return typeName;
+}
+
+const char * property_getTypeString( objc_property_t property )
+{
+    const char * attrs = property_getAttributes( property );
+    if ( attrs == NULL )
+        return ( NULL );
+    
+    static char buffer[256];
+    const char * e = strchr( attrs, ',' );
+    if ( e == NULL )
+        return ( NULL );
+    
+    int len = (int)(e - attrs);
+    memcpy( buffer, attrs, len );
+    buffer[len] = '\0';
+    
+    return ( buffer );
 }
 @end

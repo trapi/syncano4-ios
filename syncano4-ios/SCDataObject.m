@@ -29,6 +29,10 @@
     return @{};
 }
 
++ (void)registerClass {
+    [[SCParseManager sharedSCParseManager] registerClass:[self class]];
+}
+
 + (SCQuery *)query {
     return [SCQuery queryForDataObjectWithClass:[self class]];
 }

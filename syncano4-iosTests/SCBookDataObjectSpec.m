@@ -14,7 +14,7 @@
 #import "SCDataObject.h"
 #import "SCQuery.h"
 #import "Book.h"
-
+#import "SCParseManager.h"
 
 SPEC_BEGIN(SCBookDataObjectSpec)
 
@@ -26,6 +26,11 @@ describe(@"SCBookDataObject", ^{
             books = objects;
         }];
         [[books shouldNotEventually] beNil];
+    });
+    it(@"should register class", ^{
+        [Book registerClass];
+        NSDictionary *registerOfClass = [[SCParseManager sharedSCParseManager] registerForClass:[Book class]];
+        [[registerOfClass shouldNot] beNil];
     });
 });
 

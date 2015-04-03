@@ -29,4 +29,7 @@
 
 //Only for tesing
 + (Syncano *)testInstance;
+
+//Needed only when parsing the relations will depend on schema (NOT NEEDED NOW)
+- (void)validateSchemaForClass:(__unsafe_unretained Class)classToValidate withCompletion:(SCCompletionBlock)completion;
 @end
