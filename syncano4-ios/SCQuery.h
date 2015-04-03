@@ -15,6 +15,7 @@
 @property (nonatomic,assign) Syncano *syncano;
 - (instancetype)initWithDataObjectClass:(Class)dataObjectClass;
 + (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass;
++ (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano;
 
 - (void)getAllDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
 

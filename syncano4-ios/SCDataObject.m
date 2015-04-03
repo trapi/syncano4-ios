@@ -33,6 +33,10 @@
     return [SCQuery queryForDataObjectWithClass:[self class]];
 }
 
++ (SCQuery *)queryForSyncano:(Syncano *)syncano {
+    return [SCQuery queryForDataObjectWithClass:[self class] forSyncano:syncano];
+}
+
 - (NSString *)pathForObject {
     NSString *path = [NSString stringWithFormat:@"classes/%@/objects/%@",[[self class] classNameForAPI],self.objectId];
     return path;

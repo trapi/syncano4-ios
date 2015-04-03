@@ -27,7 +27,14 @@
     return self;
 }
 + (SCQuery *)queryForDataObjectWithClass:dataObjectClass {
+    return [self queryForDataObjectWithClass:dataObjectClass forSyncano:nil];
+}
+
++ (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano {
     SCQuery *query = [[SCQuery alloc] initWithDataObjectClass:dataObjectClass];
+    if (syncano) {
+        query.syncano = syncano;
+    }
     return query;
 }
 

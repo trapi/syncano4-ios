@@ -22,6 +22,7 @@
 @property (nonatomic,copy) NSArray *links;
 
 + (SCQuery *)query;
++ (SCQuery *)queryForSyncano:(Syncano *)syncano;
 
 + (NSString *)classNameForAPI;
 + (NSDictionary *)extendedPropertiesMapping;
