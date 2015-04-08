@@ -35,7 +35,7 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
         Class relatedClass = NSClassFromString(relationRegisteredItem.className);
         id relatedObject = [[relatedClass alloc] init];
         [relatedObject setValue:JSONObject[relationKeyProperty] forKey:@"objectId"];
-        [parsedobject setValue:relatedObject forKey:relationKeyProperty];
+        SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
     }
     return parsedobject;
 }
@@ -137,5 +137,49 @@ const char * property_getTypeString( objc_property_t property )
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"className == %@",className];
     SCClassRegisterItem *item = [[self.registeredClasses filteredArrayUsingPredicate:predicate] lastObject];
     return item;
+}
+
+// Validates a value for an object and sets it if necessary. Methode copied from Mantle
+//
+// obj         - The object for which the value is being validated. This value
+//               must not be nil.
+// key         - The name of one of `obj`s properties. This value must not be
+//               nil.
+// value       - The new value for the property identified by `key`.
+// forceUpdate - If set to `YES`, the value is being updated even if validating
+//               it did not change it.
+// error       - If not NULL, this may be set to any error that occurs during
+//               validation
+//
+// Returns YES if `value` could be validated and set, or NO if an error
+// occurred.
+static BOOL SCValidateAndSetValue(id obj, NSString *key, id value, BOOL forceUpdate, NSError **error) {
+    // Mark this as being autoreleased, because validateValue may return
+    // a new object to be stored in this variable (and we don't want ARC to
+    // double-free or leak the old or new values).
+    __autoreleasing id validatedValue = value;
+    
+    @try {
+        if (![obj validateValue:&validatedValue forKey:key error:error]) return NO;
+        
+        if (forceUpdate || value != validatedValue) {
+            [obj setValue:validatedValue forKey:key];
+        }
+        
+        return YES;
+    } @catch (NSException *ex) {
+        NSLog(@"*** Caught exception setting key \"%@\" : %@", key, ex);
+        
+        // Fail fast in Debug builds.
+#if DEBUG
+        @throw ex;
+#else
+        if (error != NULL) {
+            *error = [NSError mtl_modelErrorWithException:ex];
+        }
+        
+        return NO;
+#endif
+    }
 }
 @end
