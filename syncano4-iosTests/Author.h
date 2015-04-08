@@ -5,9 +5,9 @@
 //  Created by Jan Lipmann on 03/04/15.
 //  Copyright (c) 2015 Syncano. All rights reserved.
 //
-
 #import "SCDataObject.h"
 
-@interface Author : SCDataObject
-
+@interface Author : SCDataObject <SCDataObjectAPISubclass>
+@property (nonatomic,copy) NSString *firstname;
+@property (nonatomic,copy) NSString *secondname;
 @end

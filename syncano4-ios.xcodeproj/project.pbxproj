@@ -64,6 +64,7 @@
 		1109EF671ACD808F00BD18A6 /* SCSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSchema.m; sourceTree = "<group>"; };
 		1109EF6C1ACD88C000BD18A6 /* SCAPIClient+Class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCAPIClient+Class.h"; sourceTree = "<group>"; };
 		1109EF6D1ACD88C000BD18A6 /* SCAPIClient+Class.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCAPIClient+Class.m"; sourceTree = "<group>"; };
+		113803E71AD5665B008D15DF /* SCDataObjectAPISubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDataObjectAPISubclass.h; sourceTree = "<group>"; };
 		118426891AC983A1001035A7 /* SCParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCParseManager.h; sourceTree = "<group>"; };
 		1184268A1AC983A1001035A7 /* SCParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCParseManager.m; sourceTree = "<group>"; };
 		1184268C1AC9851C001035A7 /* SCDataObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDataObjectSpec.m; sourceTree = "<group>"; };
@@ -183,6 +184,7 @@
 		11BE43D61AC552B000FE96C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				113803E71AD5665B008D15DF /* SCDataObjectAPISubclass.h */,
 				11BE43DE1AC55BCA00FE96C5 /* SCDataObject.h */,
 				11BE43DF1AC55BCA00FE96C5 /* SCDataObject.m */,
 				11BE43E61AC57AC600FE96C5 /* SCQuery.h */,

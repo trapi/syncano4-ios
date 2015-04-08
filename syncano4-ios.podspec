@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source = { :git => 'https://github.com/Syncano/syncano4-ios.git'}
-  s.prefix_header_contents = "#import \"SCPrefixHeader.pch\""
   s.header_dir   =  'syncano4-ios'
   s.source_files = 'syncano4-ios/**/*.{h,m,pch}'
   s.public_header_files = 'syncano4-ios/**/*.h'

@@ -9,5 +9,7 @@
 #import "Author.h"
 
 @implementation Author
-
++ (NSString *)classNameForAPI {
+    return @"book";
+}
 @end

@@ -9,7 +9,7 @@
 #import "SCDataObject.h"
 #import "Author.h"
 
-@interface Book : SCDataObject
+@interface Book : SCDataObject <SCDataObjectAPISubclass>
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,copy) NSNumber *numOfPages;
 @property (nonatomic,copy) Author *author;

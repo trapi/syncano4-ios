@@ -12,6 +12,7 @@
 #import "Syncano.h"
 #import "SCParseManager.h"
 #import "SCQuery.h"
+#import "SCDataObjectAPISubclass.h"
 
 @implementation SCDataObject
 
@@ -30,7 +31,9 @@
 }
 
 + (void)registerClass {
-    [[SCParseManager sharedSCParseManager] registerClass:[self class]];
+    if ([[self class] conformsToProtocol:@protocol(SCDataObjectAPISubclass)]) {
+        [[SCParseManager sharedSCParseManager] registerClass:[self class]];
+    }
 }
 
 + (SCQuery *)query {

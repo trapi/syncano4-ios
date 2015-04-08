@@ -20,16 +20,16 @@ SPEC_BEGIN(SCBookDataObjectSpec)
 
 describe(@"SCBookDataObject", ^{
     it(@"should get all objects from API", ^{
-        __block NSArray *books;
+        __block NSArray *books = nil;
         SCQuery *query = [Book query];
         [query getAllDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
             books = objects;
         }];
-        [[books shouldNotEventually] beNil];
+        [[books shouldNotEventuallyBeforeTimingOutAfter(30)] beNil];
     });
     it(@"should register class", ^{
         [Book registerClass];
-        NSDictionary *registerOfClass = [[SCParseManager sharedSCParseManager] registerForClass:[Book class]];
+        SCClassRegisterItem *registerOfClass = [[SCParseManager sharedSCParseManager] registerItemForClass:[Book class]];
         [[registerOfClass shouldNot] beNil];
     });
 });

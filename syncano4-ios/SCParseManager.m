@@ -9,9 +9,15 @@
 #import "SCParseManager.h"
 #import <Mantle.h>
 #import <objc/runtime.h>
+#import "SCDataObjectAPISubclass.h"
+
+@implementation SCClassRegisterItem
+
+@end
+
 @interface SCParseManager ()
 @property (nonatomic,retain) NSMutableDictionary *registeredSchemas;
-@property (nonatomic,retain) NSMutableDictionary *registeredClasses;
+@property (nonatomic,retain) NSMutableArray *registeredClasses;
 @end
 
 @implementation SCParseManager
@@ -22,9 +28,15 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     NSError *error;
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
     
-    // Here will be code to other Syncano specific parse actions like references etc.
-//    SCSchema *schema = [self schemaForClass:objectClass];
+    NSDictionary *relations = [self relationsForClass:objectClass];
     
+    for (NSString *relationKeyProperty in relations.allKeys) {
+        SCClassRegisterItem *relationRegisteredItem = relations[relationKeyProperty];
+        Class relatedClass = NSClassFromString(relationRegisteredItem.className);
+        id relatedObject = [[relatedClass alloc] init];
+        [relatedObject setValue:JSONObject[relationKeyProperty] forKey:@"objectId"];
+        [parsedobject setValue:relatedObject forKey:relationKeyProperty];
+    }
     return parsedobject;
 }
 
@@ -51,35 +63,41 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     return nil;
 }
 
+- (NSDictionary *)relationsForClass:(__unsafe_unretained Class)class {
+    SCClassRegisterItem *registerForClass = [self registerItemForClass:class];
+    NSMutableDictionary *relations = [NSMutableDictionary new];
+    for (NSString *propertyName in registerForClass.properties.allKeys) {
+        NSString *propertyType = registerForClass.properties[propertyName];
+        SCClassRegisterItem *item = [self registerItemForClassName:propertyType];
+        if (item) {
+            [relations setObject:item forKey:propertyName];
+        }
+    }
+    return relations;
+}
+
 - (void)registerClass:(__unsafe_unretained Class)classToRegister {
+    NSAssert([classToRegister conformsToProtocol:@protocol(SCDataObjectAPISubclass)], @"Class must conforms to SCDataObjectAPISubclass protocol");
     if ([classToRegister respondsToSelector:@selector(propertyKeys)]) {
         if (!self.registeredClasses) {
-            self.registeredClasses = [NSMutableDictionary new];
+            self.registeredClasses = [NSMutableArray new];
         }
         NSSet *properties = [classToRegister propertyKeys];
         NSMutableDictionary *registeredProperties = [[NSMutableDictionary alloc] initWithCapacity:properties.count];
-        NSString *className;
+        NSString *classNameForAPI;
         if ([classToRegister respondsToSelector:@selector(classNameForAPI)]) {
-            className = [classToRegister classNameForAPI];
-        } else {
-            className = NSStringFromClass(classToRegister);
+            classNameForAPI = [classToRegister classNameForAPI];
         }
         for (NSString *property in properties) {
             NSString *typeName = [self typeOfPropertyNamed:property fromClass:classToRegister];
             [registeredProperties setObject:typeName forKey:property];
         }
-        [self.registeredClasses setObject:registeredProperties forKey:className];
+        SCClassRegisterItem *registerItem = [SCClassRegisterItem new];
+        registerItem.classNameForAPI = classNameForAPI;
+        registerItem.className = NSStringFromClass(classToRegister);
+        registerItem.properties = registeredProperties;
+        [self.registeredClasses addObject:registerItem];
     }
-}
-
-- (NSDictionary *)registerForClass:(__unsafe_unretained Class)registeredClass {
-    NSString *className;
-    if ([registeredClass respondsToSelector:@selector(classNameForAPI)]) {
-        className = [registeredClass classNameForAPI];
-    } else {
-        className = NSStringFromClass(registeredClass);
-    }
-    return self.registeredClasses[className];
 }
 
 - (NSString *) typeOfPropertyNamed: (NSString *) name fromClass:(__unsafe_unretained Class)class
@@ -109,5 +127,15 @@ const char * property_getTypeString( objc_property_t property )
     buffer[len] = '\0';
     
     return ( buffer );
+}
+
+- (SCClassRegisterItem *)registerItemForClass:(__unsafe_unretained Class)registeredClass {
+    return [self registerItemForClassName:NSStringFromClass(registeredClass)];
+}
+
+- (SCClassRegisterItem *)registerItemForClassName:(NSString *)className {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"className == %@",className];
+    SCClassRegisterItem *item = [[self.registeredClasses filteredArrayUsingPredicate:predicate] lastObject];
+    return item;
 }
 @end

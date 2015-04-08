@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
 #import  "SCConstants.h"
+#import "SCDataObjectAPISubclass.h"
 
 @class Syncano;
 @class SCQuery;
@@ -23,7 +24,6 @@
 + (SCQuery *)query;
 + (SCQuery *)queryForSyncano:(Syncano *)syncano;
 
-+ (NSString *)classNameForAPI;
 + (NSDictionary *)extendedPropertiesMapping;
 
 + (void)registerClass;
