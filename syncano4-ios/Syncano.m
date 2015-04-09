@@ -16,6 +16,14 @@
 
 @implementation Syncano
 
+/**
+ *  Initiates singleton instance of Syncano Class
+ *
+ *  @param apiKey       API Key to authorize syncano
+ *  @param instanceName name of the Syncano instance
+ *
+ *  @return Syncano singleton instance
+ */
 + (Syncano *)instance {
     static dispatch_once_t pred;
     __strong static Syncano * instance= nil;

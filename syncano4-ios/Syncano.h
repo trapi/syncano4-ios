@@ -10,24 +10,80 @@
 #import "SCAPIClient.h"
 
 @class SCAPIClient;
-
+/**
+ *  Main Syncano Class
+ */
 @interface Syncano : NSObject
-
+/**
+ *  API Key
+ */
 @property (nonatomic,copy) NSString *apiKey;
+/**
+ *  Syncano Instance name
+ */
 @property (nonatomic,copy) NSString *instanceName;
+/**
+ *  Session CLient to comunicate with API
+ */
 @property (nonatomic,retain) SCAPIClient *apiClient;
 
-//Singleton
+/**
+ *  Initiates Singleton instance of Syncano Class
+ *
+ *  @param apiKey       API Key to authorize syncano
+ *  @param instanceName name of the Syncano instance
+ *
+ *  @return Syncano singleton instance
+ */
 + (Syncano *)sharedInstanceWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
+/**
+ *  Returns API Key from Syncano singleton instance
+ *
+ *  @return API Key string
+ */
 + (NSString *)getApiKey;
+/**
+ *  Returns API instance name form Syncano singleton instance
+ *
+ *  @return instance name string
+ */
 + (NSString *)getInstanceName;
+/**
+ *  Returns API client from Syncano singleton instance
+ *
+ *  @return SCAPIClient object
+ */
 + (SCAPIClient *)sharedAPIClient;
 
-//Normal
+
+/**
+ *  Initiates instance of Syncano Class
+ *
+ *  @param apiKey       API Key to authorize syncano
+ *  @param instanceName name of the Syncano instance
+ *
+ *  @return Syncano singleton instance
+ */
 - (instancetype)initWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
+
+/**
+ *  Initiates instance of Syncano Class
+ *
+ *  @param apiKey       API Key to authorize syncano
+ *  @param instanceName name of the Syncano instance
+ *
+ *  @return Syncano singleton instance
+ */
 + (Syncano *)newSyncanoWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName;
 
-//Only for tesing
+/**
+ *  Initiates Test instance of Syncano Class
+ *
+ *  @param apiKey       API Key to authorize syncano
+ *  @param instanceName name of the Syncano instance
+ *
+ *  @return Syncano singleton instance
+ */
 + (Syncano *)testInstance;
 
 @end
