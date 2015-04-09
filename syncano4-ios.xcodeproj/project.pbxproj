@@ -10,8 +10,6 @@
 		1109EF5D1ACD257300BD18A6 /* SCAPIClient+SCDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109EF5C1ACD257300BD18A6 /* SCAPIClient+SCDataObject.m */; };
 		1109EF631ACD2E2100BD18A6 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109EF611ACD2E2100BD18A6 /* Book.m */; };
 		1109EF651ACD2F5700BD18A6 /* SCBookDataObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109EF641ACD2F5700BD18A6 /* SCBookDataObjectSpec.m */; };
-		1109EF681ACD808F00BD18A6 /* SCSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109EF671ACD808F00BD18A6 /* SCSchema.m */; };
-		1109EF6E1ACD88C000BD18A6 /* SCAPIClient+Class.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109EF6D1ACD88C000BD18A6 /* SCAPIClient+Class.m */; };
 		115018901ACC49E50064465C /* SCDataObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 11BE43DE1AC55BCA00FE96C5 /* SCDataObject.h */; };
 		115018911ACC49E50064465C /* SCQuery.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 11BE43E61AC57AC600FE96C5 /* SCQuery.h */; };
 		1184268B1AC983A1001035A7 /* SCParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1184268A1AC983A1001035A7 /* SCParseManager.m */; };
@@ -60,10 +58,6 @@
 		1109EF611ACD2E2100BD18A6 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		1109EF621ACD2E2100BD18A6 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		1109EF641ACD2F5700BD18A6 /* SCBookDataObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBookDataObjectSpec.m; sourceTree = "<group>"; };
-		1109EF661ACD808F00BD18A6 /* SCSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSchema.h; sourceTree = "<group>"; };
-		1109EF671ACD808F00BD18A6 /* SCSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSchema.m; sourceTree = "<group>"; };
-		1109EF6C1ACD88C000BD18A6 /* SCAPIClient+Class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCAPIClient+Class.h"; sourceTree = "<group>"; };
-		1109EF6D1ACD88C000BD18A6 /* SCAPIClient+Class.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCAPIClient+Class.m"; sourceTree = "<group>"; };
 		113803E71AD5665B008D15DF /* SCDataObjectAPISubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDataObjectAPISubclass.h; sourceTree = "<group>"; };
 		118426891AC983A1001035A7 /* SCParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCParseManager.h; sourceTree = "<group>"; };
 		1184268A1AC983A1001035A7 /* SCParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCParseManager.m; sourceTree = "<group>"; };
@@ -189,8 +183,6 @@
 				11BE43DF1AC55BCA00FE96C5 /* SCDataObject.m */,
 				11BE43E61AC57AC600FE96C5 /* SCQuery.h */,
 				11BE43E71AC57AC600FE96C5 /* SCQuery.m */,
-				1109EF661ACD808F00BD18A6 /* SCSchema.h */,
-				1109EF671ACD808F00BD18A6 /* SCSchema.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -213,8 +205,6 @@
 				11BE43DA1AC5532200FE96C5 /* SCAPIClient.m */,
 				1109EF5B1ACD257300BD18A6 /* SCAPIClient+SCDataObject.h */,
 				1109EF5C1ACD257300BD18A6 /* SCAPIClient+SCDataObject.m */,
-				1109EF6C1ACD88C000BD18A6 /* SCAPIClient+Class.h */,
-				1109EF6D1ACD88C000BD18A6 /* SCAPIClient+Class.m */,
 			);
 			name = APIClient;
 			sourceTree = "<group>";
@@ -396,12 +386,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1109EF5D1ACD257300BD18A6 /* SCAPIClient+SCDataObject.m in Sources */,
-				1109EF681ACD808F00BD18A6 /* SCSchema.m in Sources */,
 				11BE43E81AC57AC600FE96C5 /* SCQuery.m in Sources */,
 				11BE43E01AC55BCA00FE96C5 /* SCDataObject.m in Sources */,
 				119991661AC446E4007B994C /* Syncano.m in Sources */,
 				11BE43DB1AC5532200FE96C5 /* SCAPIClient.m in Sources */,
-				1109EF6E1ACD88C000BD18A6 /* SCAPIClient+Class.m in Sources */,
 				1184268B1AC983A1001035A7 /* SCParseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,6 +439,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -508,8 +498,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33E2B257DD8BE91564E062D3 /* Pods-syncano4-ios.debug.xcconfig */;
 			buildSettings = {
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -520,8 +513,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AE7AF753EFEBB7E30AD891D8 /* Pods-syncano4-ios.release.xcconfig */;
 			buildSettings = {
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -536,6 +532,8 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -554,6 +552,8 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				INFOPLIST_FILE = "syncano4-iosTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

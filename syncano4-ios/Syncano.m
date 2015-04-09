@@ -68,21 +68,5 @@
     self.instanceName = instanceName;
 }
 
-- (void)validateSchemaForClass:(__unsafe_unretained Class)classToValidate withCompletion:(SCCompletionBlock)completion {
-    if ([[SCParseManager sharedSCParseManager] schemaForClass:classToValidate]) {
-        completion(YES);
-    } else {
-        [self getSchemasFromAPIForClass:classToValidate withCompletion:^(BOOL success) {
-            completion(success);
-        }];
-    }
-}
-
-- (void)getSchemasFromAPIForClass:(__unsafe_unretained Class)class withCompletion:(SCCompletionBlock)completion {
-   [self.apiClient getClassesWithCompletion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-       
-   }];
-}
-
 
 @end
