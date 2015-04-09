@@ -12,11 +12,12 @@
 #import "SCDataObjectAPISubclass.h"
 
 @implementation SCClassRegisterItem
-
 @end
 
 @interface SCParseManager ()
-@property (nonatomic,retain) NSMutableDictionary *registeredSchemas;
+/**
+ *  Array of SCClassRegisterItems
+ */
 @property (nonatomic,retain) NSMutableArray *registeredClasses;
 @end
 
@@ -45,24 +46,13 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     return serialized;
 }
 
-- (void)registerSchema:(SCSchema *)schema forAPIClassName:(NSString *)className {
-    if (!self.registeredSchemas) {
-        self.registeredSchemas = [NSMutableDictionary new];
-    }
-    [self.registeredSchemas setObject:schema forKey:className];
-}
-
-- (SCSchema *)schemaForClass:(__unsafe_unretained Class)class {
-    NSString *APIClassName;
-    if ([class respondsToSelector:@selector(classNameForAPI)]) {
-        APIClassName = [class classNameForAPI];
-    }
-    if (APIClassName) {
-        return self.registeredSchemas[APIClassName];
-    }
-    return nil;
-}
-
+/**
+ *  Returns relations for provided class
+ *
+ *  @param class provided class
+ *
+ *  @return NSDictionary with property name as 'key' and SCClassRegisterItem as 'value' or empty NSDictionary if there are no relations
+ */
 - (NSDictionary *)relationsForClass:(__unsafe_unretained Class)class {
     SCClassRegisterItem *registerForClass = [self registerItemForClass:class];
     NSMutableDictionary *relations = [NSMutableDictionary new];
@@ -100,6 +90,14 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     }
 }
 
+/**
+ *  Returns type of property from provided class
+ *
+ *  @param name  property name
+ *  @param class
+ *
+ *  @return property type string or NULL
+ */
 - (NSString *) typeOfPropertyNamed: (NSString *) name fromClass:(__unsafe_unretained Class)class
 {
     objc_property_t property = class_getProperty( class, [name UTF8String] );
@@ -111,6 +109,13 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     return typeName;
 }
 
+/**
+ *  Converts objc_property_t to const char *
+ *
+ *  @param property objc_property_t to convert
+ *
+ *  @return converted const char *
+ */
 const char * property_getTypeString( objc_property_t property )
 {
     const char * attrs = property_getAttributes( property );
@@ -129,30 +134,42 @@ const char * property_getTypeString( objc_property_t property )
     return ( buffer );
 }
 
+/**
+ *  Returns register for provided Class
+ *
+ *  @param registeredClass class too look up for
+ *
+ *  @return SCClassRegisterItem or nil
+ */
 - (SCClassRegisterItem *)registerItemForClass:(__unsafe_unretained Class)registeredClass {
     return [self registerItemForClassName:NSStringFromClass(registeredClass)];
 }
 
+/**
+ *  Returns register for provided Class name
+ *
+ *  @param className class name too look up for
+ *
+ *  @return SCClassRegisterItem or nil
+ */
 - (SCClassRegisterItem *)registerItemForClassName:(NSString *)className {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"className == %@",className];
     SCClassRegisterItem *item = [[self.registeredClasses filteredArrayUsingPredicate:predicate] lastObject];
     return item;
 }
 
-// Validates a value for an object and sets it if necessary. Methode copied from Mantle
-//
-// obj         - The object for which the value is being validated. This value
-//               must not be nil.
-// key         - The name of one of `obj`s properties. This value must not be
-//               nil.
-// value       - The new value for the property identified by `key`.
-// forceUpdate - If set to `YES`, the value is being updated even if validating
-//               it did not change it.
-// error       - If not NULL, this may be set to any error that occurs during
-//               validation
-//
-// Returns YES if `value` could be validated and set, or NO if an error
-// occurred.
+/**
+ *  Validates a value for an object and sets it if necessary. Method copied from Mantle
+ *
+ *  @param obj         The object for which the value is being validated. This value must not be nil.
+ *  @param key         The name of one of `obj`s properties. This value must not be nil.
+ *  @param value       The new value for the property identified by `key`.
+ *  @param forceUpdate If set to `YES`, the value is being updated even if validating it did not change it.
+ *  @param error       If not NULL, this may be set to any error that occurs during validation
+ *
+ *  @return YES if `value` could be validated and set, or NO if an error occurred.
+ */
+
 static BOOL SCValidateAndSetValue(id obj, NSString *key, id value, BOOL forceUpdate, NSError **error) {
     // Mark this as being autoreleased, because validateValue may return
     // a new object to be stored in this variable (and we don't want ARC to
