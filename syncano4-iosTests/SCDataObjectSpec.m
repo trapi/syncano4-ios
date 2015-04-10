@@ -40,7 +40,7 @@ describe(@"SCDataObject", ^{
     it(@"should fetch objects from API", ^{
         __block NSArray *books;
         SCQuery *query = [Book query];
-        [query getAllDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
+        [query getDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
             books = objects;
         }];
         [[books shouldNotEventually] beNil];

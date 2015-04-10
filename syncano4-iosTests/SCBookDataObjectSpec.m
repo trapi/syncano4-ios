@@ -22,10 +22,10 @@ describe(@"SCBookDataObject", ^{
     it(@"should get all objects from API", ^{
         __block NSArray *books = nil;
         SCQuery *query = [Book query];
-        [query getAllDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
+        [query getDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
             books = objects;
         }];
-        [[books shouldNotEventuallyBeforeTimingOutAfter(30)] beNil];
+        [[books shouldNotEventually] beNil];
     });
     it(@"should register class", ^{
         [Book registerClass];

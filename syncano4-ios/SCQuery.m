@@ -45,7 +45,7 @@
     return [Syncano sharedAPIClient];
 }
 
-- (void)getAllDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)getDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
     [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (responseObject[@"objects"]) {
             NSArray *responseObjects = responseObject[@"objects"];

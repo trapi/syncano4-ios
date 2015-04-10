@@ -17,6 +17,6 @@
 + (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass;
 + (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano;
 
-- (void)getAllDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+- (void)getDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
 
 @end
