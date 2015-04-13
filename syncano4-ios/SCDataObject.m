@@ -11,7 +11,7 @@
 #import "SCAPIClient.h"
 #import "Syncano.h"
 #import "SCParseManager.h"
-#import "SCQuery.h"
+#import "SCPlease.h"
 #import "SCDataObjectAPISubclass.h"
 
 @implementation SCDataObject
@@ -36,12 +36,12 @@
     }
 }
 
-+ (SCQuery *)query {
-    return [SCQuery queryForDataObjectWithClass:[self class]];
++ (SCPlease *)please {
+    return [SCPlease pleaseInstanceForDataObjectWithClass:[self class]];
 }
 
-+ (SCQuery *)queryForSyncano:(Syncano *)syncano {
-    return [SCQuery queryForDataObjectWithClass:[self class] forSyncano:syncano];
++ (SCPlease *)pleaseFromSyncano:(Syncano *)syncano {
+    return [SCPlease pleaseInstanceForDataObjectWithClass:[self class] forSyncano:syncano];
 }
 
 - (NSString *)pathForObject {

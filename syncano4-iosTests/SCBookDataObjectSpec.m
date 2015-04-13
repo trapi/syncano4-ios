@@ -12,7 +12,7 @@
 #import "SCConstants.h"
 #import "Syncano.h"
 #import "SCDataObject.h"
-#import "SCQuery.h"
+#import "SCPlease.h"
 #import "Book.h"
 #import "SCParseManager.h"
 
@@ -21,8 +21,8 @@ SPEC_BEGIN(SCBookDataObjectSpec)
 describe(@"SCBookDataObject", ^{
     it(@"should get all objects from API", ^{
         __block NSArray *books = nil;
-        SCQuery *query = [Book query];
-        [query getDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
+        SCPlease *query = [Book please];
+        [query giveMeDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
             books = objects;
         }];
         [[books shouldNotEventually] beNil];

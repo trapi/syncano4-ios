@@ -11,12 +11,12 @@
 #import "SCConstants.h"
 #import "Syncano.h"
 
-@interface SCQuery : NSObject
+@interface SCPlease : NSObject
 @property (nonatomic,assign) Syncano *syncano;
 - (instancetype)initWithDataObjectClass:(Class)dataObjectClass;
-+ (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass;
-+ (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano;
++ (SCPlease *)pleaseInstanceForDataObjectWithClass:(Class)dataObjectClass;
++ (SCPlease *)pleaseInstanceForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano;
 
-- (void)getDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+- (void)giveMeDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
 
 @end

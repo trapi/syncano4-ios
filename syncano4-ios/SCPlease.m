@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Syncano. All rights reserved.
 //
 
-#import "SCQuery.h"
+#import "SCPlease.h"
 #import "SCAPIClient+SCDataObject.h"
 #import "SCParseManager.h"
 
-@interface SCQuery ()
+@interface SCPlease ()
 @property (nonatomic,assign) Class dataObjectClass;
 @property (nonatomic,retain) NSString *classNameForAPICalls;
 @end
 
-@implementation SCQuery
+@implementation SCPlease
 - (instancetype)initWithDataObjectClass:(Class)dataObjectClass {
     self = [super init];
     if (self) {
@@ -26,12 +26,12 @@
     }
     return self;
 }
-+ (SCQuery *)queryForDataObjectWithClass:dataObjectClass {
-    return [self queryForDataObjectWithClass:dataObjectClass forSyncano:nil];
++ (SCPlease *)pleaseInstanceForDataObjectWithClass:dataObjectClass {
+    return [self pleaseInstanceForDataObjectWithClass:dataObjectClass forSyncano:nil];
 }
 
-+ (SCQuery *)queryForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano {
-    SCQuery *query = [[SCQuery alloc] initWithDataObjectClass:dataObjectClass];
++ (SCPlease *)pleaseInstanceForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano {
+    SCPlease *query = [[SCPlease alloc] initWithDataObjectClass:dataObjectClass];
     if (syncano) {
         query.syncano = syncano;
     }
@@ -45,7 +45,7 @@
     return [Syncano sharedAPIClient];
 }
 
-- (void)getDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)giveMeDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
     [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (responseObject[@"objects"]) {
             NSArray *responseObjects = responseObject[@"objects"];

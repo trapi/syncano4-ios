@@ -7,8 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
+/**
+ *  Protocol used for subclassing SCDataObject
+ */
 @protocol SCDataObjectAPISubclass <NSObject>
 @required
+/**
+ *  Returns class name used in Syncano API
+ *
+ *  @return string with API class name
+ */
 + (NSString *)classNameForAPI;
 @end
