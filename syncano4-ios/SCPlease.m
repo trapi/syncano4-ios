@@ -11,7 +11,13 @@
 #import "SCParseManager.h"
 
 @interface SCPlease ()
+/**
+ *  Connected SCDataObject Class
+ */
 @property (nonatomic,assign) Class dataObjectClass;
+/**
+ *  API class name representation of connected SCDataObject Class
+ */
 @property (nonatomic,retain) NSString *classNameForAPICalls;
 @end
 
@@ -31,13 +37,18 @@
 }
 
 + (SCPlease *)pleaseInstanceForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano {
-    SCPlease *query = [[SCPlease alloc] initWithDataObjectClass:dataObjectClass];
+    SCPlease *please = [[SCPlease alloc] initWithDataObjectClass:dataObjectClass];
     if (syncano) {
-        query.syncano = syncano;
+        please.syncano = syncano;
     }
-    return query;
+    return please;
 }
 
+/**
+ *  Returns proper API Client
+ *
+ *  @return API Client
+ */
 - (SCAPIClient *)apiClient {
     if (self.syncano) {
         return self.syncano.apiClient;
