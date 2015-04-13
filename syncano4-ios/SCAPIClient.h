@@ -11,14 +11,61 @@
 
 @class Syncano;
 
+/**
+ *  Base class for API calls
+ */
 @interface SCAPIClient : AFHTTPSessionManager
 
+/**
+ *  Creates API Client for provided Syncano instance
+ *
+ *  @param syncano Syncano instance
+ *
+ *  @return SCAPIClient object
+ */
 + (SCAPIClient *)apiClientForSyncano:(Syncano *)syncano;
 
-- (void)initializeClient;
-
+/**
+ *  "Abstract" method to GET method call
+ *
+ *  @param path       path to request endpoint
+ *  @param params     NSDictionary with params for request
+ *  @param completion SCAPICompletionBlock completion callback block
+ *
+ *  @return NSURLSessionDataTask object
+ */
 - (NSURLSessionDataTask *)getTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
+
+/**
+ *  "Abstract" method to POST method call
+ *
+ *  @param path       path to request endpoint
+ *  @param params     NSDictionary with params for request
+ *  @param completion SCAPICompletionBlock completion callback block
+ *
+ *  @return NSURLSessionDataTask object
+ */
 - (NSURLSessionDataTask *)postTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
+
+/**
+ *  "Abstract" method to PUT method call
+ *
+ *  @param path       path to request endpoint
+ *  @param params     NSDictionary with params for request
+ *  @param completion SCAPICompletionBlock completion callback block
+ *
+ *  @return NSURLSessionDataTask object
+ */
 - (NSURLSessionDataTask *)putTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
+
+/**
+ *  "Abstract" method to DELETE method call
+ *
+ *  @param path       path to request endpoint
+ *  @param params     NSDictionary with params for request
+ *  @param completion SCAPICompletionBlock completion callback block
+ *
+ *  @return NSURLSessionDataTask object
+ */
 - (NSURLSessionDataTask *)deleteTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
 @end

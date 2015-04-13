@@ -15,26 +15,19 @@
 
 @implementation SCAPIClient
 
-- (instancetype)init {
-//    NSURL *instanceURL = [NSURL URLWithString:@"http://ip.jsontest.com"];
-    NSURL *instanceURL = [NSURL URLWithString:[Syncano getInstanceName] relativeToURL:[NSURL URLWithString:kBaseURL]];
-    self = [super initWithBaseURL:instanceURL];
+- (instancetype)initWithBaseURL:(NSURL *)url {
+    self = [super initWithBaseURL:url];
     if (self) {
-        [self initializeClient];
+        self.requestSerializer = [AFJSONRequestSerializer serializer];
+        [self authorizeRequest];
+        self.securityPolicy.allowInvalidCertificates = YES;
     }
     return self;
-}
-
-- (void)initializeClient {
-    self.requestSerializer = [AFJSONRequestSerializer serializer];
-    [self authorizeRequest];
-    self.securityPolicy.allowInvalidCertificates = YES;
 }
 
 + (SCAPIClient *)apiClientForSyncano:(Syncano *)syncano {
     NSURL *instanceURL = [NSURL URLWithString:syncano.instanceName relativeToURL:[NSURL URLWithString:kBaseURL]];
     SCAPIClient *apiClient = [[SCAPIClient alloc] initWithBaseURL:instanceURL];
-    [apiClient initializeClient];
     return apiClient;
 }
 
@@ -54,17 +47,44 @@
     
     return task;
 }
-//TODO: NEEDS TO BE IMPLEMENTED
+
 - (NSURLSessionDataTask *)postTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion {
-    return [NSURLSessionDataTask new];
+    [self authorizeRequest];
+    NSURLSessionDataTask *task = [self POST:path
+                                parameters:params
+                                   success:^(NSURLSessionDataTask *task, id responseObject) {
+                                       completion(task,responseObject, nil);
+                                   } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                       completion(task,nil, error);
+                                   }];
+    
+    return task;
 }
-//TODO: NEEDS TO BE IMPLEMENTED
+
 - (NSURLSessionDataTask *)putTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion {
-    return [NSURLSessionDataTask new];
+    [self authorizeRequest];
+    NSURLSessionDataTask *task = [self PUT:path
+                                 parameters:params
+                                    success:^(NSURLSessionDataTask *task, id responseObject) {
+                                        completion(task,responseObject, nil);
+                                    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                        completion(task,nil, error);
+                                    }];
+    
+    return task;
 }
-//TODO: NEEDS TO BE IMPLEMENTED
+
 - (NSURLSessionDataTask *)deleteTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion {
-    return [NSURLSessionDataTask new];
+    [self authorizeRequest];
+    NSURLSessionDataTask *task = [self DELETE:path
+                                 parameters:params
+                                    success:^(NSURLSessionDataTask *task, id responseObject) {
+                                        completion(task,responseObject, nil);
+                                    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                        completion(task,nil, error);
+                                    }];
+    
+    return task;
 }
 
 @end
