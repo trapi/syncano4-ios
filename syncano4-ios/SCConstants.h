@@ -9,6 +9,7 @@
 
 typedef void (^SCAPICompletionBlock)(NSURLSessionDataTask *task, id responseObject, NSError *error);
 typedef void (^SCGetDataObjectsCompletionBlock)(NSArray *objects, NSError *error);
+typedef void (^SCParseDataObjectsCompletionBlock)(NSArray *objects, NSError *error);
 typedef void (^SCParseObjectCompletionBlock)(id parsedObject, NSError *error);
 typedef void (^SCCompletionBlock)(BOOL success);
 

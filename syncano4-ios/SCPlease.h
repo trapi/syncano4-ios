@@ -7,9 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SCDataObject.h"
 #import "SCConstants.h"
-#import "Syncano.h"
+
+@class Syncano;
+
+/**
+ *  Parameter keys for constructing query TODO:Comments for all keys
+ */
+extern NSString *const SCPleaseParameterLimit;
+extern NSString *const SCPleaseParameterFields;
+extern NSString *const SCPleaseParameterExcludedFields;
+extern NSString *const SCPleaseParameterPageSize;
+extern NSString *const SCPleaseParameterOrderByAscending;
+extern NSString *const SCPleaseParameterOrderByDescending;
 
 /**
  *  Class to make queries on Syncano API
@@ -51,10 +61,28 @@
 
 
 /**
- *  FIXME - needs to be redesigned to cover new concept
+ *  Create and run simple request without any query parameters or statements
  *
  *  @param completion completion block
  */
-- (void)giveMeDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+- (void)giveMeDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+
+/**
+ *  Create and run API request for object with query parameters
+ *
+ *  @param parameters NSDictionary with query params
+ *  @param completion completion block
+ */
+- (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion;
+
+/**
+ *  Create and run API request for object with query "where is equal to" statement and parameters
+ *
+ *  @param key        key name to compare
+ *  @param object     object that must be equal to key
+ *  @param parameters NSDictionary with query params
+ *  @param completion completion block
+ */
+- (void)giveMeDataObjectsWhereKey:(NSString *)key isEqualTo:(id)object parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion;
 
 @end

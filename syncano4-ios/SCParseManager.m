@@ -10,6 +10,7 @@
 #import <Mantle.h>
 #import <objc/runtime.h>
 #import "SCDataObjectAPISubclass.h"
+#import "SCDataObject.h"
 
 @implementation SCClassRegisterItem
 @end
@@ -30,7 +31,9 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
     
     NSDictionary *relations = [self relationsForClass:objectClass];
-    
+    /**
+     *  TODO: Here will be relation base od repsonse object info  {"type":"reference","class":"test","value":"Dsy02MJQKN"}
+     */
     for (NSString *relationKeyProperty in relations.allKeys) {
         SCClassRegisterItem *relationRegisteredItem = relations[relationKeyProperty];
         Class relatedClass = NSClassFromString(relationRegisteredItem.className);
@@ -39,6 +42,16 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
         SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
     }
     return parsedobject;
+}
+
+- (void)parseObjectsOfClass:(__unsafe_unretained Class)objectClass fromResponseObject:(id)responseObject completion:(SCParseDataObjectsCompletionBlock)completion {
+    NSArray *responseObjects = responseObject;
+    NSMutableArray *parsedObjects = [[NSMutableArray alloc] initWithCapacity:responseObjects.count];
+    for (NSDictionary *object in responseObjects) {
+        id parsedObject = [[SCParseManager sharedSCParseManager] parsedObjectOfClass:objectClass fromJSONObject:object];
+        [parsedObjects addObject:parsedObject];
+    }
+    completion(parsedObjects,nil);
 }
 
 - (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject {

@@ -7,18 +7,33 @@
 //
 
 #import "SCPlease.h"
+#import "Syncano.h"
 #import "SCAPIClient+SCDataObject.h"
 #import "SCParseManager.h"
 
+NSString *const SCPleaseParameterLimit = @"SCPleaseParameterLimit";
+NSString *const SCPleaseParameterFields = @"SCPleaseParameterFields";
+NSString *const SCPleaseParameterExcludedFields = @"SCPleaseParameterExcludedFields";
+NSString *const SCPleaseParameterPageSize = @"SCPleaseParameterPageSize";
+NSString *const SCPleaseParameterOrderByAscending = @"SCPleaseParameterOrderByAscending";
+NSString *const SCPleaseParameterOrderByDescending = @"SCPleaseParameterOrderByDescending";
+
 @interface SCPlease ()
+
 /**
  *  Connected SCDataObject Class
  */
 @property (nonatomic,assign) Class dataObjectClass;
+
 /**
  *  API class name representation of connected SCDataObject Class
  */
 @property (nonatomic,retain) NSString *classNameForAPICalls;
+
+/**
+ *  Parameters dictionary for constructing query
+ */
+@property (nonatomic,retain) NSDictionary *queryParameters;
 @end
 
 @implementation SCPlease
@@ -56,19 +71,23 @@
     return [Syncano sharedAPIClient];
 }
 
-- (void)giveMeDataObjectsInBackgroundWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)giveMeDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+    [self giveMeDataObjectsWithParameters:nil completion:completion];
+}
+
+- (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
     [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (responseObject[@"objects"]) {
-            NSArray *responseObjects = responseObject[@"objects"];
-            NSMutableArray *parsedObjects = [[NSMutableArray alloc] initWithCapacity:responseObjects.count];
-            for (NSDictionary *object in responseObjects) {
-                id parsedObject = [[SCParseManager sharedSCParseManager] parsedObjectOfClass:self.dataObjectClass fromJSONObject:object];
-                [parsedObjects addObject:parsedObject];
-            }
-            completion(parsedObjects,nil);
+            [[SCParseManager sharedSCParseManager] parseObjectsOfClass:self.dataObjectClass fromResponseObject:responseObject[@"objects"] completion:^(NSArray *objects, NSError *error) {
+                completion(objects,error);
+            }];
         } else {
             completion(nil,error);
         }
     }];
+}
+
+- (void)giveMeDataObjectsWhereKey:(NSString *)key isEqualTo:(id)object parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
+    
 }
 @end

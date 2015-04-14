@@ -13,6 +13,7 @@
 
 @class Syncano;
 @class SCPlease;
+
 /**
  *  Main class for data object from Syncano API.
  */

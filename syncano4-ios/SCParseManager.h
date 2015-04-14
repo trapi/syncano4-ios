@@ -5,11 +5,11 @@
 //  Created by Jan Lipmann on 30/03/15.
 //  Copyright (c) 2015 Syncano. All rights reserved.
 //
-
 #import <Foundation/Foundation.h>
 #import "SCMacros.h"
-#import "SCSchema.h"
-#import "SCDataObject.h"
+#import "SCConstants.h"
+
+@class SCDataObject;
 
 /**
  *  Class contains info about registered class for subclassing
@@ -48,6 +48,15 @@ SINGLETON_FOR_CLASS(SCParseManager);
  *  @return parsed SCDataObject
  */
 - (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)JSONObject;
+
+/**
+ *  Attempts to parse JSON response object to array of SCDataObjects
+ *
+ *  @param objectClass    objectClass Class of object to parse for
+ *  @param responseObject JSON object with array of serialized JSON objects from API response
+ *  @param completion completion block
+ */
+- (void)parseObjectsOfClass:(__unsafe_unretained Class)objectClass fromResponseObject:(id)responseObject completion:(SCParseDataObjectsCompletionBlock)completion;
 
 /**
  *  Converts SCDataObject to JSON representation

@@ -7,11 +7,10 @@
 //
 
 #import "Kiwi.h"
+#import "SCPlease.h"
 #import "SCMacros.h"
 #import "SCConstants.h"
 #import "Syncano.h"
-#import "SCDataObject.h"
-#import "SCPlease.h"
 #import "Book.h"
 
 
@@ -39,7 +38,7 @@ describe(@"SCDataObject", ^{
     });
     it(@"should fetch objects from API", ^{
         __block NSArray *books;
-        [[Book please] giveMeDataObjectsInBackgroundWithCompletion:^(NSArray *objects, NSError *error) {
+        [[Book please] giveMeDataObjectsWithCompletion:^(NSArray *objects, NSError *error) {
             books = objects;
         }];
         [[books shouldNotEventually] beNil];
