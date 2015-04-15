@@ -17,6 +17,6 @@
 + (SCPredicate *)whereKey:(NSString *)key isEqualToBool:(BOOL)boolValue;
 + (SCPredicate *)whereKey:(NSString *)key isEqualToDate:(NSDate *)date;
 
-- (NSDictionary *)queryRepresentation;
+- (NSString *)queryRepresentation;
 
 @end

@@ -28,8 +28,12 @@ static NSString *const SCPredicateEqualOperator = @"_eq";
     return self;
 }
 
-- (NSDictionary *)queryRepresentation {
-   return @{self.leftHand : @{self.operator : self.rightHand}};
+- (NSString *)queryRepresentation {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{self.leftHand : @{self.operator : self.rightHand}}
+                                                       options:0
+                                                         error:&error];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 + (SCPredicate *)whereKey:(NSString *)key isEqualToString:(NSString *)string {
