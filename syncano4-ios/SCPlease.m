@@ -11,13 +11,13 @@
 #import "SCAPIClient+SCDataObject.h"
 #import "SCParseManager.h"
 #import "SCDataObjectAPISubclass.h"
+#import "SCPredicate.h"
 
-NSString *const SCPleaseParameterLimit = @"SCPleaseParameterLimit";
-NSString *const SCPleaseParameterFields = @"SCPleaseParameterFields";
-NSString *const SCPleaseParameterExcludedFields = @"SCPleaseParameterExcludedFields";
-NSString *const SCPleaseParameterPageSize = @"SCPleaseParameterPageSize";
-NSString *const SCPleaseParameterOrderByAscending = @"SCPleaseParameterOrderByAscending";
-NSString *const SCPleaseParameterOrderByDescending = @"SCPleaseParameterOrderByDescending";
+NSString *const SCPleaseParameterLimit = @"limit";
+NSString *const SCPleaseParameterFields = @"fields";
+NSString *const SCPleaseParameterExcludedFields = @"exclude_fields";
+NSString *const SCPleaseParameterPageSize = @"page_size";
+NSString *const SCPleaseParameterOrderBy = @"order_by";
 
 @interface SCPlease ()
 
@@ -77,7 +77,7 @@ NSString *const SCPleaseParameterOrderByDescending = @"SCPleaseParameterOrderByD
 }
 
 - (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
-    [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+    [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:parameters completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (responseObject[@"objects"]) {
             [[SCParseManager sharedSCParseManager] parseObjectsOfClass:self.dataObjectClass fromResponseObject:responseObject[@"objects"] completion:^(NSArray *objects, NSError *error) {
                 completion(objects,error);
@@ -89,6 +89,8 @@ NSString *const SCPleaseParameterOrderByDescending = @"SCPleaseParameterOrderByD
 }
 
 - (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
-    
+    NSMutableDictionary *params = [parameters mutableCopy];
+    [params  addEntriesFromDictionary:@{@"query" : [predicate queryRepresentation]}];
+    [self giveMeDataObjectsWithParameters:params completion:completion];
 }
 @end
