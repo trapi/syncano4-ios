@@ -10,6 +10,7 @@
 #import "Syncano.h"
 #import "SCAPIClient+SCDataObject.h"
 #import "SCParseManager.h"
+#import "SCDataObjectAPISubclass.h"
 
 NSString *const SCPleaseParameterLimit = @"SCPleaseParameterLimit";
 NSString *const SCPleaseParameterFields = @"SCPleaseParameterFields";
@@ -41,7 +42,7 @@ NSString *const SCPleaseParameterOrderByDescending = @"SCPleaseParameterOrderByD
     self = [super init];
     if (self) {
         self.dataObjectClass = dataObjectClass;
-        if ([dataObjectClass respondsToSelector:@selector(classNameForAPI)]) {
+        if ([dataObjectClass conformsToProtocol:@protocol(SCDataObjectAPISubclass)]) {
             self.classNameForAPICalls = [dataObjectClass classNameForAPI];
         }
     }
@@ -87,7 +88,7 @@ NSString *const SCPleaseParameterOrderByDescending = @"SCPleaseParameterOrderByD
     }];
 }
 
-- (void)giveMeDataObjectsWhereKey:(NSString *)key isEqualTo:(id)object parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
     
 }
 @end

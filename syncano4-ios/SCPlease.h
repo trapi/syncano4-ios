@@ -10,6 +10,7 @@
 #import "SCConstants.h"
 
 @class Syncano;
+@class SCPredicate;
 
 /**
  *  Parameter keys for constructing query TODO:Comments for all keys
@@ -76,13 +77,11 @@ extern NSString *const SCPleaseParameterOrderByDescending;
 - (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion;
 
 /**
- *  Create and run API request for object with query "where is equal to" statement and parameters
+ *  Create and run API request for object with predicate for query and with parameters
  *
- *  @param key        key name to compare
- *  @param object     object that must be equal to key
+ *  @param predicate  SCPredicate to build query
  *  @param parameters NSDictionary with query params
  *  @param completion completion block
  */
-- (void)giveMeDataObjectsWhereKey:(NSString *)key isEqualTo:(id)object parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion;
-
+- (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion;
 @end
