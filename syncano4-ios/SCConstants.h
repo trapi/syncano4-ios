@@ -12,6 +12,6 @@ typedef void (^SCGetDataObjectsCompletionBlock)(NSArray *objects, NSError *error
 typedef void (^SCParseDataObjectsCompletionBlock)(NSArray *objects, NSError *error);
 typedef void (^SCParseObjectCompletionBlock)(id parsedObject, NSError *error);
 typedef void (^SCCompletionBlock)(BOOL success);
-
+typedef void (^SCPleaseResolveQueryParametersCompletionBlock)(NSDictionary *queryParameters,NSArray *includeKeys);
 
 static NSString * const kBaseURL = @"https://syncanotest1-env.elasticbeanstalk.com:443/v1/instances/";

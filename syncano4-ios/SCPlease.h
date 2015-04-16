@@ -19,8 +19,9 @@ extern NSString *const SCPleaseParameterLimit;
 extern NSString *const SCPleaseParameterFields;
 extern NSString *const SCPleaseParameterExcludedFields;
 extern NSString *const SCPleaseParameterPageSize;
-extern NSString *const SCPleaseParameterOrderByAscending;
-extern NSString *const SCPleaseParameterOrderByDescending;
+extern NSString *const SCPleaseParameterOrderBy;
+extern NSString *const SCPleaseParameterIncludeKeys;
+
 
 /**
  *  Class to make queries on Syncano API

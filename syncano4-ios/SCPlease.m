@@ -18,6 +18,8 @@ NSString *const SCPleaseParameterFields = @"fields";
 NSString *const SCPleaseParameterExcludedFields = @"exclude_fields";
 NSString *const SCPleaseParameterPageSize = @"page_size";
 NSString *const SCPleaseParameterOrderBy = @"order_by";
+NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
+
 
 @interface SCPlease ()
 
@@ -31,10 +33,6 @@ NSString *const SCPleaseParameterOrderBy = @"order_by";
  */
 @property (nonatomic,retain) NSString *classNameForAPICalls;
 
-/**
- *  Parameters dictionary for constructing query
- */
-@property (nonatomic,retain) NSDictionary *queryParameters;
 @end
 
 @implementation SCPlease
@@ -72,25 +70,40 @@ NSString *const SCPleaseParameterOrderBy = @"order_by";
     return [Syncano sharedAPIClient];
 }
 
+- (void)resolveQueryParameters:(NSDictionary *)parameters withPredicate:(SCPredicate *)predicate completion:(SCPleaseResolveQueryParametersCompletionBlock)completion {
+    NSMutableDictionary *queryParameters = (parameters.count > 0) ? [parameters mutableCopy] : [NSMutableDictionary new];
+    NSArray *includeKeys;
+    if (queryParameters[SCPleaseParameterIncludeKeys]) {
+        if ([queryParameters[SCPleaseParameterIncludeKeys] isKindOfClass:[NSArray class]]) {
+            includeKeys = queryParameters[SCPleaseParameterIncludeKeys];
+        }
+        [queryParameters removeObjectForKey:SCPleaseParameterIncludeKeys];
+    }
+    if (predicate) {
+        [queryParameters  addEntriesFromDictionary:@{@"query" : [predicate queryRepresentation]}];
+    }
+    completion([NSDictionary dictionaryWithDictionary:queryParameters],includeKeys);
+}
+
 - (void)giveMeDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
     [self giveMeDataObjectsWithParameters:nil completion:completion];
 }
 
 - (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
-    [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:parameters completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-        if (responseObject[@"objects"]) {
-            [[SCParseManager sharedSCParseManager] parseObjectsOfClass:self.dataObjectClass fromResponseObject:responseObject[@"objects"] completion:^(NSArray *objects, NSError *error) {
-                completion(objects,error);
-            }];
-        } else {
-            completion(nil,error);
-        }
-    }];
+    [self giveMeDataObjectsWithPredicate:nil parameters:parameters completion:completion];
 }
 
 - (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
-    NSMutableDictionary *params = [parameters mutableCopy];
-    [params  addEntriesFromDictionary:@{@"query" : [predicate queryRepresentation]}];
-    [self giveMeDataObjectsWithParameters:params completion:completion];
+    [self resolveQueryParameters:parameters withPredicate:predicate completion:^(NSDictionary *queryParameters, NSArray *includeKeys) {
+        [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:queryParameters completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+            if (responseObject[@"objects"]) {
+                [[SCParseManager sharedSCParseManager] parseObjectsOfClass:self.dataObjectClass fromJSONObject:responseObject[@"objects"] includeKeys:includeKeys completion:^(NSArray *objects, NSError *error) {
+                    completion(objects,error);
+                }];
+            } else {
+                completion(nil,error);
+            }
+        }];
+    }];
 }
 @end

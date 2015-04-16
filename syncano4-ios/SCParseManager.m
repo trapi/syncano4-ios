@@ -26,13 +26,16 @@
 
 SINGLETON_IMPL_FOR_CLASS(SCParseManager)
 
-- (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)JSONObject {
+- (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass
+           fromJSONObject:(id)JSONObject
+              includeKeys:(NSArray *)includeKeys {
+    
     NSError *error;
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
     
     NSDictionary *relations = [self relationsForClass:objectClass];
     /**
-     *  TODO: Here will be relation base od repsonse object info  {"type":"reference","class":"test","value":"Dsy02MJQKN"}
+     *  TODO: Here will be relation base od repsonse object info  {"type":"reference","class":"test","value":"12334"}
      */
     for (NSString *relationKeyProperty in relations.allKeys) {
         SCClassRegisterItem *relationRegisteredItem = relations[relationKeyProperty];
@@ -44,11 +47,15 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     return parsedobject;
 }
 
-- (void)parseObjectsOfClass:(__unsafe_unretained Class)objectClass fromResponseObject:(id)responseObject completion:(SCParseDataObjectsCompletionBlock)completion {
+- (void)parseObjectsOfClass:(__unsafe_unretained Class)objectClass
+             fromJSONObject:(id)responseObject
+                includeKeys:(NSArray *)includeKeys
+                 completion:(SCParseDataObjectsCompletionBlock)completion {
+    
     NSArray *responseObjects = responseObject;
     NSMutableArray *parsedObjects = [[NSMutableArray alloc] initWithCapacity:responseObjects.count];
     for (NSDictionary *object in responseObjects) {
-        id parsedObject = [[SCParseManager sharedSCParseManager] parsedObjectOfClass:objectClass fromJSONObject:object];
+        id parsedObject = [[SCParseManager sharedSCParseManager] parsedObjectOfClass:objectClass fromJSONObject:object includeKeys:includeKeys];
         [parsedObjects addObject:parsedObject];
     }
     completion(parsedObjects,nil);
