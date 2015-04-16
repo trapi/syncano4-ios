@@ -26,25 +26,33 @@
 
 SINGLETON_IMPL_FOR_CLASS(SCParseManager)
 
-- (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass
+- (void)parseObjectOfClass:(__unsafe_unretained Class)objectClass
            fromJSONObject:(id)JSONObject
-              includeKeys:(NSArray *)includeKeys {
+               includeKeys:(NSArray *)includeKeys completion:(SCParseObjectCompletionBlock)completion {
     
     NSError *error;
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
     
     NSDictionary *relations = [self relationsForClass:objectClass];
     /**
-     *  TODO: Here will be relation base od repsonse object info  {"type":"reference","class":"test","value":"12334"}
+     *  TODO: Here we are waiting relation base od repsonse object info  {"type":"reference","class":"test","value":"12334"}
      */
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
     for (NSString *relationKeyProperty in relations.allKeys) {
         SCClassRegisterItem *relationRegisteredItem = relations[relationKeyProperty];
         Class relatedClass = NSClassFromString(relationRegisteredItem.className);
         id relatedObject = [[relatedClass alloc] init];
         [relatedObject setValue:JSONObject[relationKeyProperty] forKey:@"objectId"];
+        
+        // TODO: Here we have to check if include needs to request for whole object
+        
         SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
+        dispatch_group_leave(group);
     }
-    return parsedobject;
+    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        completion(parsedobject,nil);
+    });
 }
 
 - (void)parseObjectsOfClass:(__unsafe_unretained Class)objectClass
@@ -54,11 +62,17 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     
     NSArray *responseObjects = responseObject;
     NSMutableArray *parsedObjects = [[NSMutableArray alloc] initWithCapacity:responseObjects.count];
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
     for (NSDictionary *object in responseObjects) {
-        id parsedObject = [[SCParseManager sharedSCParseManager] parsedObjectOfClass:objectClass fromJSONObject:object includeKeys:includeKeys];
-        [parsedObjects addObject:parsedObject];
+            [self parseObjectOfClass:objectClass fromJSONObject:object includeKeys:includeKeys completion:^(id parsedObject, NSError *error) {
+                [parsedObjects addObject:parsedObject];
+                dispatch_group_leave(group);
+            }];
     }
-    completion(parsedObjects,nil);
+    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        completion(parsedObjects,nil);
+    });
 }
 
 - (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject {
