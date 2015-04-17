@@ -97,13 +97,22 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
     [self resolveQueryParameters:parameters withPredicate:predicate completion:^(NSDictionary *queryParameters, NSArray *includeKeys) {
         [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:queryParameters completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
             if (responseObject[@"objects"]) {
-                [[SCParseManager sharedSCParseManager] parseObjectsOfClass:self.dataObjectClass fromJSONObject:responseObject[@"objects"] includeKeys:includeKeys completion:^(NSArray *objects, NSError *error) {
-                    completion(objects,error);
-                }];
+                NSArray *parsedObjects = [[SCParseManager sharedSCParseManager] parsedObjectsOfClass:self.dataObjectClass fromJSONObject:responseObject[@"objects"]];
+                if (includeKeys.count > 0) {
+                    [self handleIncludesForObjects:parsedObjects includeKeys:includeKeys completion:^(NSArray *objects, NSError *error) {
+                        completion(objects,nil);
+                    }];
+                } else {
+                    completion(parsedObjects,nil);
+                }
             } else {
                 completion(nil,error);
             }
         }];
     }];
+}
+
+- (void)handleIncludesForObjects:(NSArray *)objects includeKeys:(NSArray *)includeKeys completion:(SCDataObjectsCompletionBlock)completion {
+   //TODO: fetch objects coresponding to include key if any.
 }
 @end

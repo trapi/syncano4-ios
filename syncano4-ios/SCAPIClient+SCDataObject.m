@@ -13,4 +13,9 @@
     NSString *path = [NSString stringWithFormat:@"classes/%@/objects/",className];
     return [self getTaskWithPath:path params:params completion:completion];
 }
+
+- (NSURLSessionDataTask *)getDataObjectsFromClassName:(NSString *)className withId:(NSNumber *)identifier completion:(SCAPICompletionBlock)completion {
+    NSString *path = [NSString stringWithFormat:@"classes/%@/objects/%@",className,identifier];
+    return [self getTaskWithPath:path params:nil completion:completion];
+}
 @end

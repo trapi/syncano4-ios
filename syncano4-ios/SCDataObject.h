@@ -71,4 +71,7 @@
  */
 - (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion;
 
+
+- (void)fetchWithCompletion:(SCCompletionBlock)completion;
+- (void)fetchFromSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
 @end

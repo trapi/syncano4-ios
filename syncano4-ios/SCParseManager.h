@@ -44,28 +44,21 @@ SINGLETON_FOR_CLASS(SCParseManager);
  *
  *  @param objectClass Class of object to parse for
  *  @param JSONObject  serialiazed JSON object from API response
- *  @param includeKeys  related objects keys to include in response
- *  @param completion  completion block
  *
  *  @return parsed SCDataObject
  */
-- (void)parseObjectOfClass:(__unsafe_unretained Class)objectClass
-           fromJSONObject:(id)JSONObject
-              includeKeys:(NSArray *)includeKeys
-              completion:(SCParseObjectCompletionBlock)completion;
+- (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass
+          fromJSONObject:(id)JSONObject;
 
 /**
  *  Attempts to parse JSON response object to array of SCDataObjects
  *
  *  @param objectClass    objectClass Class of object to parse for
  *  @param responseObject JSON object with array of serialized JSON objects from API response
- *  @param includeKeys  related objects keys to include in response
- *  @param completion completion block
+ *  @return NSArray with parsed SCDataObjects
  */
-- (void)parseObjectsOfClass:(__unsafe_unretained Class)objectClass
-             fromJSONObject:(id)responseObject
-                includeKeys:(NSArray *)includeKeys
-                 completion:(SCParseDataObjectsCompletionBlock)completion;
+- (NSArray *)parsedObjectsOfClass:(__unsafe_unretained Class)objectClass
+                  fromJSONObject:(id)responseObject;
 
 /**
  *  Converts SCDataObject to JSON representation

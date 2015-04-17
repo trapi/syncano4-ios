@@ -26,9 +26,7 @@
 
 SINGLETON_IMPL_FOR_CLASS(SCParseManager)
 
-- (void)parseObjectOfClass:(__unsafe_unretained Class)objectClass
-           fromJSONObject:(id)JSONObject
-               includeKeys:(NSArray *)includeKeys completion:(SCParseObjectCompletionBlock)completion {
+- (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)JSONObject {
     
     NSError *error;
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
@@ -44,35 +42,19 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
         Class relatedClass = NSClassFromString(relationRegisteredItem.className);
         id relatedObject = [[relatedClass alloc] init];
         [relatedObject setValue:JSONObject[relationKeyProperty] forKey:@"objectId"];
-        
-        // TODO: Here we have to check if include needs to request for whole object
-        
         SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
-        dispatch_group_leave(group);
     }
-    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        completion(parsedobject,nil);
-    });
+    return parsedobject;
 }
 
-- (void)parseObjectsOfClass:(__unsafe_unretained Class)objectClass
-             fromJSONObject:(id)responseObject
-                includeKeys:(NSArray *)includeKeys
-                 completion:(SCParseDataObjectsCompletionBlock)completion {
+- (NSArray *)parsedObjectsOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)responseObject {
     
     NSArray *responseObjects = responseObject;
     NSMutableArray *parsedObjects = [[NSMutableArray alloc] initWithCapacity:responseObjects.count];
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
     for (NSDictionary *object in responseObjects) {
-            [self parseObjectOfClass:objectClass fromJSONObject:object includeKeys:includeKeys completion:^(id parsedObject, NSError *error) {
-                [parsedObjects addObject:parsedObject];
-                dispatch_group_leave(group);
-            }];
+        [parsedObjects addObject:[self parsedObjectOfClass:objectClass fromJSONObject:object]];
     }
-    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        completion(parsedObjects,nil);
-    });
+    return [NSArray arrayWithArray:parsedObjects];
 }
 
 - (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject {

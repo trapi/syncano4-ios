@@ -8,7 +8,7 @@
 
 #import "SCDataObject.h"
 #import <Mantle.h>
-#import "SCAPIClient.h"
+#import "SCAPIClient+SCDataObject.h"
 #import "Syncano.h"
 #import "SCParseManager.h"
 #import "SCDataObjectAPISubclass.h"
@@ -49,6 +49,21 @@
     return path;
 }
 
+- (void)fetchWithCompletion:(SCCompletionBlock)completion {
+    [self fetchUsingAPIClient:[Syncano sharedAPIClient] completion:completion];
+}
+
+- (void)fetchFromSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion {
+    [self fetchUsingAPIClient:syncano.apiClient completion:completion];
+}
+
+- (void)fetchUsingAPIClient:(SCAPIClient *)apiClient completion:(SCCompletionBlock)completion {
+    [apiClient getDataObjectsFromClassName:[[self class] classNameForAPI] withId:self.objectId completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        //TODO fill object with new data
+        completion(YES);
+    }];
+}
+
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion {
     return [[Syncano sharedAPIClient] postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         completion(task,responseObject,error);
@@ -56,7 +71,7 @@
 }
 
 - (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion {
-    return [[SCAPIClient apiClientForSyncano:syncano] postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+    return [syncano.apiClient postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         completion(task,responseObject,error);
     }];
 }
