@@ -22,7 +22,7 @@
 @property (nonatomic,copy) NSDate *created_at;
 @property (nonatomic,copy) NSDate *updated_at;
 @property (nonatomic,copy) NSNumber *revision;
-@property (nonatomic,copy) NSArray *links;
+@property (nonatomic,copy) NSDictionary *links;
 
 /**
  *  Returns SCPlease instance for singleton Syncano

@@ -12,6 +12,7 @@
 #import "SCParseManager.h"
 #import "SCDataObjectAPISubclass.h"
 #import "SCPredicate.h"
+#import "SCDataObject.h"
 
 NSString *const SCPleaseParameterLimit = @"limit";
 NSString *const SCPleaseParameterFields = @"fields";
@@ -113,6 +114,35 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
 }
 
 - (void)handleIncludesForObjects:(NSArray *)objects includeKeys:(NSArray *)includeKeys completion:(SCDataObjectsCompletionBlock)completion {
-   //TODO: fetch objects coresponding to include key if any.
+    dispatch_group_t fetchGroup = dispatch_group_create(); // 2
+    for (id object in objects) {
+        for (NSString *includeKey in includeKeys) {
+            dispatch_group_enter(fetchGroup);
+            if ([object respondsToSelector:NSSelectorFromString(includeKey)]) {
+                id relatedObject = [object valueForKey:includeKey];
+                if (self.syncano && [relatedObject respondsToSelector:@selector(fetchFromSyncano:completion:)]) {
+                    [relatedObject fetchFromSyncano:self.syncano completion:^(BOOL success) {
+                        dispatch_group_leave(fetchGroup);
+                    }];
+                } else if ([relatedObject respondsToSelector:@selector(fetchWithCompletion:)]) {
+                    [relatedObject fetchWithCompletion:^(BOOL success) {
+                        dispatch_group_leave(fetchGroup);
+                    }];
+                } else {
+                    //TODO: throw error here
+                    dispatch_group_leave(fetchGroup);
+                }
+
+            } else {
+                //TODO: throw error here
+                dispatch_group_leave(fetchGroup);
+            }
+        }
+    }
+    dispatch_group_notify(fetchGroup, dispatch_get_main_queue(), ^{ // 4
+        if (completion) {
+            completion(objects,nil);
+        }
+    });
 }
 @end

@@ -35,8 +35,6 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     /**
      *  TODO: Here we are waiting relation base od repsonse object info  {"type":"reference","class":"test","value":"12334"}
      */
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
     for (NSString *relationKeyProperty in relations.allKeys) {
         SCClassRegisterItem *relationRegisteredItem = relations[relationKeyProperty];
         Class relatedClass = NSClassFromString(relationRegisteredItem.className);
@@ -55,6 +53,13 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
         [parsedObjects addObject:[self parsedObjectOfClass:objectClass fromJSONObject:object]];
     }
     return [NSArray arrayWithArray:parsedObjects];
+}
+
+- (void)updateObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject {
+    NSError *error;
+    
+    id newParedObject = [MTLJSONAdapter modelOfClass:[object class] fromJSONDictionary:responseObject error:&error];
+    [object mergeValuesForKeysFromModel:newParedObject];
 }
 
 - (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject {

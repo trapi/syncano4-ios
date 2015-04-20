@@ -61,6 +61,15 @@ SINGLETON_FOR_CLASS(SCParseManager);
                   fromJSONObject:(id)responseObject;
 
 /**
+ *  Attempt to update provided SCDataObject wit data from JSON response object
+ *
+ *  @param object         SCDataObject to update
+ *  @param responseObject JSON response object to update from
+ */
+- (void)updateObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject;
+
+
+/**
  *  Converts SCDataObject to JSON representation
  *
  *  @param dataObject SCDataObject to convert

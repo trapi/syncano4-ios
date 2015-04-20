@@ -45,7 +45,10 @@
 }
 
 - (NSString *)pathForObject {
-    NSString *path = [NSString stringWithFormat:@"classes/%@/objects/%@",[[self class] classNameForAPI],self.objectId];
+    if (self.links[@"self"]) {
+        return self.links[@"self"];
+    }
+    NSString *path = [NSString stringWithFormat:@"classes/%@/objects/%@/",[[self class] classNameForAPI],self.objectId];
     return path;
 }
 
@@ -58,8 +61,9 @@
 }
 
 - (void)fetchUsingAPIClient:(SCAPIClient *)apiClient completion:(SCCompletionBlock)completion {
+    //TODO: fill object with new data after fetch
     [apiClient getDataObjectsFromClassName:[[self class] classNameForAPI] withId:self.objectId completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-        //TODO fill object with new data
+        [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
         completion(YES);
     }];
 }
