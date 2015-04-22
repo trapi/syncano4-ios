@@ -15,7 +15,6 @@
 /**
  *  Parameter keys for constructing query TODO:Comments for all keys
  */
-extern NSString *const SCPleaseParameterLimit;
 extern NSString *const SCPleaseParameterFields;
 extern NSString *const SCPleaseParameterExcludedFields;
 extern NSString *const SCPleaseParameterPageSize;
@@ -85,4 +84,9 @@ extern NSString *const SCPleaseParameterIncludeKeys;
  *  @param completion completion block
  */
 - (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion;
+
+- (void)giveMeNextPageOfDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+- (void)giveMePreviousPageOfDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+
+
 @end

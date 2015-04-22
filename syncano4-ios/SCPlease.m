@@ -14,7 +14,6 @@
 #import "SCPredicate.h"
 #import "SCDataObject.h"
 
-NSString *const SCPleaseParameterLimit = @"limit";
 NSString *const SCPleaseParameterFields = @"fields";
 NSString *const SCPleaseParameterExcludedFields = @"exclude_fields";
 NSString *const SCPleaseParameterPageSize = @"page_size";
@@ -34,6 +33,27 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
  */
 @property (nonatomic,retain) NSString *classNameForAPICalls;
 
+/**
+ *  SCPredicate to use with API call
+ */
+@property (nonatomic,retain) SCPredicate *predicate;
+
+/**
+ *  Params of API call
+ */
+@property (nonatomic,retain) NSDictionary *parameters;
+
+/**
+ *  URL string to get next part of objects from
+ */
+@property (nonatomic,retain) NSString *nextUrlString;
+
+/**
+ *  URL string to get prevoius of objects from
+ */
+@property (nonatomic,retain) NSString *previousUrlString;
+
+@property (nonatomic,retain) NSArray *includeKeys;
 @end
 
 @implementation SCPlease
@@ -87,32 +107,84 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
 }
 
 - (void)giveMeDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
-    [self giveMeDataObjectsWithParameters:nil completion:completion];
+    self.parameters = nil;
+    self.predicate = nil;
+    [self getDataObjectFromAPIWithCompletion:completion];
 }
 
 - (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
-    [self giveMeDataObjectsWithPredicate:nil parameters:parameters completion:completion];
+    self.parameters = parameters;
+    self.predicate = nil;
+    [self getDataObjectFromAPIWithCompletion:completion];
 }
 
-- (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
-    [self resolveQueryParameters:parameters withPredicate:predicate completion:^(NSDictionary *queryParameters, NSArray *includeKeys) {
+- (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate
+                            parameters:(NSDictionary *)parameters
+                            completion:(SCGetDataObjectsCompletionBlock)completion {
+    self.parameters = parameters;
+    self.predicate = predicate;
+    [self getDataObjectFromAPIWithCompletion:completion];
+}
+
+- (void)handleResponse:(id)responseObject error:(NSError *)error completion:(SCGetDataObjectsCompletionBlock)completion includeKeys:(NSArray *)includeKeys {
+    if (responseObject[@"prev"]) {
+        self.previousUrlString = responseObject[@"prev"];
+    }
+    if (responseObject[@"next"]) {
+        self.nextUrlString = responseObject[@"next"];
+    }
+    if (responseObject[@"objects"]) {
+        NSArray *parsedObjects = [[SCParseManager sharedSCParseManager] parsedObjectsOfClass:self.dataObjectClass fromJSONObject:responseObject[@"objects"]];
+        if (includeKeys.count > 0) {
+            [self handleIncludesForObjects:parsedObjects includeKeys:includeKeys completion:^(NSArray *objects, NSError *error) {
+                completion(objects,nil);
+            }];
+        } else {
+            completion(parsedObjects,nil);
+        }
+    } else {
+        completion(nil,error);
+    }
+}
+
+- (void)getDataObjectFromAPIWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+    self.previousUrlString = nil;
+    self.nextUrlString = nil;
+    self.includeKeys = nil;
+    [self resolveQueryParameters:self.parameters withPredicate:self.predicate completion:^(NSDictionary *queryParameters, NSArray *includeKeys) {
+        self.includeKeys = includeKeys;
         [[self apiClient] getDataObjectsFromClassName:self.classNameForAPICalls params:queryParameters completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-            if (responseObject[@"objects"]) {
-                NSArray *parsedObjects = [[SCParseManager sharedSCParseManager] parsedObjectsOfClass:self.dataObjectClass fromJSONObject:responseObject[@"objects"]];
-                if (includeKeys.count > 0) {
-                    [self handleIncludesForObjects:parsedObjects includeKeys:includeKeys completion:^(NSArray *objects, NSError *error) {
-                        completion(objects,nil);
-                    }];
-                } else {
-                    completion(parsedObjects,nil);
-                }
-            } else {
-                completion(nil,error);
-            }
+            [self handleResponse:responseObject error:error completion:completion includeKeys:includeKeys];
         }];
     }];
+
 }
 
+- (void)giveMeNextPageOfDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+    if (self.nextUrlString) {
+        [[self apiClient] GET:self.nextUrlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            [self handleResponse:responseObject error:nil completion:completion includeKeys:self.includeKeys];
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            completion(nil,error);
+        }];
+    } else {
+        //TODO: handle with error
+        completion(nil,nil);
+    }
+}
+
+- (void)giveMePreviousPageOfDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+    if (self.previousUrlString) {
+        [[self apiClient] GET:self.previousUrlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            [self handleResponse:responseObject error:nil completion:completion includeKeys:self.includeKeys];
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            completion(nil,error);
+        }];
+    } else {
+        //TODO: handle with error
+        completion(nil,nil);
+    }
+}
 - (void)handleIncludesForObjects:(NSArray *)objects includeKeys:(NSArray *)includeKeys completion:(SCDataObjectsCompletionBlock)completion {
     dispatch_group_t fetchGroup = dispatch_group_create(); // 2
     for (id object in objects) {

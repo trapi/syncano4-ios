@@ -9,7 +9,9 @@
 #import "Author.h"
 
 @implementation Author
+//TODO: execute test
 + (NSString *)classNameForAPI {
-    return @"book";
+    return @"author";
 }
+
 @end
