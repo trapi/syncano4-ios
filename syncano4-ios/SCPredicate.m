@@ -8,7 +8,15 @@
 
 #import "SCPredicate.h"
 
+static NSString *const SCPredicateGreaterThanOperator = @"_gt";
+static NSString *const SCPredicateGreaterThanOrEqualOperator = @"_gte";
+static NSString *const SCPredicateLessThanOperator = @"_lt";
+static NSString *const SCPredicateLessThanOrEqualOperator = @"_lte";
 static NSString *const SCPredicateEqualOperator = @"_eq";
+static NSString *const SCPredicateNotEqualOperator = @"_neq";
+static NSString *const SCPredicateExistsOperator = @"_exists";
+static NSString *const SCPredicateInOperator = @"_in";
+
 
 @interface SCPredicate ()
 @property (nonatomic,retain) NSString *leftHand;
@@ -36,6 +44,62 @@ static NSString *const SCPredicateEqualOperator = @"_eq";
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
++ (SCPredicate *)whereKey:(NSString *)key isGreaterThanString:(NSString *)string {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateGreaterThanOperator rightHand:string];
+}
++ (SCPredicate *)whereKey:(NSString *)key isGreaterThanNumber:(NSNumber *)number {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateGreaterThanOperator rightHand:number];
+}
++ (SCPredicate *)whereKey:(NSString *)key isGreaterThanBool:(BOOL)boolValue {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateGreaterThanOperator rightHand:@(boolValue)];
+}
++ (SCPredicate *)whereKey:(NSString *)key isGreaterThanDate:(NSDate *)date {
+    //TODO: Here we should use NSDateFormatter to convert Date to proper string
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateGreaterThanOperator rightHand:date];
+}
+
++ (SCPredicate *)whereKey:(NSString *)key isGreaterThanOrEqualToString:(NSString *)string {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateGreaterThanOrEqualOperator rightHand:string];
+}
++ (SCPredicate *)whereKey:(NSString *)key isGreaterThanOrEqualToNumber:(NSNumber *)number {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateGreaterThanOrEqualOperator rightHand:number];
+}
++ (SCPredicate *)whereKey:(NSString *)key isGreaterThanOrEqualToBool:(BOOL)boolValue {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateGreaterThanOrEqualOperator rightHand:@(boolValue)];
+}
++ (SCPredicate *)whereKey:(NSString *)key isGreaterThanOrEqualToDate:(NSDate *)date {
+    //TODO: Here we should use NSDateFormatter to convert Date to proper string
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateGreaterThanOrEqualOperator rightHand:date];
+}
+
++ (SCPredicate *)whereKey:(NSString *)key isLessThanString:(NSString *)string {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateLessThanOperator rightHand:string];
+}
++ (SCPredicate *)whereKey:(NSString *)key isLessThanNumber:(NSNumber *)number {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateLessThanOperator rightHand:number];
+}
++ (SCPredicate *)whereKey:(NSString *)key isLessThanBool:(BOOL)boolValue {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateLessThanOperator rightHand:@(boolValue)];
+}
++ (SCPredicate *)whereKey:(NSString *)key isLessThanDate:(NSDate *)date {
+    //TODO: Here we should use NSDateFormatter to convert Date to proper string
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateLessThanOperator rightHand:date];
+}
+
++ (SCPredicate *)whereKey:(NSString *)key isLessThanOrEqualToString:(NSString *)string {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateLessThanOrEqualOperator rightHand:string];
+}
++ (SCPredicate *)whereKey:(NSString *)key isLessThanOrEqualToNumber:(NSNumber *)number {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateLessThanOrEqualOperator rightHand:number];
+}
++ (SCPredicate *)whereKey:(NSString *)key isLessThanOrEqualToBool:(BOOL)boolValue {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateLessThanOrEqualOperator rightHand:@(boolValue)];
+}
++ (SCPredicate *)whereKey:(NSString *)key isLessThanOrEqualToDate:(NSDate *)date {
+    //TODO: Here we should use NSDateFormatter to convert Date to proper string
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateLessThanOrEqualOperator rightHand:date];
+}
+
 + (SCPredicate *)whereKey:(NSString *)key isEqualToString:(NSString *)string {
     return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateEqualOperator rightHand:string];
 }
@@ -48,6 +112,28 @@ static NSString *const SCPredicateEqualOperator = @"_eq";
 + (SCPredicate *)whereKey:(NSString *)key isEqualToDate:(NSDate *)date {
     //TODO: Here we should use NSDateFormatter to convert Date to proper string
     return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateEqualOperator rightHand:date];
+}
+
++ (SCPredicate *)whereKey:(NSString *)key notEqualToString:(NSString *)string {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateNotEqualOperator rightHand:string];
+}
++ (SCPredicate *)whereKey:(NSString *)key notEqualToNumber:(NSNumber *)number {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateNotEqualOperator rightHand:number];
+}
++ (SCPredicate *)whereKey:(NSString *)key notEqualToBool:(BOOL)boolValue {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateNotEqualOperator rightHand:@(boolValue)];
+}
++ (SCPredicate *)whereKey:(NSString *)key notEqualToDate:(NSDate *)date {
+    //TODO: Here we should use NSDateFormatter to convert Date to proper string
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateNotEqualOperator rightHand:date];
+}
+
++ (SCPredicate *)whereKeyExists:(NSString *)key {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateExistsOperator rightHand:@(YES)];
+}
+
++ (SCPredicate *)whereKey:(NSString *)key inArray:(NSArray *)array {
+    return [[SCPredicate alloc] initWithLeftHand:key operator:SCPredicateInOperator rightHand:array];
 }
 
 @end
