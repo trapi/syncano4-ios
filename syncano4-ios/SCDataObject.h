@@ -62,7 +62,7 @@
 - (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion;
 
 /**
- *  <#Description#>
+ *  Saves object to API in background for chosen Syncano instance
  *
  *  @param syncano    Saves object to API in background for provided Syncano instance
  *  @param completion completion block
