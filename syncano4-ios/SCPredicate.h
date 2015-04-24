@@ -14,22 +14,18 @@
 
 + (SCPredicate *)whereKey:(NSString *)key isGreaterThanString:(NSString *)string;
 + (SCPredicate *)whereKey:(NSString *)key isGreaterThanNumber:(NSNumber *)number;
-+ (SCPredicate *)whereKey:(NSString *)key isGreaterThanBool:(BOOL)boolValue;
 + (SCPredicate *)whereKey:(NSString *)key isGreaterThanDate:(NSDate *)date;
 
 + (SCPredicate *)whereKey:(NSString *)key isGreaterThanOrEqualToString:(NSString *)string;
 + (SCPredicate *)whereKey:(NSString *)key isGreaterThanOrEqualToNumber:(NSNumber *)number;
-+ (SCPredicate *)whereKey:(NSString *)key isGreaterThanOrEqualToBool:(BOOL)boolValue;
 + (SCPredicate *)whereKey:(NSString *)key isGreaterThanOrEqualToDate:(NSDate *)date;
 
 + (SCPredicate *)whereKey:(NSString *)key isLessThanString:(NSString *)string;
 + (SCPredicate *)whereKey:(NSString *)key isLessThanNumber:(NSNumber *)number;
-+ (SCPredicate *)whereKey:(NSString *)key isLessThanBool:(BOOL)boolValue;
 + (SCPredicate *)whereKey:(NSString *)key isLessThanDate:(NSDate *)date;
 
 + (SCPredicate *)whereKey:(NSString *)key isLessThanOrEqualToString:(NSString *)string;
 + (SCPredicate *)whereKey:(NSString *)key isLessThanOrEqualToNumber:(NSNumber *)number;
-+ (SCPredicate *)whereKey:(NSString *)key isLessThanOrEqualToBool:(BOOL)boolValue;
 + (SCPredicate *)whereKey:(NSString *)key isLessThanOrEqualToDate:(NSDate *)date;
 
 + (SCPredicate *)whereKey:(NSString *)key isEqualToString:(NSString *)string;
