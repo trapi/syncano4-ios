@@ -59,7 +59,7 @@
  *
  *  @return NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion;
+- (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCCompletionBlock)completion;
 
 /**
  *  Saves object to API in background for chosen Syncano instance
@@ -69,7 +69,7 @@
  *
  *  @return NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion;
+- (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 
 
 - (void)fetchWithCompletion:(SCCompletionBlock)completion;

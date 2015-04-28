@@ -32,21 +32,20 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
     
     NSDictionary *relations = [self relationsForClass:objectClass];
-    /**
-     *  TODO: Here we are waiting relation base od repsonse object info  {"type":"reference","class":"test","value":"12334"}
-     */
     for (NSString *relationKeyProperty in relations.allKeys) {
         SCClassRegisterItem *relationRegisteredItem = relations[relationKeyProperty];
         Class relatedClass = NSClassFromString(relationRegisteredItem.className);
         id relatedObject = [[relatedClass alloc] init];
-        [relatedObject setValue:JSONObject[relationKeyProperty] forKey:@"objectId"];
-        SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
+        NSNumber *relatedObjectId = JSONObject[relationKeyProperty][@"value"];
+        if (relatedObjectId) {
+            [relatedObject setValue:relatedObjectId forKey:@"objectId"];
+            SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
+        }
     }
     return parsedobject;
 }
 
 - (NSArray *)parsedObjectsOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)responseObject {
-    
     NSArray *responseObjects = responseObject;
     NSMutableArray *parsedObjects = [[NSMutableArray alloc] initWithCapacity:responseObjects.count];
     for (NSDictionary *object in responseObjects) {
@@ -56,24 +55,39 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
 }
 
 - (void)updateObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject {
-    NSError *error;
-    
-    id newParedObject = [MTLJSONAdapter modelOfClass:[object class] fromJSONDictionary:responseObject error:&error];
-    [object mergeValuesForKeysFromModel:newParedObject];
+    id newParsedObject = [self parsedObjectOfClass:[object class] fromJSONObject:responseObject];
+    [object mergeValuesForKeysFromModel:newParsedObject];
 }
 
-- (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject {
+- (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject error:(NSError *__autoreleasing *)error {
     NSDictionary *serialized = [MTLJSONAdapter JSONDictionaryFromModel:dataObject];
+    /**
+     *  Temporary remove non saved relations
+     */
+    NSDictionary *relations = [self relationsForClass:[dataObject class]];
+    if (relations.count > 0) {
+        NSMutableDictionary *mutableSerialized = serialized.mutableCopy;
+        for (NSString *relationProperty in relations.allKeys) {
+            id relatedObject = [dataObject valueForKey:relationProperty];
+            NSNumber *objectId = [relatedObject valueForKey:@"objectId"];
+            if (objectId) {
+                [mutableSerialized setObject:objectId forKey:relationProperty];
+            } else {
+                if (error != NULL) {
+                    NSDictionary *userInfo = @{
+                                               NSLocalizedDescriptionKey: NSLocalizedString(@"Unsaved relation", @""),
+                                               NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You can not add reference for unsaved object",@""),
+                                               };
+                    *error = [NSError errorWithDomain:@"SCParseManagerErrorDomain" code:1 userInfo:userInfo];
+                }
+                [mutableSerialized removeObjectForKey:relationProperty];
+            }
+        }
+        serialized = mutableSerialized;
+    }
     return serialized;
 }
 
-/**
- *  Returns relations for provided class
- *
- *  @param class provided class
- *
- *  @return NSDictionary with property name as 'key' and SCClassRegisterItem as 'value' or empty NSDictionary if there are no relations
- */
 - (NSDictionary *)relationsForClass:(__unsafe_unretained Class)class {
     SCClassRegisterItem *registerForClass = [self registerItemForClass:class];
     NSMutableDictionary *relations = [NSMutableDictionary new];

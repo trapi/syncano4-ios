@@ -66,7 +66,7 @@ extern NSString *const SCPleaseParameterIncludeKeys;
  *
  *  @param completion completion block
  */
-- (void)giveMeDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+- (void)giveMeDataObjectsWithCompletion:(SCDataObjectsCompletionBlock)completion;
 
 /**
  *  Create and run API request for object with query parameters
@@ -74,7 +74,7 @@ extern NSString *const SCPleaseParameterIncludeKeys;
  *  @param parameters NSDictionary with query params
  *  @param completion completion block
  */
-- (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion;
+- (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCDataObjectsCompletionBlock)completion;
 
 /**
  *  Create and run API request for object with predicate for query and with parameters
@@ -83,10 +83,10 @@ extern NSString *const SCPleaseParameterIncludeKeys;
  *  @param parameters NSDictionary with query params
  *  @param completion completion block
  */
-- (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate parameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion;
+- (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate parameters:(NSDictionary *)parameters completion:(SCDataObjectsCompletionBlock)completion;
 
-- (void)giveMeNextPageOfDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
-- (void)giveMePreviousPageOfDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion;
+- (void)giveMeNextPageOfDataObjectsWithCompletion:(SCDataObjectsCompletionBlock)completion;
+- (void)giveMePreviousPageOfDataObjectsWithCompletion:(SCDataObjectsCompletionBlock)completion;
 
 
 @end

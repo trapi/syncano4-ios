@@ -106,13 +106,13 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
     completion([NSDictionary dictionaryWithDictionary:queryParameters],includeKeys);
 }
 
-- (void)giveMeDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)giveMeDataObjectsWithCompletion:(SCDataObjectsCompletionBlock)completion {
     self.parameters = nil;
     self.predicate = nil;
     [self getDataObjectFromAPIWithCompletion:completion];
 }
 
-- (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)giveMeDataObjectsWithParameters:(NSDictionary *)parameters completion:(SCDataObjectsCompletionBlock)completion {
     self.parameters = parameters;
     self.predicate = nil;
     [self getDataObjectFromAPIWithCompletion:completion];
@@ -120,13 +120,13 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
 
 - (void)giveMeDataObjectsWithPredicate:(SCPredicate *)predicate
                             parameters:(NSDictionary *)parameters
-                            completion:(SCGetDataObjectsCompletionBlock)completion {
+                            completion:(SCDataObjectsCompletionBlock)completion {
     self.parameters = parameters;
     self.predicate = predicate;
     [self getDataObjectFromAPIWithCompletion:completion];
 }
 
-- (void)handleResponse:(id)responseObject error:(NSError *)error completion:(SCGetDataObjectsCompletionBlock)completion includeKeys:(NSArray *)includeKeys {
+- (void)handleResponse:(id)responseObject error:(NSError *)error completion:(SCDataObjectsCompletionBlock)completion includeKeys:(NSArray *)includeKeys {
     if (responseObject[@"prev"]) {
         self.previousUrlString = responseObject[@"prev"];
     }
@@ -147,7 +147,7 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
     }
 }
 
-- (void)getDataObjectFromAPIWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)getDataObjectFromAPIWithCompletion:(SCDataObjectsCompletionBlock)completion {
     self.previousUrlString = nil;
     self.nextUrlString = nil;
     self.includeKeys = nil;
@@ -160,7 +160,7 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
 
 }
 
-- (void)giveMeNextPageOfDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)giveMeNextPageOfDataObjectsWithCompletion:(SCDataObjectsCompletionBlock)completion {
     if (self.nextUrlString) {
         [[self apiClient] GET:self.nextUrlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             [self handleResponse:responseObject error:nil completion:completion includeKeys:self.includeKeys];
@@ -173,7 +173,7 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
     }
 }
 
-- (void)giveMePreviousPageOfDataObjectsWithCompletion:(SCGetDataObjectsCompletionBlock)completion {
+- (void)giveMePreviousPageOfDataObjectsWithCompletion:(SCDataObjectsCompletionBlock)completion {
     if (self.previousUrlString) {
         [[self apiClient] GET:self.previousUrlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             [self handleResponse:responseObject error:nil completion:completion includeKeys:self.includeKeys];
@@ -193,11 +193,11 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
             if ([object respondsToSelector:NSSelectorFromString(includeKey)]) {
                 id relatedObject = [object valueForKey:includeKey];
                 if (self.syncano && [relatedObject respondsToSelector:@selector(fetchFromSyncano:completion:)]) {
-                    [relatedObject fetchFromSyncano:self.syncano completion:^(BOOL success) {
+                    [relatedObject fetchFromSyncano:self.syncano completion:^(NSError *error) {
                         dispatch_group_leave(fetchGroup);
                     }];
                 } else if ([relatedObject respondsToSelector:@selector(fetchWithCompletion:)]) {
-                    [relatedObject fetchWithCompletion:^(BOOL success) {
+                    [relatedObject fetchWithCompletion:^(NSError *error) {
                         dispatch_group_leave(fetchGroup);
                     }];
                 } else {

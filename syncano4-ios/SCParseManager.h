@@ -76,7 +76,7 @@ SINGLETON_FOR_CLASS(SCParseManager);
  *
  *  @return JSON representation of SCDataObject
  */
-- (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject;
+- (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject error:(NSError **)error;
 
 /**
  *  Registers class for subclassing
@@ -93,5 +93,14 @@ SINGLETON_FOR_CLASS(SCParseManager);
  *  @return SCClassRegisterItem for provided class or nil
  */
 - (SCClassRegisterItem *)registerItemForClass:(__unsafe_unretained Class)registeredClass;
+
+/**
+ *  Returns relations for provided class
+ *
+ *  @param class provided class
+ *
+ *  @return NSDictionary with property name as 'key' and SCClassRegisterItem as 'value' or empty NSDictionary if there are no relations
+ */
+- (NSDictionary *)relationsForClass:(__unsafe_unretained Class)class;
 
 @end

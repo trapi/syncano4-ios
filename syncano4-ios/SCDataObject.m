@@ -48,7 +48,12 @@
     if (self.links[@"self"]) {
         return self.links[@"self"];
     }
-    NSString *path = [NSString stringWithFormat:@"classes/%@/objects/%@/",[[self class] classNameForAPI],self.objectId];
+    NSString *path;
+    if (self.objectId) {
+        path = [NSString stringWithFormat:@"classes/%@/objects/%@/",[[self class] classNameForAPI],self.objectId];
+    } else {
+        path = [NSString stringWithFormat:@"classes/%@/objects/",[[self class] classNameForAPI]];
+    }
     return path;
 }
 
@@ -61,22 +66,50 @@
 }
 
 - (void)fetchUsingAPIClient:(SCAPIClient *)apiClient completion:(SCCompletionBlock)completion {
-    //TODO: fill object with new data after fetch
     [apiClient getDataObjectsFromClassName:[[self class] classNameForAPI] withId:self.objectId completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
-        completion(YES);
+        completion(error);
     }];
 }
 
-- (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCAPICompletionBlock)completion {
-    return [[Syncano sharedAPIClient] postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-        completion(task,responseObject,error);
-    }];
+- (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCCompletionBlock)completion {
+    return [self saveInBackgroundUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
 }
 
-- (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCAPICompletionBlock)completion {
-    return [syncano.apiClient postTaskWithPath:[self pathForObject] params:[MTLJSONAdapter JSONDictionaryFromModel:self]  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-        completion(task,responseObject,error);
-    }];
+- (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+    return [self saveInBackgroundUsingAPIClient:syncano.apiClient withCompletion:completion];
 }
+
+- (NSURLSessionDataTask *)saveInBackgroundUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+        NSError *error;
+        NSDictionary *params = [[SCParseManager sharedSCParseManager] JSONSerializedDictionaryFromDataObject:self error:&error];
+        if (error) {
+            completion(error);
+            return nil;
+        } else {
+            return [apiClient postTaskWithPath:[self pathForObject] params:params  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+                [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
+                completion(error);
+            }];
+        }
+}
+
+//- (NSURLSessionDataTask *)saveInBackgroundUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+//    NSDictionary *relations = [[SCParseManager sharedSCParseManager] relationsForClass:[self class]];
+//    if (relations.count > 0) {
+//        return
+//    } else {
+//        NSError *error;
+//        NSDictionary *params = [[SCParseManager sharedSCParseManager] JSONSerializedDictionaryFromDataObject:self error:&error];
+//        if (error) {
+//            completion(error);
+//            return nil;
+//        } else {
+//            return [apiClient postTaskWithPath:[self pathForObject] params:params  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+//                [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
+//                completion(error);
+//            }];
+//        }
+//    }
+//}
 @end
