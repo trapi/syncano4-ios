@@ -27,7 +27,6 @@
 SINGLETON_IMPL_FOR_CLASS(SCParseManager)
 
 - (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)JSONObject {
-    
     NSError *error;
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
     

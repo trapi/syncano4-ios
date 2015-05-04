@@ -72,44 +72,52 @@
     }];
 }
 
-- (NSURLSessionDataTask *)saveInBackgroundWithCompletionBlock:(SCCompletionBlock)completion {
-    return [self saveInBackgroundUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+- (void)saveInBackgroundWithCompletionBlock:(SCCompletionBlock)completion {
+    [self saveInBackgroundUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
 }
 
-- (NSURLSessionDataTask *)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
-    return [self saveInBackgroundUsingAPIClient:syncano.apiClient withCompletion:completion];
+- (void)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+    [self saveInBackgroundUsingAPIClient:syncano.apiClient withCompletion:completion];
 }
 
-- (NSURLSessionDataTask *)saveInBackgroundUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+- (void)saveInBackgroundUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+    [self handleRelationsSaveUsingAPIClient:apiClient withCompletion:^() {
         NSError *error;
         NSDictionary *params = [[SCParseManager sharedSCParseManager] JSONSerializedDictionaryFromDataObject:self error:&error];
         if (error) {
             completion(error);
-            return nil;
+            
         } else {
-            return [apiClient postTaskWithPath:[self pathForObject] params:params  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+            [apiClient postTaskWithPath:[self pathForObject] params:params  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
                 [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
                 completion(error);
             }];
         }
+
+    }];
 }
 
-//- (NSURLSessionDataTask *)saveInBackgroundUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
-//    NSDictionary *relations = [[SCParseManager sharedSCParseManager] relationsForClass:[self class]];
-//    if (relations.count > 0) {
-//        return
-//    } else {
-//        NSError *error;
-//        NSDictionary *params = [[SCParseManager sharedSCParseManager] JSONSerializedDictionaryFromDataObject:self error:&error];
-//        if (error) {
-//            completion(error);
-//            return nil;
-//        } else {
-//            return [apiClient postTaskWithPath:[self pathForObject] params:params  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-//                [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
-//                completion(error);
-//            }];
-//        }
-//    }
-//}
+- (void)handleRelationsSaveUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(void(^)())completion {
+    NSDictionary *relations = [[SCParseManager sharedSCParseManager] relationsForClass:[self class]];
+    if (relations.count > 0) {
+        dispatch_group_t relationSaveGroup = dispatch_group_create();
+        for (NSString *propertyName in relations.allKeys) {
+            SCDataObject *relatedObject = [self valueForKey:propertyName];
+            if ([relatedObject isKindOfClass:[SCDataObject class]]) {
+                if (!relatedObject.objectId) {
+                    dispatch_group_enter(relationSaveGroup);
+                    [relatedObject saveInBackgroundUsingAPIClient:apiClient withCompletion:^(NSError *error) {
+                        [self setValue:relatedObject forKey:propertyName];
+                        dispatch_group_leave(relationSaveGroup);
+                    }];
+                }
+            }
+        }
+        dispatch_group_notify(relationSaveGroup, dispatch_get_main_queue(), ^{
+            completion();
+        });
+    } else {
+        completion();
+    }
+}
 @end
