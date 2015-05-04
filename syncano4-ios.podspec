@@ -8,7 +8,9 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.author       = 'Syncano Inc.'
 
-  s.platform     = :ios, '7.0'
+  s.ios.deployment_target = "6.0"
+  s.osx.deployment_target = "10.8"
+
   s.requires_arc = true
 
   s.source = { :git => 'https://github.com/Syncano/syncano4-ios.git'}
@@ -16,7 +18,7 @@ Pod::Spec.new do |s|
   s.source_files = 'syncano4-ios/**/*.{h,m,pch}'
   s.public_header_files = 'syncano4-ios/**/*.h'
 
-  s.dependency 'AFNetworking', '~> 2.2.1'
-  s.dependency 'Mantle', '~> 1.5'
+  s.dependency 'AFNetworking', '~> 2.5'
+  s.dependency 'Mantle', '~> 2.0'
 
 end
