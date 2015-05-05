@@ -55,7 +55,7 @@ SINGLETON_IMPL_FOR_CLASS(SCParseManager)
 
 - (void)updateObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject {
     /**
-     *  Here we have to figure out which attributes needs to be updated after saving object to API i think that only these from main SCObjectClass
+     *  Here we have to figure out which attributes needs to be updated after saving object to API i think that only these from main SCDataObject class
      */
     object.objectId = responseObject[@"id"];
     object.created_at = responseObject[@"created_at"];
