@@ -69,7 +69,21 @@
  */
 - (void)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 
-
+/**
+ *  Fetches object from API using singleton Syncano instance
+ *
+ *  @param completion comletion block
+ */
 - (void)fetchWithCompletion:(SCCompletionBlock)completion;
+
+/**
+ *  Fetches object from API using provided Syncano instance
+ *
+ *  @param syncano    provided Syncano instance
+ *  @param completion completion block
+ */
 - (void)fetchFromSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
+
+- (void)deleteWithCompletion:(SCCompletionBlock)completion;
+- (void)deleteFromSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
 @end

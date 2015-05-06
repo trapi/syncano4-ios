@@ -103,7 +103,9 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
     if (predicate) {
         [queryParameters  addEntriesFromDictionary:@{@"query" : [predicate queryRepresentation]}];
     }
-    completion([NSDictionary dictionaryWithDictionary:queryParameters],includeKeys);
+    if (completion) {
+        completion([NSDictionary dictionaryWithDictionary:queryParameters],includeKeys);
+    }
 }
 
 - (void)giveMeDataObjectsWithCompletion:(SCDataObjectsCompletionBlock)completion {
@@ -137,13 +139,19 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
         NSArray *parsedObjects = [[SCParseManager sharedSCParseManager] parsedObjectsOfClass:self.dataObjectClass fromJSONObject:responseObject[@"objects"]];
         if (includeKeys.count > 0) {
             [self handleIncludesForObjects:parsedObjects includeKeys:includeKeys completion:^(NSArray *objects, NSError *error) {
-                completion(objects,nil);
+                if (completion) {
+                    completion(objects,nil);
+                }
             }];
         } else {
-            completion(parsedObjects,nil);
+            if (completion) {
+                completion(parsedObjects,nil);
+            }
         }
     } else {
-        completion(nil,error);
+        if (completion) {
+            completion(nil,error);
+        }
     }
 }
 
@@ -165,11 +173,15 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
         [[self apiClient] GET:self.nextUrlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             [self handleResponse:responseObject error:nil completion:completion includeKeys:self.includeKeys];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            completion(nil,error);
+            if (completion) {
+                completion(nil,error);
+            }
         }];
     } else {
         //TODO: handle with error
-        completion(nil,nil);
+        if (completion) {
+            completion(nil,nil);
+        }
     }
 }
 
@@ -178,15 +190,19 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
         [[self apiClient] GET:self.previousUrlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             [self handleResponse:responseObject error:nil completion:completion includeKeys:self.includeKeys];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            completion(nil,error);
+            if (completion) {
+                completion(nil,error);
+            }
         }];
     } else {
         //TODO: handle with error
-        completion(nil,nil);
+        if (completion) {
+            completion(nil,nil);
+        }
     }
 }
 - (void)handleIncludesForObjects:(NSArray *)objects includeKeys:(NSArray *)includeKeys completion:(SCDataObjectsCompletionBlock)completion {
-    dispatch_group_t fetchGroup = dispatch_group_create(); // 2
+    dispatch_group_t fetchGroup = dispatch_group_create();
     for (id object in objects) {
         for (NSString *includeKey in includeKeys) {
             dispatch_group_enter(fetchGroup);
@@ -211,7 +227,7 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
             }
         }
     }
-    dispatch_group_notify(fetchGroup, dispatch_get_main_queue(), ^{ // 4
+    dispatch_group_notify(fetchGroup, dispatch_get_main_queue(), ^{
         if (completion) {
             completion(objects,nil);
         }

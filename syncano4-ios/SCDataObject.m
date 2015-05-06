@@ -68,7 +68,9 @@
 - (void)fetchUsingAPIClient:(SCAPIClient *)apiClient completion:(SCCompletionBlock)completion {
     [apiClient getDataObjectsFromClassName:[[self class] classNameForAPI] withId:self.objectId completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
-        completion(error);
+        if (completion) {
+            completion(error);
+        }
     }];
 }
 
@@ -81,23 +83,46 @@
 }
 
 - (void)saveInBackgroundUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
-    [self handleRelationsSaveUsingAPIClient:apiClient withCompletion:^() {
-        NSError *error;
-        NSDictionary *params = [[SCParseManager sharedSCParseManager] JSONSerializedDictionaryFromDataObject:self error:&error];
+    [self handleRelationsSaveUsingAPIClient:apiClient withCompletion:^(NSError *error) {
         if (error) {
-            completion(error);
-            
-        } else {
-            [apiClient postTaskWithPath:[self pathForObject] params:params  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-                [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
+            if (completion) {
                 completion(error);
-            }];
+            }
+        } else {
+            NSDictionary *params = [[SCParseManager sharedSCParseManager] JSONSerializedDictionaryFromDataObject:self error:&error];
+            if (error) {
+                if (completion) {
+                    completion(error);
+                }
+            } else {
+                [apiClient postTaskWithPath:[self pathForObject] params:params  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+                    [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
+                    if (completion) {
+                        completion(error);
+                    }
+                }];
+            }
         }
-
     }];
 }
 
-- (void)handleRelationsSaveUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(void(^)())completion {
+- (void)deleteWithCompletion:(SCCompletionBlock)completion {
+    [self deleteUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+}
+
+- (void)deleteFromSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion {
+    [self deleteUsingAPIClient:syncano.apiClient withCompletion:completion];
+}
+
+- (void)deleteUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+    [apiClient deleteTaskWithPath:[self pathForObject] params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        if (completion) {
+            completion(error);
+        }
+    }];
+}
+
+- (void)handleRelationsSaveUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
     NSDictionary *relations = [[SCParseManager sharedSCParseManager] relationsForClass:[self class]];
     if (relations.count > 0) {
         dispatch_group_t relationSaveGroup = dispatch_group_create();
@@ -107,17 +132,29 @@
                 if (!relatedObject.objectId) {
                     dispatch_group_enter(relationSaveGroup);
                     [relatedObject saveInBackgroundUsingAPIClient:apiClient withCompletion:^(NSError *error) {
-                        [self setValue:relatedObject forKey:propertyName];
                         dispatch_group_leave(relationSaveGroup);
                     }];
+                }
+            } else {
+                NSDictionary *userInfo = @{
+                                           NSLocalizedDescriptionKey: NSLocalizedString(@"Related object have to be sublass of SCDataObject", @""),
+                                           NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You can not add reference of non SCDataObject subclass object",@""),
+                                           };
+                NSError *error = [NSError errorWithDomain:@"SCDataObjectErrorDomain" code:1 userInfo:userInfo];
+                if (completion) {
+                    completion(error);
                 }
             }
         }
         dispatch_group_notify(relationSaveGroup, dispatch_get_main_queue(), ^{
-            completion();
+            if (completion) {
+                completion(nil);
+            }
         });
     } else {
-        completion();
+        if (completion) {
+            completion(nil);
+        }
     }
 }
 @end
