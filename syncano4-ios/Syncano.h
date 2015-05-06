@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCMacros.h"
+#import "SCPlease.h"
+#import "SCDataObject.h"
+#import "SCPredicate.h"
+#import "SCParseManager.h"
 #import "SCAPIClient.h"
 
 @class SCAPIClient;
