@@ -7,7 +7,7 @@
 //
 
 #import "Kiwi.h"
-#import "SCPredicate.h"
+#import "Syncano.h"
 
 SPEC_BEGIN(SCPredicateSpec)
 describe(@"SCpredicate", ^{

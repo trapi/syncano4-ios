@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SCMacros.h"
+#import "SCConstants.h"
 #import "SCPlease.h"
 #import "SCDataObject.h"
 #import "SCPredicate.h"

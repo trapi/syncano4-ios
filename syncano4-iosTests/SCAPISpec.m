@@ -7,10 +7,7 @@
 //
 
 #import "Kiwi.h"
-#import "SCMacros.h"
-#import "SCConstants.h"
 #import "Syncano.h"
-#import "SCAPIClient.h"
 
 
 SPEC_BEGIN(SCAPISpec)

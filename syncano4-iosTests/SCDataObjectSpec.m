@@ -7,9 +7,6 @@
 //
 
 #import "Kiwi.h"
-#import "SCPlease.h"
-#import "SCMacros.h"
-#import "SCConstants.h"
 #import "Syncano.h"
 #import "Book.h"
 
