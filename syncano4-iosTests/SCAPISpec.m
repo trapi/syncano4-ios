@@ -21,7 +21,7 @@ describe(@"SCAPI", ^{
         [Syncano testInstance];
     });
     it(@"sending authenticated GET classes request", ^{
-        __block NSError *_error = [NSError new];
+        __block NSError *_error;
         SCAPIClient *apiClient = [Syncano sharedAPIClient];
         [apiClient getTaskWithPath:@"classes/" params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
             _error = error;
