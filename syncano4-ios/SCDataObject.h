@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
-#import  "SCConstants.h"
+#import "SCConstants.h"
 #import "SCDataObjectAPISubclass.h"
 
 @class Syncano;

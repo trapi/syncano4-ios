@@ -19,6 +19,10 @@
 		119991641AC446E4007B994C /* Syncano.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 119991631AC446E4007B994C /* Syncano.h */; };
 		119991661AC446E4007B994C /* Syncano.m in Sources */ = {isa = PBXBuildFile; fileRef = 119991651AC446E4007B994C /* Syncano.m */; };
 		1199916C1AC446E4007B994C /* libsyncano4-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 119991601AC446E4007B994C /* libsyncano4-ios.a */; };
+		119A93571AFA4238001ADA7C /* SCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 119A93561AFA4238001ADA7C /* SCUser.m */; };
+		119A935D1AFB88A5001ADA7C /* SCUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 119A935C1AFB88A5001ADA7C /* SCUserProfile.m */; };
+		119A93631AFB8D6E001ADA7C /* SCParseManager+SCDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 119A93621AFB8D6E001ADA7C /* SCParseManager+SCDataObject.m */; };
+		119A93661AFB911E001ADA7C /* SCParseManager+SCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 119A93651AFB911E001ADA7C /* SCParseManager+SCUser.m */; };
 		11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */; };
 		11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */; };
 		11BE43DB1AC5532200FE96C5 /* SCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43DA1AC5532200FE96C5 /* SCAPIClient.m */; };
@@ -72,6 +76,14 @@
 		119991651AC446E4007B994C /* Syncano.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Syncano.m; sourceTree = "<group>"; };
 		1199916B1AC446E4007B994C /* syncano4-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "syncano4-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		119991711AC446E4007B994C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		119A93551AFA4238001ADA7C /* SCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUser.h; sourceTree = "<group>"; };
+		119A93561AFA4238001ADA7C /* SCUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUser.m; sourceTree = "<group>"; };
+		119A935B1AFB88A5001ADA7C /* SCUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUserProfile.h; sourceTree = "<group>"; };
+		119A935C1AFB88A5001ADA7C /* SCUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUserProfile.m; sourceTree = "<group>"; };
+		119A93611AFB8D6E001ADA7C /* SCParseManager+SCDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCParseManager+SCDataObject.h"; sourceTree = "<group>"; };
+		119A93621AFB8D6E001ADA7C /* SCParseManager+SCDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCParseManager+SCDataObject.m"; sourceTree = "<group>"; };
+		119A93641AFB911E001ADA7C /* SCParseManager+SCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCParseManager+SCUser.h"; sourceTree = "<group>"; };
+		119A93651AFB911E001ADA7C /* SCParseManager+SCUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCParseManager+SCUser.m"; sourceTree = "<group>"; };
 		11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAPISpec.m; sourceTree = "<group>"; };
 		11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncanoSpec.m; sourceTree = "<group>"; };
 		11BE43D91AC5532200FE96C5 /* SCAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAPIClient.h; sourceTree = "<group>"; };
@@ -119,6 +131,10 @@
 			children = (
 				118426891AC983A1001035A7 /* SCParseManager.h */,
 				1184268A1AC983A1001035A7 /* SCParseManager.m */,
+				119A93611AFB8D6E001ADA7C /* SCParseManager+SCDataObject.h */,
+				119A93621AFB8D6E001ADA7C /* SCParseManager+SCDataObject.m */,
+				119A93641AFB911E001ADA7C /* SCParseManager+SCUser.h */,
+				119A93651AFB911E001ADA7C /* SCParseManager+SCUser.m */,
 			);
 			name = ParseManager;
 			sourceTree = "<group>";
@@ -191,6 +207,10 @@
 				11BE43E71AC57AC600FE96C5 /* SCPlease.m */,
 				11487E451ADE94D200627EFD /* SCPredicate.h */,
 				11487E461ADE94D200627EFD /* SCPredicate.m */,
+				119A93551AFA4238001ADA7C /* SCUser.h */,
+				119A93561AFA4238001ADA7C /* SCUser.m */,
+				119A935B1AFB88A5001ADA7C /* SCUserProfile.h */,
+				119A935C1AFB88A5001ADA7C /* SCUserProfile.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -393,12 +413,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				119A93571AFA4238001ADA7C /* SCUser.m in Sources */,
 				11487E471ADE94D200627EFD /* SCPredicate.m in Sources */,
+				119A93631AFB8D6E001ADA7C /* SCParseManager+SCDataObject.m in Sources */,
 				1109EF5D1ACD257300BD18A6 /* SCAPIClient+SCDataObject.m in Sources */,
 				11BE43E81AC57AC600FE96C5 /* SCPlease.m in Sources */,
 				11BE43E01AC55BCA00FE96C5 /* SCDataObject.m in Sources */,
 				119991661AC446E4007B994C /* Syncano.m in Sources */,
+				119A93661AFB911E001ADA7C /* SCParseManager+SCUser.m in Sources */,
 				11BE43DB1AC5532200FE96C5 /* SCAPIClient.m in Sources */,
+				119A935D1AFB88A5001ADA7C /* SCUserProfile.m in Sources */,
 				1184268B1AC983A1001035A7 /* SCParseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

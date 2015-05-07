@@ -13,6 +13,8 @@
 #import "SCDataObject.h"
 #import "SCPredicate.h"
 #import "SCParseManager.h"
+#import "SCParseManager+SCDataObject.h"
+#import "SCParseManager+SCUser.h"
 #import "SCAPIClient.h"
 
 @class SCAPIClient;
