@@ -7,7 +7,8 @@
 //
 
 #import "SCParseManager.h"
+@class SCUser;
 
 @interface SCParseManager (SCUser)
-
+- (SCUser *)parsedUserObjectFromJSONObject:(id)JSONObject;
 @end

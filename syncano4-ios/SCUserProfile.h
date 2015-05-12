@@ -7,11 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCDataObject.h"
 
-@interface SCUserProfile : NSObject
-@property (nonatomic,retain) NSNumber *profileId;
-@property (nonatomic,retain) NSDate *created_at;
-@property (nonatomic,retain) NSDate *updated_at;
-@property (nonatomic,retain) NSNumber *revision;
+@interface SCUserProfile : SCDataObject
 @property (nonatomic,retain) NSNumber *owner;
 @end

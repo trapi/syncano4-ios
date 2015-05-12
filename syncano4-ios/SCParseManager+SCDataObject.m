@@ -32,10 +32,12 @@
         SCClassRegisterItem *relationRegisteredItem = relations[relationKeyProperty];
         Class relatedClass = NSClassFromString(relationRegisteredItem.className);
         id relatedObject = [[relatedClass alloc] init];
-        NSNumber *relatedObjectId = JSONObject[relationKeyProperty][@"value"];
-        if (relatedObjectId) {
-            [relatedObject setValue:relatedObjectId forKey:@"objectId"];
-            SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
+        if (JSONObject[relationKeyProperty] != [NSNull null]) {
+            NSNumber *relatedObjectId = JSONObject[relationKeyProperty][@"value"];
+            if (relatedObjectId) {
+                [relatedObject setValue:relatedObjectId forKey:@"objectId"];
+                SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
+            }
         }
     }
     return parsedobject;
@@ -52,7 +54,7 @@
 
 - (void)updateObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject {
     /**
-     *  Here we have to figure out which attributes needs to be updated after saving object to API i think that only these from main SCDataObject class
+     *  TODO: Here we have to figure out which attributes needs to be updated after saving object to API i think that only these from main SCDataObject class
      */
     object.objectId = responseObject[@"id"];
     object.created_at = responseObject[@"created_at"];
@@ -65,7 +67,7 @@
 }
 
 - (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject error:(NSError *__autoreleasing *)error {
-    NSDictionary *serialized = [MTLJSONAdapter JSONDictionaryFromModel:dataObject];
+    NSDictionary *serialized = [MTLJSONAdapter JSONDictionaryFromModel:dataObject error:nil];
     /**
      *  Temporary remove non saved relations
      */

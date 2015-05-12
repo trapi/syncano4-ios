@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SCUserProfile.h"
 
-@interface SCUser : NSObject
+@interface SCUser : MTLModel
 @property (nonatomic,retain) NSNumber *userId;
 @property (nonatomic,retain) NSString *username;
 @property (nonatomic,retain) NSString *userKey;

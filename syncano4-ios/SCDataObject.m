@@ -17,13 +17,15 @@
 @implementation SCDataObject
 
 + (NSString *)classNameForAPI {
-    return @"DataObject";
+    return nil;
 }
 
 //This is Mantle method we have to prevent form invoking it form child classes of SCDataObject
 +(NSDictionary *)JSONKeyPathsByPropertyKey {
+    NSDictionary *automaticMapping = [NSDictionary mtl_identityPropertyMapWithModel:[self class]];
     NSDictionary *commonKeysMap = @{@"objectId":@"id"};
-    return [commonKeysMap mtl_dictionaryByAddingEntriesFromDictionary:[self extendedPropertiesMapping]];
+    NSDictionary *map = [automaticMapping mtl_dictionaryByAddingEntriesFromDictionary:commonKeysMap];
+    return [map mtl_dictionaryByAddingEntriesFromDictionary:[self extendedPropertiesMapping]];
 }
 
 + (NSDictionary *)extendedPropertiesMapping {
