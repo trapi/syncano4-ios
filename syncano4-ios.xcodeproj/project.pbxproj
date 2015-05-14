@@ -66,7 +66,6 @@
 		1109EF611ACD2E2100BD18A6 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		1109EF621ACD2E2100BD18A6 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		1109EF641ACD2F5700BD18A6 /* SCBookDataObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBookDataObjectSpec.m; sourceTree = "<group>"; };
-		113803E71AD5665B008D15DF /* SCDataObjectAPISubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDataObjectAPISubclass.h; sourceTree = "<group>"; };
 		113C36A31B0224EF008723EC /* NSObject+SCParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SCParseHelper.h"; sourceTree = "<group>"; };
 		113C36A41B0224EF008723EC /* NSObject+SCParseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SCParseHelper.m"; sourceTree = "<group>"; };
 		11487E451ADE94D200627EFD /* SCPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPredicate.h; sourceTree = "<group>"; };
@@ -205,7 +204,6 @@
 		11BE43D61AC552B000FE96C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				113803E71AD5665B008D15DF /* SCDataObjectAPISubclass.h */,
 				11BE43DE1AC55BCA00FE96C5 /* SCDataObject.h */,
 				11BE43DF1AC55BCA00FE96C5 /* SCDataObject.m */,
 				11BE43E61AC57AC600FE96C5 /* SCPlease.h */,

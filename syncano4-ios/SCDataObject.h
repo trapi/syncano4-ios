@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <Mantle.h>
 #import "SCConstants.h"
-#import "SCDataObjectAPISubclass.h"
 
 @class Syncano;
 @class SCPlease;
@@ -23,6 +22,20 @@
 @property (nonatomic,copy) NSDate *updated_at;
 @property (nonatomic,copy) NSNumber *revision;
 @property (nonatomic,copy) NSDictionary *links;
+
+/**
+ *  Returns class name used in Syncano API, by default this method converts object Class name to lower case string
+ *
+ *  @return string with API class name
+ */
++ (NSString *)classNameForAPI;
+
+/**
+ *  Return custom property mapping between iOS class an API class
+ *
+ *  @return NSDictionary with 'key' of iOS class property name and 'value' with coresponding API class name
+ */
++ (NSDictionary *)extendedPropertiesMapping;
 
 /**
  *  Returns SCPlease instance for singleton Syncano
@@ -39,13 +52,6 @@
  *  @return SCPlease instance
  */
 + (SCPlease *)pleaseFromSyncano:(Syncano *)syncano;
-
-/**
- *  Return custom property mapping between iOS class an API class
- *
- *  @return NSDictionary with 'key' of iOS class property name and 'value' with coresponding API class name
- */
-+ (NSDictionary *)extendedPropertiesMapping;
 
 /**
  *  Registers class in SCParseManager for proper model parsing.
@@ -86,4 +92,5 @@
 
 - (void)deleteWithCompletion:(SCCompletionBlock)completion;
 - (void)deleteFromSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
+
 @end

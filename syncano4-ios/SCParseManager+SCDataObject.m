@@ -109,7 +109,6 @@
 }
 
 - (void)registerClass:(__unsafe_unretained Class)classToRegister {
-    NSAssert([classToRegister conformsToProtocol:@protocol(SCDataObjectAPISubclass)], @"Class must conforms to SCDataObjectAPISubclass protocol");
     if ([classToRegister respondsToSelector:@selector(propertyKeys)]) {
         if (!self.registeredClasses) {
             self.registeredClasses = [NSMutableArray new];

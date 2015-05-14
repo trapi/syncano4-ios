@@ -10,9 +10,9 @@
 #import "Syncano.h"
 #import "SCAPIClient+SCDataObject.h"
 #import "SCParseManager.h"
-#import "SCDataObjectAPISubclass.h"
 #import "SCPredicate.h"
 #import "SCDataObject.h"
+#import "SCUser.h"
 
 NSString *const SCPleaseParameterFields = @"fields";
 NSString *const SCPleaseParameterExcludedFields = @"exclude_fields";
@@ -61,9 +61,7 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
     self = [super init];
     if (self) {
         self.dataObjectClass = dataObjectClass;
-        if ([dataObjectClass conformsToProtocol:@protocol(SCDataObjectAPISubclass)]) {
-            self.classNameForAPICalls = [dataObjectClass classNameForAPI];
-        }
+        self.classNameForAPICalls = [dataObjectClass classNameForAPI];
     }
     return self;
 }
@@ -79,6 +77,19 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
     return please;
 }
 
++ (SCPlease *)pleaseInstanceForUserClass {
+    return [self pleaseInstanceForUserClassForSyncano:nil];
+}
+
++ (SCPlease *)pleaseInstanceForUserClassForSyncano:(Syncano *)syncano {
+    SCPlease *please = [[SCPlease alloc] init];
+    please.dataObjectClass = [SCUser class];
+    please.classNameForAPICalls = @"users";
+    if (syncano) {
+        please.syncano = syncano;
+    }
+    return please;
+}
 /**
  *  Returns proper API Client
  *

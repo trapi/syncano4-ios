@@ -7,7 +7,7 @@
 //
 #import "SCDataObject.h"
 
-@interface Author : SCDataObject <SCDataObjectAPISubclass>
+@interface Author : SCDataObject
 @property (nonatomic,copy) NSString *firstname;
 @property (nonatomic,copy) NSString *secondname;
 @end

@@ -23,7 +23,7 @@ describe(@"SCDataObject", ^{
     it(@"should merge keys", ^{
         SCDataObject *dataObjectMock = [SCDataObject new];
         dataObjectMock.objectId = @1222;
-        NSDictionary *serializedObject = [MTLJSONAdapter JSONDictionaryFromModel:dataObjectMock];
+        NSDictionary *serializedObject = [MTLJSONAdapter JSONDictionaryFromModel:dataObjectMock error:nil];
         [[serializedObject[@"id"] should] equal:@1222];
     });
     it(@"should create object from JSON NSDictionary", ^{

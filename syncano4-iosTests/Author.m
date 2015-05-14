@@ -10,8 +10,6 @@
 
 @implementation Author
 //TODO: execute test
-+ (NSString *)classNameForAPI {
-    return @"author";
-}
+
 
 @end

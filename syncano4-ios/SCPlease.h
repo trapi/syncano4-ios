@@ -60,6 +60,25 @@ extern NSString *const SCPleaseParameterIncludeKeys;
  */
 + (SCPlease *)pleaseInstanceForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano;
 
+/**
+ *  Creates a new SCPlease object for provided class for singleton Syncano instance.
+ *
+ *  @param dataObjectClass SCDataObject scope class
+ *
+ *  @return SCPlease object
+ */
++ (SCPlease *)pleaseInstanceForUserClass;
+
+/**
+ *  Creates a new SCPlease object for provided class for provided Syncano instance
+ *
+ *  @param dataObjectClass SCDataObject scope class
+ *  @param syncano         Syncano instance
+ *
+ *  @return SCPlease object
+ */
++ (SCPlease *)pleaseInstanceForUserClassForSyncano:(Syncano *)syncano;
+
 
 /**
  *  Create and run simple request without any query parameters or statements

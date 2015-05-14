@@ -11,13 +11,12 @@
 #import "SCAPIClient+SCDataObject.h"
 #import "Syncano.h"
 #import "SCParseManager.h"
-#import "SCDataObjectAPISubclass.h"
 #import "SCPlease.h"
 
 @implementation SCDataObject
 
 + (NSString *)classNameForAPI {
-    return nil;
+    return [NSStringFromClass([self class]) lowercaseString];
 }
 
 //This is Mantle method we have to prevent form invoking it form child classes of SCDataObject
@@ -33,9 +32,7 @@
 }
 
 + (void)registerClass {
-    if ([[self class] conformsToProtocol:@protocol(SCDataObjectAPISubclass)]) {
         [[SCParseManager sharedSCParseManager] registerClass:[self class]];
-    }
 }
 
 + (SCPlease *)please {

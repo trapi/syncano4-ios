@@ -9,9 +9,6 @@
 #import "Book.h"
 
 @implementation Book
-+ (NSString *)classNameForAPI {
-    return @"book";
-}
 + (NSDictionary *)extendedPropertiesMapping {
     return @{@"numOfPages" : @"numofpages"};
 }
