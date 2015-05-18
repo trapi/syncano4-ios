@@ -9,5 +9,7 @@
 #import "SCUserProfile.h"
 
 @implementation SCUserProfile
-
++ (NSString *)classNameForAPI {
+    return @"user_profile";
+}
 @end

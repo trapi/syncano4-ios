@@ -19,6 +19,44 @@
 @property (nonatomic,retain) NSArray *links;
 
 /**
+ *  Attempts to login user into singleton Syncano
+ *
+ *  @param username   username for login
+ *  @param password   password for login
+ *  @param completion completion block
+ */
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(SCCompletionBlock)completion;
+
+/**
+ *  Attempts to login user into provided Syncano instance
+ *
+ *  @param username   username for login
+ *  @param password   password for login
+ *  @param syncano    syncano instance for login in to
+ *  @param completion completion block
+ */
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password toSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
+
+/**
+ *  Attempts to register user into singleton Syncano
+ *
+ *  @param username   username for login
+ *  @param password   password for login
+ *  @param completion completion block
+ */
+- (void)registerWithUsername:(NSString *)username password:(NSString *)password completion:(SCCompletionBlock)completion;
+
+/**
+ *  Attempts to register user into provided Syncano instance
+ *
+ *  @param username   username for login
+ *  @param password   password for login
+ *  @param syncano    syncano instance for login in to
+ *  @param completion completion block
+ */
+- (void)registerWithUsername:(NSString *)username password:(NSString *)password inSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
+
+/**
  *  Returns SCPlease instance for singleton Syncano
  *
  *  @return SCPlease instance
