@@ -12,7 +12,29 @@
 #import "NSObject+SCParseHelper.h"
 #import "SCParseManager+SCUser.h"
 
-@implementation SCUser
+static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
+
+@implementation SCUser {
+    NSString *_userKey;
+}
+
+- (NSString *)userKey {
+    return _userKey;
+}
+
+- (void)setUserKey:(NSString *)userKey {
+    _userKey = userKey;
+}
+
++ (SCUser *)currentUser {
+    id archivedData = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentUser];
+    if (archivedData) {
+        SCUser *user = [SCUser new];
+        [user parseUserUsingJSONObject:archivedData];
+        return user;
+    }
+    return nil;
+}
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(SCCompletionBlock)completion{
     [self loginWithUsername:username password:password usingAPIClient:[Syncano sharedAPIClient] completion:completion];
@@ -28,7 +50,7 @@
         if (error) {
             completion(error);
         } else {
-            [self handleResponseWithResponseObject:responseObject];
+            [self parseUserUsingJSONObject:responseObject];
             completion(nil);
         }
     }];
@@ -48,7 +70,7 @@
         if (error) {
             completion(error);
         } else {
-            [self handleResponseWithResponseObject:responseObject];
+            [self parseUserUsingJSONObject:responseObject];
             completion(nil);
         }
     }];
@@ -70,10 +92,12 @@
     [self.profile saveInBackgroundToSyncano:syncano withCompletion:completion];
 }
 
-- (void)handleResponseWithResponseObject:(id)responseObject {
+- (void)parseUserUsingJSONObject:(id)responseObject {
+    [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:kCurrentUser];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     self.userId = [responseObject[@"id"] ph_numberOrNil];
     self.username = [responseObject[@"username"] ph_stringOrEmpty];
-    self.userKey = [responseObject[@"user_key"] ph_stringOrEmpty];
+    _userKey = [responseObject[@"user_key"] ph_stringOrEmpty];
     self.links = [responseObject[@"links"] ph_arrayOrNil];
     NSDictionary *JSONProfile = [responseObject[@"profile"] ph_dictionaryOrNil];
     if (JSONProfile) {

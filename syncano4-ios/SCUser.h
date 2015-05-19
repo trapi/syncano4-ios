@@ -14,9 +14,17 @@
 @interface SCUser : MTLModel
 @property (nonatomic,retain) NSNumber *userId;
 @property (nonatomic,retain) NSString *username;
-@property (nonatomic,retain) NSString *userKey;
+@property (nonatomic,retain,readonly) NSString *userKey;
 @property (nonatomic,retain) SCUserProfile *profile;
 @property (nonatomic,retain) NSArray *links;
+
+
+/**
+ *  Attempts to get the currently logged in user from disk and returns an instance of it.
+ *
+ *  @return SCUser instance of currently logged in user or nil
+ */
++ (SCUser *)currentUser;
 
 /**
  *  Attempts to login user into singleton Syncano
