@@ -13,11 +13,11 @@
 #import "SCParseManager+SCUser.h"
 
 static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
-static SCUser *_currentUser;
 
 @implementation SCUser 
 
 + (SCUser *)currentUser {
+    static SCUser *_currentUser;
     if (_currentUser) {
         return _currentUser;
     }
