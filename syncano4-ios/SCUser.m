@@ -13,14 +13,18 @@
 #import "SCParseManager+SCUser.h"
 
 static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
+static SCUser *_currentUser;
 
 @implementation SCUser 
 
 + (SCUser *)currentUser {
+    if (_currentUser) {
+        return _currentUser;
+    }
     id archivedUserData = [self JSONUserDataFromDefaults];
     if (archivedUserData) {
-        SCUser *user = [[SCParseManager sharedSCParseManager] parsedUserObjectFromJSONObject:archivedUserData];
-        return user;
+        _currentUser = [[SCParseManager sharedSCParseManager] parsedUserObjectFromJSONObject:archivedUserData];
+        return _currentUser;
     }
     return nil;
 }
