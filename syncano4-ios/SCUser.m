@@ -27,8 +27,11 @@ static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
 
 + (id)JSONUserDataFromDefaults {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentUser];
-    id userData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    return userData;
+    if (data) {
+        id userData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        return userData;
+    }
+    return nil;
 }
 
 + (void)saveJSONUserData:(id)JSONUserData {

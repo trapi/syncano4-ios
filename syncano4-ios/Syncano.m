@@ -69,7 +69,7 @@
 
 + (Syncano *)testInstance {
     //1429b1898655e3c576d4352cb7ed383946dbc8e4
-    return [Syncano sharedInstanceWithApiKey:@"fc4685e5888fcfbb2cea5e86a0dca08e41d6af07" instanceName:@"mytestinstance"];
+    return [Syncano sharedInstanceWithApiKey:@"68fef4346bbb1db550aba1f1188d5b8fb91b25a9" instanceName:@"mytestinstance"];
 }
 
 - (void)setApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
