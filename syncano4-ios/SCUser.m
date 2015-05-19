@@ -14,17 +14,7 @@
 
 static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
 
-@implementation SCUser {
-    NSString *_userKey;
-}
-
-- (NSString *)userKey {
-    return _userKey;
-}
-
-- (void)setUserKey:(NSString *)userKey {
-    _userKey = userKey;
-}
+@implementation SCUser 
 
 + (SCUser *)currentUser {
     id archivedData = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentUser];
