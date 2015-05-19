@@ -16,6 +16,7 @@
 #import "SCParseManager+SCDataObject.h"
 #import "SCParseManager+SCUser.h"
 #import "SCAPIClient.h"
+#import "SCUser.h" 
 
 @class SCAPIClient;
 /**
