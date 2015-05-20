@@ -80,6 +80,9 @@
  */
 + (SCPlease *)pleaseFromSyncano:(Syncano *)syncano;
 
+
+- (void)logout;
+
 /**
  *  Saves object to API in background for singleton default Syncano instance
  *

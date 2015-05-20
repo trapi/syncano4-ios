@@ -14,8 +14,9 @@
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
 static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
+static SCUser *_currentUser;
 
-@implementation SCUser 
+@implementation SCUser
 
 - (NSString *)userKey {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.syncano"];
@@ -24,7 +25,6 @@ static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
 }
 
 + (SCUser *)currentUser {
-    static SCUser *_currentUser;
     if (_currentUser) {
         return _currentUser;
     }
@@ -91,6 +91,14 @@ static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
             completion(nil);
         }
     }];
+}
+
+- (void)logout {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCurrentUser];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.syncano"];
+    [keychain removeItemForKey:kUserKeyKeychainKey];
+    _currentUser = nil;
 }
 
 + (SCPlease *)please {
