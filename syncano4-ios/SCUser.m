@@ -11,10 +11,17 @@
 #import "SCAPIClient.h"
 #import "NSObject+SCParseHelper.h"
 #import "SCParseManager+SCUser.h"
+#import <UICKeyChainStore/UICKeyChainStore.h>
 
 static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
 
 @implementation SCUser 
+
+- (NSString *)userKey {
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.syncano"];
+    NSString *userKey = [keychain stringForKey:kUserKeyKeychainKey];
+    return userKey;
+}
 
 + (SCUser *)currentUser {
     static SCUser *_currentUser;

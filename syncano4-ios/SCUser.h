@@ -14,7 +14,7 @@
 @interface SCUser : MTLModel
 @property (nonatomic,retain) NSNumber *userId;
 @property (nonatomic,retain) NSString *username;
-@property (nonatomic,retain) NSString *userKey;
+@property (nonatomic,readonly) NSString *userKey;
 @property (nonatomic,retain) SCUserProfile *profile;
 @property (nonatomic,retain) NSArray *links;
 

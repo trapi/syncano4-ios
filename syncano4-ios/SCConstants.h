@@ -14,3 +14,4 @@ typedef void (^SCCompletionBlock)(NSError *error);
 typedef void (^SCPleaseResolveQueryParametersCompletionBlock)(NSDictionary *queryParameters,NSArray *includeKeys);
 
 static NSString * const kBaseURL = @"https://api.syncano.rocks/v1/instances/";
+static NSString * const kUserKeyKeychainKey = @"com.syncano.kUserKeyKeychain";
