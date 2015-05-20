@@ -8,6 +8,7 @@
 
 #import "SCAPIClient.h"
 #import "Syncano.h"
+
 @interface SCAPIClient ()
 @property (nonatomic,copy) NSString *apiKey;
 @property (nonatomic,copy) NSString *instanceName;
@@ -33,6 +34,10 @@
 
 - (void)authorizeRequest {
    [self.requestSerializer setValue:[Syncano getApiKey] forHTTPHeaderField:@"X-API-KEY"];
+    if ([SCUser currentUser]) {
+        NSString *userKey = [SCUser currentUser].userKey;
+        [self.requestSerializer setValue:userKey forHTTPHeaderField:@"X-USER-KEY"];
+    }
 }
 
 - (NSURLSessionDataTask *)getTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion {
