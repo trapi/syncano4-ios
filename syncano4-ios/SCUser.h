@@ -16,7 +16,7 @@
 @property (nonatomic,retain) NSString *username;
 @property (nonatomic,readonly) NSString *userKey;
 @property (nonatomic,retain) SCUserProfile *profile;
-@property (nonatomic,retain) NSArray *links;
+@property (nonatomic,retain) NSDictionary *links;
 
 
 /**

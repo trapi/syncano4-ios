@@ -17,7 +17,7 @@
     SCUser *user = [SCUser new];
     user.userId = [JSONObject[@"id"] ph_numberOrNil];
     user.username = [JSONObject[@"username"] ph_stringOrEmpty];
-    user.links = [JSONObject[@"links"] ph_arrayOrNil];
+    user.links = [JSONObject[@"links"] ph_dictionaryOrNil];
     NSDictionary *JSONProfile = [JSONObject[@"profile"] ph_dictionaryOrNil];
     if (JSONProfile) {
         SCUserProfile *profile = [self parsedObjectOfClass:[SCUserProfile class] fromJSONObject:JSONProfile];
