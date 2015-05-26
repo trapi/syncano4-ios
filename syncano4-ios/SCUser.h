@@ -26,6 +26,8 @@
  */
 + (SCUser *)currentUser;
 
++ (void)registerProfileClass:(__unsafe_unretained Class)userProfileClass;
+
 /**
  *  Attempts to login user into singleton Syncano
  *
@@ -89,7 +91,7 @@
  *  @param completion completion block
  *
  */
-- (void)saveInBackgroundWithCompletionBlock:(SCCompletionBlock)completion;
+- (void)saveWithCompletionBlock:(SCCompletionBlock)completion;
 
 
 /**
@@ -99,6 +101,9 @@
  *  @param completion completion block
  *
  */
-- (void)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
+- (void)saveToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 
+
+- (void)updateValue:(id)value forKey:(NSString *)key withCompletion:(SCCompletionBlock)completion;
+- (void)updateValue:(id)value forKey:(NSString *)key inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 @end

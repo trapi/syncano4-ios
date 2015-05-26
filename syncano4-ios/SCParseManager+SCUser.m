@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Syncano. All rights reserved.
 //
 
+#import <objc/objc-runtime.h>
 #import "SCParseManager+SCUser.h"
 #import "SCParseManager+SCDataObject.h"
 #import "SCUser.h"
@@ -13,6 +14,20 @@
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
 @implementation SCParseManager (SCUser)
+
+
+- (void)setUserProfileClass:(__unsafe_unretained Class)userProfileClass {
+    objc_setAssociatedObject(self, @selector(userProfileClass), userProfileClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (__unsafe_unretained Class)userProfileClass {
+    return objc_getAssociatedObject(self, @selector(userProfileClass));
+}
+
+- (void)registerUserProfileClass:(__unsafe_unretained Class)classToRegister {
+    [self setUserProfileClass:classToRegister];
+}
+
 - (SCUser *)parsedUserObjectFromJSONObject:(id)JSONObject {
     SCUser *user = [SCUser new];
     user.userId = [JSONObject[@"id"] ph_numberOrNil];
@@ -20,7 +35,8 @@
     user.links = [JSONObject[@"links"] ph_dictionaryOrNil];
     NSDictionary *JSONProfile = [JSONObject[@"profile"] ph_dictionaryOrNil];
     if (JSONProfile) {
-        SCUserProfile *profile = [self parsedObjectOfClass:[SCUserProfile class] fromJSONObject:JSONProfile];
+        
+        SCUserProfile *profile = [self parsedObjectOfClass:(self.userProfileClass) ? self.userProfileClass : [SCUserProfile class] fromJSONObject:JSONProfile];
         user.profile = profile;
     }
     NSString *userKey = [JSONObject[@"user_key"] ph_stringOrEmpty];

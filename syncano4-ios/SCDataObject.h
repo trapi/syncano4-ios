@@ -12,6 +12,7 @@
 
 @class Syncano;
 @class SCPlease;
+@class SCAPIClient;
 
 /**
  *  Main class for data object from Syncano API.
@@ -64,7 +65,7 @@
  *  @param completion completion block
  *
  */
-- (void)saveInBackgroundWithCompletionBlock:(SCCompletionBlock)completion;
+- (void)saveWithCompletionBlock:(SCCompletionBlock)completion;
 
 /**
  *  Saves object to API in background for chosen Syncano instance
@@ -73,7 +74,7 @@
  *  @param completion completion block
  *
  */
-- (void)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
+- (void)saveToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 
 /**
  *  Fetches object from API using singleton Syncano instance
@@ -93,4 +94,7 @@
 - (void)deleteWithCompletion:(SCCompletionBlock)completion;
 - (void)deleteFromSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
 
+- (void)updateValue:(id)value forKey:(NSString *)key withCompletion:(SCCompletionBlock)completion;
+- (void)updateValue:(id)value forKey:(NSString *)key inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
+- (void)updateValue:(id)value forKey:(NSString *)key usingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion;
 @end

@@ -12,7 +12,7 @@
 #import "NSObject+SCParseHelper.h"
 #import "SCParseManager+SCUser.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
-
+#import "NSObject+SCParseHelper.h"
 static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
 static SCUser *_currentUser;
 
@@ -49,6 +49,10 @@ static SCUser *_currentUser;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:JSONUserData];
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:kCurrentUser];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)registerProfileClass:(__unsafe_unretained Class)userProfileClass {
+    [[SCParseManager sharedSCParseManager] registerUserProfileClass:userProfileClass];
 }
 
 + (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(SCCompletionBlock)completion{
@@ -109,12 +113,27 @@ static SCUser *_currentUser;
     return [SCUser pleaseFromSyncano:syncano];
 }
 
-- (void)saveInBackgroundWithCompletionBlock:(SCCompletionBlock)completion {
-    [self.profile  saveInBackgroundWithCompletionBlock:completion];
+- (void)saveWithCompletionBlock:(SCCompletionBlock)completion {
+    [self.profile  saveWithCompletionBlock:completion];
 }
 
-- (void)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
-    [self.profile saveInBackgroundToSyncano:syncano withCompletion:completion];
+- (void)saveToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+    [self.profile saveToSyncano:syncano withCompletion:completion];
 }
 
+- (void)updateValue:(id)value forKey:(NSString *)key withCompletion:(SCCompletionBlock)completion {
+    [self updateValue:value forKey:key usingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+}
+- (void)updateValue:(id)value forKey:(NSString *)key inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+    [self updateValue:value forKey:key usingAPIClient:syncano.apiClient withCompletion:completion];
+}
+
+- (void)updateValue:(id)value forKey:(NSString *)key usingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+    if ([key isEqualToString:@"username"]) {
+        self.username = [value ph_stringOrEmpty];
+        //     TODO:   update user on server
+    } else {
+        [self.profile updateValue:value forKey:key usingAPIClient:apiClient withCompletion:completion];
+    }
+}
 @end

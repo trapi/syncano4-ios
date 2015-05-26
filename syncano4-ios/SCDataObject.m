@@ -73,15 +73,15 @@
     }];
 }
 
-- (void)saveInBackgroundWithCompletionBlock:(SCCompletionBlock)completion {
-    [self saveInBackgroundUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+- (void)saveWithCompletionBlock:(SCCompletionBlock)completion {
+    [self saveUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
 }
 
-- (void)saveInBackgroundToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
-    [self saveInBackgroundUsingAPIClient:syncano.apiClient withCompletion:completion];
+- (void)saveToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+    [self saveUsingAPIClient:syncano.apiClient withCompletion:completion];
 }
 
-- (void)saveInBackgroundUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+- (void)saveUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
     [self handleRelationsSaveUsingAPIClient:apiClient withCompletion:^(NSError *error) {
         if (error) {
             if (completion) {
@@ -121,6 +121,17 @@
     }];
 }
 
+- (void)updateValue:(id)value forKey:(NSString *)key withCompletion:(SCCompletionBlock)completion {
+    [self updateValue:value forKey:key usingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+}
+- (void)updateValue:(id)value forKey:(NSString *)key inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+    [self updateValue:value forKey:key usingAPIClient:syncano.apiClient withCompletion:completion];
+}
+
+- (void)updateValue:(id)value forKey:(NSString *)key usingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+    //TODO: PATCH
+}
+
 - (void)handleRelationsSaveUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
     NSDictionary *relations = [[SCParseManager sharedSCParseManager] relationsForClass:[self class]];
     if (relations.count > 0) {
@@ -130,7 +141,7 @@
             if ([relatedObject isKindOfClass:[SCDataObject class]]) {
                 if (!relatedObject.objectId) {
                     dispatch_group_enter(relationSaveGroup);
-                    [relatedObject saveInBackgroundUsingAPIClient:apiClient withCompletion:^(NSError *error) {
+                    [relatedObject saveUsingAPIClient:apiClient withCompletion:^(NSError *error) {
                         dispatch_group_leave(relationSaveGroup);
                     }];
                 }
