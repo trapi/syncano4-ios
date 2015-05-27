@@ -10,4 +10,12 @@
 
 @implementation SCTrace
 
+- (instancetype)initWithJSONObject:(id)JSONObject {
+    self = [super init];
+    if (self) {
+        //TODO: parse
+    }
+    return self;
+}
+
 @end

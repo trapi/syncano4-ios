@@ -14,4 +14,7 @@
 @property (nonatomic,copy) NSDate *executedAt;
 @property (nonatomic,copy) NSDictionary *result;
 @property (nonatomic,copy) NSNumber *duration;
+
+- (instancetype)initWithJSONObject:(id)JSONObject;
+
 @end

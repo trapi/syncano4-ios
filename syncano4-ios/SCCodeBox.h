@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SCConstants.h"
 
+@class Syncano;
 
 @interface SCCodeBox : NSObject
 @property (nonatomic,copy) NSNumber *identifier;
@@ -26,12 +27,8 @@
  *
  *  @param completion completion block
  */
-- (void)runWithCompletion:(SCCodeBoxCompletionBlock)completion;
++ (void)runCodeBoxWithId:(NSNumber *)codeBoxId params:(NSDictionary *)params completion:(SCCodeBoxCompletionBlock)completion;
 
-/**
- *  Adds new created CodeBox to server
- *
- *  @param completion completion block
- */
-- (void)addWithCompletion:(SCCompletionBlock)completion;
++ (void)runCodeBoxWithId:(NSNumber *)codeBoxId params:(NSDictionary *)params onSyncano:(Syncano *)syncano completion:(SCCodeBoxCompletionBlock)completion;
+
 @end
