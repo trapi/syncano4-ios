@@ -79,6 +79,19 @@
     return task;
 }
 
+- (NSURLSessionDataTask *)patchTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion {
+    [self authorizeRequest];
+    NSURLSessionDataTask *task = [self PATCH:path
+                                parameters:params
+                                   success:^(NSURLSessionDataTask *task, id responseObject) {
+                                       completion(task,responseObject, nil);
+                                   } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                       completion(task,nil, error);
+                                   }];
+    
+    return task;
+}
+
 - (NSURLSessionDataTask *)deleteTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion {
     [self authorizeRequest];
     NSURLSessionDataTask *task = [self DELETE:path

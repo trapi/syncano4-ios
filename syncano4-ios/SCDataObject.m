@@ -129,7 +129,21 @@
 }
 
 - (void)updateValue:(id)value forKey:(NSString *)key usingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
-    //TODO: PATCH
+    NSError *validationError;
+    SCValidateAndSetValue(self, key, value, YES, &validationError);
+    if (validationError) {
+        completion(validationError);
+        return;
+    }
+    if ([[[self class] propertyKeys] containsObject:key]) {
+        NSDictionary *params = @{key:value};
+        [apiClient patchTaskWithPath:[self pathForObject] params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+            completion(error);
+        }];
+    } else {
+        NSError *error; //TODO: create error
+        completion(error);
+    }
 }
 
 - (void)handleRelationsSaveUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {

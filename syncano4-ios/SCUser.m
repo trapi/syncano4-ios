@@ -90,7 +90,7 @@ static SCUser *_currentUser;
         if (error) {
             completion(error);
         } else {
-            //TODO: check if after registration we are login in the user and save him to disk
+            //TODO: ask if after registration we are login in the user and save him to disk
             //[self saveJSONUserData:responseObject];
             completion(nil);
         }
@@ -131,7 +131,11 @@ static SCUser *_currentUser;
 - (void)updateValue:(id)value forKey:(NSString *)key usingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
     if ([key isEqualToString:@"username"]) {
         self.username = [value ph_stringOrEmpty];
-        //     TODO:   update user on server
+        NSString *path = [NSString stringWithFormat:@"users/%@",self.userId];
+        NSDictionary *params = @{key:value};
+        [apiClient patchTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+            completion(error);
+        }];
     } else {
         [self.profile updateValue:value forKey:key usingAPIClient:apiClient withCompletion:completion];
     }

@@ -59,6 +59,17 @@
 - (NSURLSessionDataTask *)putTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
 
 /**
+ *  "Abstract" method to PATCH method call
+ *
+ *  @param path       path to request endpoint
+ *  @param params     NSDictionary with params for request
+ *  @param completion SCAPICompletionBlock completion callback block
+ *
+ *  @return NSURLSessionDataTask object
+ */
+- (NSURLSessionDataTask *)patchTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
+
+/**
  *  "Abstract" method to DELETE method call
  *
  *  @param path       path to request endpoint
