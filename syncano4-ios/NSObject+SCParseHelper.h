@@ -13,4 +13,5 @@
 - (NSNumber *)ph_numberOrNil;
 - (NSArray *)ph_arrayOrNil;
 - (NSDictionary *)ph_dictionaryOrNil;
+- (NSDate *)ph_dateOrNil;
 @end

@@ -7,13 +7,19 @@
 //
 
 #import "SCTrace.h"
+#import "NSObject+SCParseHelper.h"
 
 @implementation SCTrace
 
 - (instancetype)initWithJSONObject:(id)JSONObject {
     self = [super init];
     if (self) {
-        //TODO: parse
+        self.identifier = [JSONObject[@"id"] ph_numberOrNil];
+        self.status = [JSONObject[@"status"] ph_stringOrEmpty];
+        self.links = [JSONObject[@"links"] ph_dictionaryOrNil];
+        self.executedAt = [JSONObject[@"executed_at"] ph_dateOrNil];
+        self.result = [JSONObject[@"result"] ph_dictionaryOrNil];
+        self.duration = [JSONObject[@"duration"] ph_numberOrNil];
     }
     return self;
 }

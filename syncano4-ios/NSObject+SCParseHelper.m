@@ -38,4 +38,12 @@
         return  nil;
     }
 }
+
+- (NSDate *)ph_dateOrNil {
+    if ([self isKindOfClass:[NSDate class]] && (self != [NSNull null])) {
+        return (NSDate *)self;
+    } else {
+        return  nil;
+    }
+}
 @end
