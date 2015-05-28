@@ -8,12 +8,14 @@
 #import <Foundation/Foundation.h>
 
 @class SCTrace;
+@class SCWebhookResponseObject;
 
 typedef void (^SCAPICompletionBlock)(NSURLSessionDataTask *task, id responseObject, NSError *error);
 typedef void (^SCDataObjectsCompletionBlock)(NSArray *objects, NSError *error);
 typedef void (^SCParseObjectCompletionBlock)(id parsedObject, NSError *error);
 typedef void (^SCCompletionBlock)(NSError *error);
 typedef void (^SCCodeBoxCompletionBlock)(SCTrace *trace,NSError *error);
+typedef void (^SCWebhookCompletionBlock)(SCWebhookResponseObject responseObject,NSError *error);
 typedef void (^SCPleaseResolveQueryParametersCompletionBlock)(NSDictionary *queryParameters,NSArray *includeKeys);
 
 

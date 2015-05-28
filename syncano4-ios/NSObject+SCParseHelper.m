@@ -46,4 +46,12 @@
         return  nil;
     }
 }
+
+- (id)ph_objectOrNil {
+    if (self != [NSNull null]) {
+        return self;
+    } else {
+        return  nil;
+    }
+}
 @end
