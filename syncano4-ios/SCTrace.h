@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCConstants.h"
+
+@class Syncano;
+
 @interface SCTrace : NSObject
 @property (nonatomic,copy) NSNumber *identifier;
 @property (nonatomic,copy) NSString *status; //TODO: use enum
@@ -17,4 +21,19 @@
 
 - (instancetype)initWithJSONObject:(id)JSONObject;
 
+
+/**
+ *  Call trace
+ *
+ *  @param completion completion block
+ */
+- (void)callWithCompletion:(SCTraceCompletionBlock)completion;
+
+/**
+ *  Call trace on provided Synano instance
+ *
+ *  @param syncano    syncano instance
+ *  @param completion completion block
+ */
+- (void)callOnSyncano:(Syncano *)syncano withCompletion:(SCTraceCompletionBlock)completion;
 @end

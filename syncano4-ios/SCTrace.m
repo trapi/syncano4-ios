@@ -8,6 +8,8 @@
 
 #import "SCTrace.h"
 #import "NSObject+SCParseHelper.h"
+#import "Syncano.h"
+#import "SCAPIClient.h"
 
 @implementation SCTrace
 
@@ -22,6 +24,23 @@
         self.duration = [JSONObject[@"duration"] ph_numberOrNil];
     }
     return self;
+}
+
+- (void)callWithCompletion:(SCTraceCompletionBlock)completion {
+    [self callUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+}
+
+- (void)callOnSyncano:(Syncano *)syncano withCompletion:(SCTraceCompletionBlock)completion {
+    [self callUsingAPIClient:syncano.apiClient withCompletion:completion];
+}
+
+- (void)callUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCTraceCompletionBlock)completion {
+    NSString *path = [NSString stringWithFormat:@"codeboxes/%@/run/",self.identifier];
+    [apiClient postTaskWithPath:path params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        if (completion) {
+            completion(responseObject,error);
+        }
+    }];
 }
 
 @end
