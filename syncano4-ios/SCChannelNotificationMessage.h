@@ -10,5 +10,6 @@
 
 @interface SCChannelNotificationMessage : NSObject
 //TODO: add properties and initialize
+@property (nonatomic,retain) NSNumber *identifier;
 - (instancetype)initWithJSONObject:(id)JSONObject;
 @end

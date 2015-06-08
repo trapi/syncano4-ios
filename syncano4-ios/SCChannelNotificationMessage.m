@@ -7,13 +7,14 @@
 //
 
 #import "SCChannelNotificationMessage.h"
+#import "NSObject+SCParseHelper.h"
 
 @implementation SCChannelNotificationMessage
 
 - (instancetype)initWithJSONObject:(id)JSONObject {
     self = [super init];
     if (self) {
-        
+        self.identifier = [JSONObject[@"id"] ph_numberOrNil];
     }
     return self;
 }

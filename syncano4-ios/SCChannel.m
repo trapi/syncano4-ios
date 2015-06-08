@@ -42,11 +42,11 @@
     NSDictionary *params = (lastId) ? @{@"last_id" : lastId} : nil;
     [apiClient postTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (!error) {
+            SCChannelNotificationMessage *message = [[SCChannelNotificationMessage alloc] initWithJSONObject:responseObject];
             if ([self.delegate respondsToSelector:@selector(chanellDidReceivedNotificationMessage:)]) {
-                SCChannelNotificationMessage *message = [[SCChannelNotificationMessage alloc] initWithJSONObject:responseObject];
                 [self.delegate chanellDidReceivedNotificationMessage:message];
             }
-            [self pollToChannelUsingAPIClient:apiClient withLastId:lastId];
+            [self pollToChannelUsingAPIClient:apiClient withLastId:message.identifier];
         }
     }];
 }
