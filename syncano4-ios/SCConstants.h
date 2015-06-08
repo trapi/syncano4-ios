@@ -9,6 +9,7 @@
 
 @class SCTrace;
 @class SCWebhookResponseObject;
+@class SCChannelNotificationMessage;
 
 typedef void (^SCAPICompletionBlock)(NSURLSessionDataTask *task, id responseObject, NSError *error);
 typedef void (^SCDataObjectsCompletionBlock)(NSArray *objects, NSError *error);
@@ -18,6 +19,7 @@ typedef void (^SCCodeBoxCompletionBlock)(SCTrace *trace,NSError *error);
 typedef void (^SCTraceCompletionBlock)(id result, NSError *error);
 typedef void (^SCWebhookCompletionBlock)(SCWebhookResponseObject *responseObject,NSError *error);
 typedef void (^SCPleaseResolveQueryParametersCompletionBlock)(NSDictionary *queryParameters,NSArray *includeKeys);
+typedef void (^SCChannelPollCallbackBlock)(SCChannelNotificationMessage *notificationMessage);
 
 
 static NSString * const kBaseURL = @"https://api.syncano.rocks/v1/instances/";
