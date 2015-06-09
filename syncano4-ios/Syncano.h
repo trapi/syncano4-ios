@@ -17,6 +17,9 @@
 #import "SCParseManager+SCUser.h"
 #import "SCAPIClient.h"
 #import "SCUser.h" 
+#import "SCCodeBox.h"
+#import "SCWebhook.h"
+#import "SCChannel.h"
 
 @class SCAPIClient;
 /**
