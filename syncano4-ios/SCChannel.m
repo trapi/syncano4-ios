@@ -11,6 +11,10 @@
 #import "SCAPIClient.h"
 #import "SCChannelNotificationMessage.h"
 
+@interface SCChannel ()
+@property (nonatomic,retain) NSNumber *lastId;
+@end
+
 @implementation SCChannel
 
 - (instancetype)initWithName:(NSString *)channelName {
@@ -43,11 +47,13 @@
     [apiClient getTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (!error) {
             SCChannelNotificationMessage *message = [[SCChannelNotificationMessage alloc] initWithJSONObject:responseObject];
+            self.lastId = message.identifier;
             if ([self.delegate respondsToSelector:@selector(chanellDidReceivedNotificationMessage:)]) {
                 [self.delegate chanellDidReceivedNotificationMessage:message];
             }
-            [self pollToChannelUsingAPIClient:apiClient withLastId:message.identifier];
         }
+        //TODO: QUESTION: How does it handle the error (what we should do when error occured) ?
+        [self pollToChannelUsingAPIClient:apiClient withLastId:lastId];
     }];
 }
 
