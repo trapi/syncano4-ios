@@ -15,7 +15,7 @@
 #import "SCUser.h"
 
 NSString *const SCPleaseParameterFields = @"fields";
-NSString *const SCPleaseParameterExcludedFields = @"exclude_fields";
+NSString *const SCPleaseParameterExcludedFields = @"excluded_fields";
 NSString *const SCPleaseParameterPageSize = @"page_size";
 NSString *const SCPleaseParameterOrderBy = @"order_by";
 NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
