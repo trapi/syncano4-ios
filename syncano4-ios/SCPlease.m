@@ -111,6 +111,11 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
         }
         [queryParameters removeObjectForKey:SCPleaseParameterIncludeKeys];
     }
+    if ([parameters[SCPleaseParameterFields] isKindOfClass:[NSArray class]] == YES) {
+        NSArray *fieldsArray = parameters[SCPleaseParameterFields];
+        NSString *fields = [fieldsArray componentsJoinedByString:@","];
+        [queryParameters setObject:fields forKey:SCPleaseParameterFields];
+    }
     if (predicate) {
         [queryParameters  addEntriesFromDictionary:@{@"query" : [predicate queryRepresentation]}];
     }
@@ -139,32 +144,7 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
     [self getDataObjectFromAPIWithCompletion:completion];
 }
 
-- (void)handleResponse:(id)responseObject error:(NSError *)error completion:(SCDataObjectsCompletionBlock)completion includeKeys:(NSArray *)includeKeys {
-    if (responseObject[@"prev"]) {
-        self.previousUrlString = responseObject[@"prev"];
-    }
-    if (responseObject[@"next"]) {
-        self.nextUrlString = responseObject[@"next"];
-    }
-    if (responseObject[@"objects"]) {
-        NSArray *parsedObjects = [[SCParseManager sharedSCParseManager] parsedObjectsOfClass:self.dataObjectClass fromJSONObject:responseObject[@"objects"]];
-        if (includeKeys.count > 0) {
-            [self handleIncludesForObjects:parsedObjects includeKeys:includeKeys completion:^(NSArray *objects, NSError *error) {
-                if (completion) {
-                    completion(objects,nil);
-                }
-            }];
-        } else {
-            if (completion) {
-                completion(parsedObjects,nil);
-            }
-        }
-    } else {
-        if (completion) {
-            completion(nil,error);
-        }
-    }
-}
+
 
 - (void)getDataObjectFromAPIWithCompletion:(SCDataObjectsCompletionBlock)completion {
     self.previousUrlString = nil;
@@ -212,6 +192,34 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
         }
     }
 }
+
+- (void)handleResponse:(id)responseObject error:(NSError *)error completion:(SCDataObjectsCompletionBlock)completion includeKeys:(NSArray *)includeKeys {
+    if (responseObject[@"prev"]) {
+        self.previousUrlString = responseObject[@"prev"];
+    }
+    if (responseObject[@"next"]) {
+        self.nextUrlString = responseObject[@"next"];
+    }
+    if (responseObject[@"objects"]) {
+        NSArray *parsedObjects = [[SCParseManager sharedSCParseManager] parsedObjectsOfClass:self.dataObjectClass fromJSONObject:responseObject[@"objects"]];
+        if (includeKeys.count > 0) {
+            [self handleIncludesForObjects:parsedObjects includeKeys:includeKeys completion:^(NSArray *objects, NSError *error) {
+                if (completion) {
+                    completion(objects,nil);
+                }
+            }];
+        } else {
+            if (completion) {
+                completion(parsedObjects,nil);
+            }
+        }
+    } else {
+        if (completion) {
+            completion(nil,error);
+        }
+    }
+}
+
 - (void)handleIncludesForObjects:(NSArray *)objects includeKeys:(NSArray *)includeKeys completion:(SCDataObjectsCompletionBlock)completion {
     dispatch_group_t fetchGroup = dispatch_group_create();
     for (id object in objects) {
