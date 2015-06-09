@@ -40,7 +40,7 @@
 - (void)pollToChannelUsingAPIClient:(SCAPIClient *)apiClient withLastId:(NSNumber *)lastId {
     NSString *path = [NSString stringWithFormat:@"channels/%@/poll/",self.name];
     NSDictionary *params = (lastId) ? @{@"last_id" : lastId} : nil;
-    [apiClient postTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+    [apiClient getTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (!error) {
             SCChannelNotificationMessage *message = [[SCChannelNotificationMessage alloc] initWithJSONObject:responseObject];
             if ([self.delegate respondsToSelector:@selector(chanellDidReceivedNotificationMessage:)]) {
