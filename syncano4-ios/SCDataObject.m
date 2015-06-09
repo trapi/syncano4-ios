@@ -16,7 +16,11 @@
 @implementation SCDataObject
 
 + (NSString *)classNameForAPI {
-    return [NSStringFromClass([self class]) lowercaseString];
+    NSString *className = [NSStringFromClass([self class]) lowercaseString];
+    if ([className rangeOfString:@"."].location!=NSNotFound) {
+        className = [className componentsSeparatedByString:@"."].lastObject;
+    }
+    return className;
 }
 
 //This is Mantle method we have to prevent form invoking it form child classes of SCDataObject
