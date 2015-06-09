@@ -16,10 +16,12 @@
 @property (nonatomic,copy) NSString *status; //TODO: use enum
 @property (nonatomic,copy) NSDictionary *links;
 @property (nonatomic,copy) NSDate *executedAt;
-@property (nonatomic,copy) NSDictionary *result;
+@property (nonatomic,copy) id result;
 @property (nonatomic,copy) NSNumber *duration;
 
-- (instancetype)initWithJSONObject:(id)JSONObject;
+@property (nonatomic,copy) NSNumber *codeboxIdentifier;
+
+- (instancetype)initWithJSONObject:(id)JSONObject andCodeboxIdentifier:(NSNumber *)codeboxIdentifier;
 
 
 /**
@@ -27,7 +29,7 @@
  *
  *  @param completion completion block
  */
-- (void)callWithCompletion:(SCTraceCompletionBlock)completion;
+- (void)fetchWithCompletion:(SCTraceCompletionBlock)completion;
 
 /**
  *  Call trace on provided Synano instance
@@ -35,5 +37,5 @@
  *  @param syncano    syncano instance
  *  @param completion completion block
  */
-- (void)callOnSyncano:(Syncano *)syncano withCompletion:(SCTraceCompletionBlock)completion;
+- (void)fetchFromSyncano:(Syncano *)syncano withCompletion:(SCTraceCompletionBlock)completion;
 @end

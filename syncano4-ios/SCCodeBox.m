@@ -31,7 +31,7 @@
             }
         } else {
             if (completion) {
-                SCTrace *trace = [[SCTrace alloc] initWithJSONObject:responseObject];
+                SCTrace *trace = [[SCTrace alloc] initWithJSONObject:responseObject andCodeboxIdentifier:codeBoxId];
                 completion(trace,error);
             }
         }

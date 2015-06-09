@@ -13,32 +13,45 @@
 
 @implementation SCTrace
 
-- (instancetype)initWithJSONObject:(id)JSONObject {
+- (instancetype)initWithJSONObject:(id)JSONObject andCodeboxIdentifier:(NSNumber *)codeboxIdentifier {
     self = [super init];
     if (self) {
-        self.identifier = [JSONObject[@"id"] ph_numberOrNil];
-        self.status = [JSONObject[@"status"] ph_stringOrEmpty];
-        self.links = [JSONObject[@"links"] ph_dictionaryOrNil];
-        self.executedAt = [JSONObject[@"executed_at"] ph_dateOrNil];
-        self.result = [JSONObject[@"result"] ph_dictionaryOrNil];
-        self.duration = [JSONObject[@"duration"] ph_numberOrNil];
+        [self fillWithJSONObject:JSONObject];
+        self.codeboxIdentifier = codeboxIdentifier;
     }
     return self;
 }
 
-- (void)callWithCompletion:(SCTraceCompletionBlock)completion {
-    [self callUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+- (void)fillWithJSONObject:(id)JSONObject {
+    self.identifier = [JSONObject[@"id"] ph_numberOrNil];
+    self.status = [JSONObject[@"status"] ph_stringOrEmpty];
+    self.links = [JSONObject[@"links"] ph_dictionaryOrNil];
+    self.executedAt = [JSONObject[@"executed_at"] ph_dateOrNil];
+    self.result = [JSONObject[@"result"] ph_objectOrNil];
+    self.duration = [JSONObject[@"duration"] ph_numberOrNil];
 }
 
-- (void)callOnSyncano:(Syncano *)syncano withCompletion:(SCTraceCompletionBlock)completion {
-    [self callUsingAPIClient:syncano.apiClient withCompletion:completion];
+- (void)fetchWithCompletion:(SCTraceCompletionBlock)completion {
+    [self fetchUsingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
 }
 
-- (void)callUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCTraceCompletionBlock)completion {
-    NSString *path = [NSString stringWithFormat:@"codeboxes/%@/run/",self.identifier];
-    [apiClient postTaskWithPath:path params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-        if (completion) {
-            completion(responseObject,error);
+- (void)fetchFromSyncano:(Syncano *)syncano withCompletion:(SCTraceCompletionBlock)completion {
+    [self fetchUsingAPIClient:syncano.apiClient withCompletion:completion];
+}
+
+- (void)fetchUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCTraceCompletionBlock)completion {
+    //TODO: rise an error if there is no identifier or codebox identifier;
+    NSString *path = [NSString stringWithFormat:@"/codeboxes/%@/traces/%@",self.codeboxIdentifier,self.identifier];
+    [apiClient getTaskWithPath:path params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        if (error) {
+            if (completion) {
+                completion(nil,error);
+            }
+        } else {
+            [self fillWithJSONObject:responseObject];
+            if (completion) {
+                completion(self,error);
+            }
         }
     }];
 }
