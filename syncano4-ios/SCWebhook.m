@@ -20,7 +20,7 @@
     [self runWebhookWithSlug:slug usingAPIClient:syncano.apiClient completion:completion];
 }
 + (void)runWebhookWithSlug:(NSString *)slug usingAPIClient:(SCAPIClient *)apiClient completion:(SCWebhookCompletionBlock)completion {
-    NSString *path = [NSString stringWithFormat:@"/webhooks/%@/run/",slug];
+    NSString *path = [NSString stringWithFormat:@"webhooks/%@/run/",slug];
    [apiClient postTaskWithPath:path params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
        if (error) {
            if (completion) {
