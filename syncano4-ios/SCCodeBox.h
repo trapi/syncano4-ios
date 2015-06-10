@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SCConstants.h"
+#import "SCTrace.h"
 
 @class Syncano;
 

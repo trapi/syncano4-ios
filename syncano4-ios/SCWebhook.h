@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SCConstants.h"
+#import "SCWebhookResponseObject.h"
 
 @class Syncano;
 
