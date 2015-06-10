@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class SCChannelNotificationMessage;
+#import "SCChannelNotificationMessage.h"
 
 @protocol SCChannelDelegate <NSObject>
 
