@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SCWebhookResponseObject : NSObject
-@property (nonatomic,copy) NSString *status;
+@property (nonatomic,copy) NSString *status; //TODO: use enum
 @property (nonatomic,copy) NSNumber *duration;
 @property (nonatomic,copy) id result;
 @property (nonatomic,copy) NSDate *executedAt;

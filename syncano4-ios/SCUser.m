@@ -90,8 +90,7 @@ static SCUser *_currentUser;
         if (error) {
             completion(error);
         } else {
-            //TODO: ask if after registration we are login in the user and save him to disk
-            //[self saveJSONUserData:responseObject];
+            [self saveJSONUserData:responseObject];
             completion(nil);
         }
     }];
