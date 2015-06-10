@@ -41,7 +41,7 @@
 
 - (void)fetchUsingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCTraceCompletionBlock)completion {
     //TODO: rise an error if there is no identifier or codebox identifier;
-    NSString *path = [NSString stringWithFormat:@"/codeboxes/%@/traces/%@",self.codeboxIdentifier,self.identifier];
+    NSString *path = [NSString stringWithFormat:@"codeboxes/%@/traces/%@/",self.codeboxIdentifier,self.identifier];
     [apiClient getTaskWithPath:path params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (error) {
             if (completion) {
