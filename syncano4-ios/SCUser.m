@@ -24,7 +24,7 @@ static SCUser *_currentUser;
     return userKey;
 }
 
-+ (SCUser *)currentUser {
++ (instancetype)currentUser {
     if (_currentUser) {
         return _currentUser;
     }
