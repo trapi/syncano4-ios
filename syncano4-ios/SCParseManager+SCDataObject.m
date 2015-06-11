@@ -52,18 +52,9 @@
     return [NSArray arrayWithArray:parsedObjects];
 }
 
-- (void)updateObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject {
-    /**
-     *  TODO: Here we have to figure out which attributes needs to be updated after saving object to API i think that only these from main SCDataObject class
-     */
-    object.objectId = responseObject[@"id"];
-    object.created_at = responseObject[@"created_at"];
-    object.links = responseObject[@"links"];
-    object.updated_at = responseObject[@"updated_at"];
-    object.revision = responseObject[@"revision"];
-    
-    //id newParsedObject = [self parsedObjectOfClass:[object class] fromJSONObject:responseObject];
-    //[object mergeValuesForKeysFromModel:newParsedObject];
+- (void)fillObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject {
+    id newParsedObject = [self parsedObjectOfClass:[object class] fromJSONObject:responseObject];
+    [object mergeValuesForKeysFromModel:newParsedObject];
 }
 
 - (NSDictionary *)JSONSerializedDictionaryFromDataObject:(SCDataObject *)dataObject error:(NSError *__autoreleasing *)error {

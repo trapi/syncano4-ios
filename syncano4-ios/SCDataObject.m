@@ -70,7 +70,7 @@
 
 - (void)fetchUsingAPIClient:(SCAPIClient *)apiClient completion:(SCCompletionBlock)completion {
     [apiClient getDataObjectsFromClassName:[[self class] classNameForAPI] withId:self.objectId completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-        [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
+        [[SCParseManager sharedSCParseManager] fillObject:self withDataFromJSONObject:responseObject];
         if (completion) {
             completion(error);
         }
@@ -99,7 +99,7 @@
                 }
             } else {
                 [apiClient postTaskWithPath:[self pathForObject] params:params  completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-                    [[SCParseManager sharedSCParseManager] updateObject:self withDataFromJSONObject:responseObject];
+                    [self updateObjectAfterSaveWithDataFromJSONObject:responseObject];
                     if (completion) {
                         completion(error);
                     }
@@ -107,6 +107,14 @@
             }
         }
     }];
+}
+
+- (void)updateObjectAfterSaveWithDataFromJSONObject:(id)responseObject {
+    self.objectId = responseObject[@"id"];
+    self.created_at = responseObject[@"created_at"];
+    self.links = responseObject[@"links"];
+    self.updated_at = responseObject[@"updated_at"];
+    self.revision = responseObject[@"revision"];
 }
 
 - (void)deleteWithCompletion:(SCCompletionBlock)completion {

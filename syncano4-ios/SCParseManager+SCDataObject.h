@@ -56,14 +56,14 @@
 - (NSArray *)parsedObjectsOfClass:(__unsafe_unretained Class)objectClass
                    fromJSONObject:(id)responseObject;
 
+
 /**
- *  Attempt to update provided SCDataObject wit data from JSON response object
+ *  Attempt to fill provided SCDataObject wit data from JSON response object. 
  *
  *  @param object         SCDataObject to update
  *  @param responseObject JSON response object to update from
  */
-- (void)updateObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject;
-
+- (void)fillObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject;
 
 /**
  *  Converts SCDataObject to JSON representation
