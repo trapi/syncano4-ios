@@ -13,14 +13,14 @@
 
 @implementation SCWebhook
 
-+ (void)runWebhookWithSlug:(NSString *)slug completion:(SCWebhookCompletionBlock)completion {
-    [self runWebhookWithSlug:slug usingAPIClient:[Syncano sharedAPIClient] completion:completion];
++ (void)runWebhookWithName:(NSString *)name completion:(SCWebhookCompletionBlock)completion {
+    [self runWebhookWithName:name usingAPIClient:[Syncano sharedAPIClient] completion:completion];
 }
-+ (void)runWebhookWithSlug:(NSString *)slug onSyncano:(Syncano *)syncano completion:(SCWebhookCompletionBlock)completion {
-    [self runWebhookWithSlug:slug usingAPIClient:syncano.apiClient completion:completion];
++ (void)runWebhookWithName:(NSString *)name onSyncano:(Syncano *)syncano completion:(SCWebhookCompletionBlock)completion {
+    [self runWebhookWithName:name usingAPIClient:syncano.apiClient completion:completion];
 }
-+ (void)runWebhookWithSlug:(NSString *)slug usingAPIClient:(SCAPIClient *)apiClient completion:(SCWebhookCompletionBlock)completion {
-    NSString *path = [NSString stringWithFormat:@"webhooks/%@/run/",slug];
++ (void)runWebhookWithName:(NSString *)name usingAPIClient:(SCAPIClient *)apiClient completion:(SCWebhookCompletionBlock)completion {
+    NSString *path = [NSString stringWithFormat:@"webhooks/%@/run/",name];
    [apiClient postTaskWithPath:path params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
        if (error) {
            if (completion) {
