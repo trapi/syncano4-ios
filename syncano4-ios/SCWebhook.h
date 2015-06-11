@@ -15,6 +15,6 @@
 @interface SCWebhook : NSObject
 
 
-+ (void)runWebhookWithSlug:(NSString *)slug completion:(SCWebhookCompletionBlock)completion;
-+ (void)runWebhookWithSlug:(NSString *)slug onSyncano:(Syncano *)syncano completion:(SCWebhookCompletionBlock)completion;
++ (void)runWebhookWithName:(NSString *)name completion:(SCWebhookCompletionBlock)completion;
++ (void)runWebhookWithName:(NSString *)name onSyncano:(Syncano *)syncano completion:(SCWebhookCompletionBlock)completion;
 @end
