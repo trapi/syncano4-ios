@@ -24,7 +24,7 @@
  *
  *  @return SCUser instance of currently logged in user or nil
  */
-+ (SCUser *)currentUser;
++ (instancetype)currentUser;
 
 + (void)registerProfileClass:(__unsafe_unretained Class)userProfileClass;
 
