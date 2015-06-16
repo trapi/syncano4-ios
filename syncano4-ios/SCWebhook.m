@@ -11,6 +11,7 @@
 #import "Syncano.h"
 #import "SCWebhookResponseObject.h"
 
+
 @implementation SCWebhook
 
 + (void)runWebhookWithName:(NSString *)name completion:(SCWebhookCompletionBlock)completion {
@@ -35,4 +36,20 @@
    }];
 }
 
+
++ (void)runPublicWebhookWithHash:(NSString *)hashTag forInstanceName:(NSString *)instanceName completion:(SCWebhookCompletionBlock)completion {
+    NSString *path = [NSString stringWithFormat:@"%@/webhooks/p/%@/",instanceName,hashTag];
+    SCAPIClient *apiClient = [[SCAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseURL]];
+
+    [apiClient GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (completion) {
+                SCWebhookResponseObject *webhookResponseObject = [[SCWebhookResponseObject alloc] initWithJSONObject:responseObject];
+                completion(webhookResponseObject,nil);
+            }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(nil,error);
+        }
+    }];
+}
 @end

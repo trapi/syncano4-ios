@@ -8,6 +8,7 @@
 
 #import "SCAPIClient.h"
 #import "Syncano.h"
+#import "SCJSONResponseSerializer.h"
 
 @interface SCAPIClient ()
 @property (nonatomic,copy) NSString *apiKey;
@@ -22,6 +23,7 @@
         self.requestSerializer = [AFJSONRequestSerializer serializer];
         [self authorizeRequest];
         self.securityPolicy.allowInvalidCertificates = YES;
+        self.responseSerializer = [SCJSONResponseSerializer serializer];
     }
     return self;
 }

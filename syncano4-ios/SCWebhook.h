@@ -17,4 +17,6 @@
 
 + (void)runWebhookWithName:(NSString *)name completion:(SCWebhookCompletionBlock)completion;
 + (void)runWebhookWithName:(NSString *)name onSyncano:(Syncano *)syncano completion:(SCWebhookCompletionBlock)completion;
+
++ (void)runPublicWebhookWithHash:(NSString *)hashTag forInstanceName:(NSString *)instanceName completion:(SCWebhookCompletionBlock)completion;
 @end
