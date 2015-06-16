@@ -12,7 +12,14 @@
 #import "SCChannelNotificationMessage.h"
 
 @interface SCChannel ()
-@property (nonatomic,retain) NSNumber *lastId;
+@property (nonatomic)           SCChannelType type;
+@property (nonatomic)           BOOL customPublish;
+@property (nonatomic,retain)    NSDictionary *links;
+@property (nonatomic,retain)    NSDate *createdAt;
+@property (nonatomic,retain)    NSDate *updatedAt;
+@property (nonatomic)           SCChannelPermisionType groupPermissions;
+@property (nonatomic)           SCChannelPermisionType otherPermissions;
+@property (nonatomic,retain)    NSNumber *group;
 @end
 
 @implementation SCChannel
@@ -22,9 +29,23 @@
 }
 
 - (instancetype)initWithName:(NSString *)channelName andDelegate:(id<SCChannelDelegate>)delegate {
+    return [self initWithName:channelName lastId:nil room:nil andDelegate:delegate];
+}
+
+- (instancetype)initWithName:(NSString *)channelName lastId:(NSNumber *)lastId andDelegate:(id<SCChannelDelegate>)delegate {
+    return [self initWithName:channelName lastId:lastId room:nil andDelegate:delegate];
+}
+
+- (instancetype)initWithName:(NSString *)channelName room:(NSString *)room andDelegate:(id<SCChannelDelegate>)delegate {
+    return [self initWithName:channelName lastId:nil room:room andDelegate:delegate];
+}
+
+- (instancetype)initWithName:(NSString *)channelName lastId:(NSNumber *)lastId room:(NSString *)room andDelegate:(id<SCChannelDelegate>)delegate {
     self = [super init];
     if (self) {
         self.name = channelName;
+        self.lastId = lastId;
+        self.room = room;
         self.delegate = delegate;
     }
     return self;
@@ -38,12 +59,18 @@
 }
 
 - (void)subscribeToChannelUsingAPIClient:(SCAPIClient *)apiClient {
-    [self pollToChannelUsingAPIClient:apiClient withLastId:nil];
+    [self pollToChannelUsingAPIClient:apiClient];
 }
 
-- (void)pollToChannelUsingAPIClient:(SCAPIClient *)apiClient withLastId:(NSNumber *)lastId {
+- (void)pollToChannelUsingAPIClient:(SCAPIClient *)apiClient {
     NSString *path = [NSString stringWithFormat:@"channels/%@/poll/",self.name];
-    NSDictionary *params = (lastId) ? @{@"last_id" : lastId} : nil;
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    if (self.room.length > 0) {
+        [params setObject:self.room forKey:@"room"];
+    }
+    if (self.lastId) {
+        [params setObject:self.lastId forKey:@"last_id"];
+    }
     [apiClient getTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (!error) {
             SCChannelNotificationMessage *message = [[SCChannelNotificationMessage alloc] initWithJSONObject:responseObject];
@@ -53,7 +80,7 @@
             }
         }
         //TODO: QUESTION: How does it handle the error (what we should do when error occured) ?
-        [self pollToChannelUsingAPIClient:apiClient withLastId:lastId];
+        [self pollToChannelUsingAPIClient:apiClient];
     }];
 }
 

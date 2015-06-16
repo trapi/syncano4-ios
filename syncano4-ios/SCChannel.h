@@ -14,21 +14,23 @@
 
 @interface SCChannel : NSObject
 
-@property (nonatomic,retain)    NSString *name;
-@property (nonatomic)           SCChannelType type;
-@property (nonatomic)           BOOL customPublish;
-@property (nonatomic,retain)    NSDictionary *links;
-@property (nonatomic,retain)    NSDate *createdAt;
-@property (nonatomic,retain)    NSDate *updatedAt;
-@property (nonatomic)           SCChannelPermisionType groupPermissions;
-@property (nonatomic)           SCChannelPermisionType otherPermissions;
-@property (nonatomic,retain)    NSNumber *group;
+@property (nonatomic,retain) NSString *name;
+@property (nonatomic,retain) NSNumber *lastId;
+@property (nonatomic,retain) NSString *room;
+
 
 @property (nonatomic,assign) id<SCChannelDelegate> delegate;
 
 - (instancetype)initWithName:(NSString *)channelName;
 
 - (instancetype)initWithName:(NSString *)channelName andDelegate:(id<SCChannelDelegate>)delegate;
+
+- (instancetype)initWithName:(NSString *)channelName lastId:(NSNumber *)lastId andDelegate:(id<SCChannelDelegate>)delegate;
+
+- (instancetype)initWithName:(NSString *)channelName room:(NSString *)room andDelegate:(id<SCChannelDelegate>)delegate;
+
+- (instancetype)initWithName:(NSString *)channelName lastId:(NSNumber *)lastId room:(NSString *)room andDelegate:(id<SCChannelDelegate>)delegate;
+
 
 - (void)subscribeToChannel;
 - (void)subscribeToChannelInSyncano:(Syncano *)syncano;
