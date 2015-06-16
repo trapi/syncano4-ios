@@ -10,11 +10,14 @@
 @class SCTrace;
 @class SCWebhookResponseObject;
 @class SCChannelNotificationMessage;
+@class UIImage;
 
 typedef void (^SCAPICompletionBlock)(NSURLSessionDataTask *task, id responseObject, NSError *error);
 typedef void (^SCDataObjectsCompletionBlock)(NSArray *objects, NSError *error);
 typedef void (^SCParseObjectCompletionBlock)(id parsedObject, NSError *error);
 typedef void (^SCCompletionBlock)(NSError *error);
+typedef void (^SCFileCompletionBlockWithData)(NSData *data, NSError *error);
+typedef void (^SCFileCompletionBlockWithImage)(UIImage *image, NSError *error);
 typedef void (^SCCodeBoxCompletionBlock)(SCTrace *trace,NSError *error);
 typedef void (^SCTraceCompletionBlock)(SCTrace *trace, NSError *error);
 typedef void (^SCWebhookCompletionBlock)(SCWebhookResponseObject *responseObject,NSError *error);
@@ -53,6 +56,11 @@ typedef NS_ENUM(NSUInteger, SCChannelType) {
     SCChannelTypeSeparateRooms
 };
 
+typedef NS_ENUM(NSUInteger, SCFileImageType) {
+    SCFileImageTypePNG,
+    SCFileImageTypeJPEG
+};
+
 
 
 @interface SCConstants : NSObject
@@ -60,4 +68,5 @@ typedef NS_ENUM(NSUInteger, SCChannelType) {
 + (SCChannelPermisionType)channelPermissionTypeByString:(NSString *)typeString;
 + (SCChannelType)channelTypeByString:(NSString *)typeString;
 + (NSValueTransformer *)SCDataObjectPermissionsValueTransformer;
++ (NSValueTransformer *)SCFileValueTransformer;
 @end

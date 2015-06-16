@@ -12,6 +12,9 @@
 #import "Syncano.h"
 #import "SCParseManager.h"
 #import "SCPlease.h"
+#import "SCFile.h"
+
+#import <objc/runtime.h>
 
 @implementation SCDataObject
 
@@ -21,6 +24,24 @@
         className = [className componentsSeparatedByString:@"."].lastObject;
     }
     return className;
+}
+
++ (Class)classOfPropertyNamed:(NSString*)propertyName
+{
+    // Get Class of property to be populated.
+    Class propertyClass = nil;
+    objc_property_t property = class_getProperty([self class], [propertyName UTF8String]);
+    NSString *propertyAttributes = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
+    NSArray *splitPropertyAttributes = [propertyAttributes componentsSeparatedByString:@","];
+    if (splitPropertyAttributes.count > 0)
+    {
+        // xcdoc://ios//library/prerelease/ios/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
+        NSString *encodeType = splitPropertyAttributes[0];
+        NSArray *splitEncodeType = [encodeType componentsSeparatedByString:@"\""];
+        NSString *className = splitEncodeType[1];
+        propertyClass = NSClassFromString(className);
+    }
+    return propertyClass;
 }
 
 //This is Mantle method we have to prevent form invoking it form child classes of SCDataObject
@@ -44,6 +65,9 @@
         [key isEqualToString:@"group_permissions"] ||
         [key isEqualToString:@"other_permissions"]) {
         return [SCConstants SCDataObjectPermissionsValueTransformer];
+    }
+    if ([self classOfPropertyNamed:key] == [SCFile class]) {
+        return [SCConstants SCFileValueTransformer];
     }
     return nil;
 }

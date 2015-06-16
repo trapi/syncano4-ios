@@ -2,6 +2,7 @@
 
 #import "SCConstants.h"
 #import <Mantle/Mantle.h>
+#import "SCFile.h"
 
 NSString * const kBaseURL = @"https://api.syncano.rocks/v1/instances/";
 NSString * const kUserKeyKeychainKey = @"com.syncano.kUserKeyKeychain";
@@ -59,6 +60,18 @@ NSString * const kSCChannelTypeSeparateRooms = @"separate_rooms";
         return states[value];
     } reverseBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
         return [states allKeysForObject:value].lastObject;
+    }];
+}
+
++ (NSValueTransformer *)SCFileValueTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+        if (value == nil)
+            return nil;
+        SCFile *file = [SCFile fileWithURL:[NSURL URLWithString:value]];
+        return file;
+    } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+        SCFile *file = (SCFile *)value;
+        return [file base64represantion];
     }];
 }
 @end
