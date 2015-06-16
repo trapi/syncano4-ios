@@ -10,17 +10,6 @@
 #import "SCConstants.h"
 #import "SCChannelDelegate.h"
 
-typedef NS_ENUM(NSUInteger, SCChannelType) {
-    SCChannelTypeDefault,
-    SCChannelTypeSeparateRooms
-};
-
-typedef NS_ENUM(NSUInteger, SCChannelPermisionType) {
-    SCChannelPermisionTypeNone,
-    SCChannelPermisionTypeSubscribe,
-    SCChannelPermisionTypePublish,
-};
-
 @class Syncano;
 
 @interface SCChannel : NSObject

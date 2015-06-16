@@ -35,6 +35,20 @@
     return @{};
 }
 
+//+ (NSValueTransformer *)owner_permissionsJSONTransformer {
+//    return [SCConstants SCDataObjectPermissionsValueTransformer];
+//}
+
++ (NSValueTransformer *)JSONTransformerForKey:(NSString *)key {
+    if ([key isEqualToString:@"owner_permissions"] ||
+        [key isEqualToString:@"group_permissions"] ||
+        [key isEqualToString:@"other_permissions"]) {
+        return [SCConstants SCDataObjectPermissionsValueTransformer];
+    }
+    return nil;
+}
+
+
 + (void)registerClass {
         [[SCParseManager sharedSCParseManager] registerClass:[self class]];
 }

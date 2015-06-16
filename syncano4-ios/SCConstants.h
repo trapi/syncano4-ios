@@ -22,5 +22,42 @@ typedef void (^SCPleaseResolveQueryParametersCompletionBlock)(NSDictionary *quer
 typedef void (^SCChannelPollCallbackBlock)(SCChannelNotificationMessage *notificationMessage);
 
 
-static NSString * const kBaseURL = @"https://api.syncano.rocks/v1/instances/";
-static NSString * const kUserKeyKeychainKey = @"com.syncano.kUserKeyKeychain";
+extern NSString * const kBaseURL;
+extern NSString * const kUserKeyKeychainKey;
+
+extern NSString * const kSCPermissionTypeNone;
+extern NSString * const kSCPermissionTypeRead;
+extern NSString * const kSCPermissionTypeWrite;
+extern NSString * const kSCPermissionTypeFull;
+extern NSString * const kSCPermissionTypeSubscribe;
+extern NSString * const kSCPermissionTypePublish;
+
+extern NSString * const kSCChannelTypeDefault;
+extern NSString * const kSCChannelTypeSeparateRooms;
+
+typedef NS_ENUM(NSUInteger, SCDataObjectPermissionType) {
+    SCDataObjectPermissionTypeNone,
+    SCDataObjectPermissionTypeRead,
+    SCDataObjectPermissionTypeWrite,
+    SCDataObjectPermissionTypeFull,
+};
+
+typedef NS_ENUM(NSUInteger, SCChannelPermisionType) {
+    SCChannelPermisionTypeNone,
+    SCChannelPermisionTypeSubscribe,
+    SCChannelPermisionTypePublish,
+};
+
+typedef NS_ENUM(NSUInteger, SCChannelType) {
+    SCChannelTypeDefault,
+    SCChannelTypeSeparateRooms
+};
+
+
+
+@interface SCConstants : NSObject
++ (SCDataObjectPermissionType)dataObjectPermissiontypeByString:(NSString *)typeString;
++ (SCChannelPermisionType)channelPermissionTypeByString:(NSString *)typeString;
++ (SCChannelType)channelTypeByString:(NSString *)typeString;
++ (NSValueTransformer *)SCDataObjectPermissionsValueTransformer;
+@end

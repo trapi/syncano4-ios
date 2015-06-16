@@ -23,6 +23,12 @@
 @property (nonatomic,copy) NSDate *updated_at;
 @property (nonatomic,copy) NSNumber *revision;
 @property (nonatomic,copy) NSDictionary *links;
+@property (nonatomic,copy) NSString *channel_room;
+@property (nonatomic,copy) NSString *channel;
+@property (nonatomic,copy) NSNumber *group;
+@property (nonatomic) SCDataObjectPermissionType owner_permissions;
+@property (nonatomic) SCDataObjectPermissionType group_permissions;
+@property (nonatomic) SCDataObjectPermissionType other_permissions;
 
 /**
  *  Returns class name used in Syncano API, by default this method converts object Class name to lower case string
