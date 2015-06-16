@@ -96,6 +96,28 @@ static SCUser *_currentUser;
     }];
 }
 
++ (void)loginWithSocialBackend:(SCSocialAuthenticationBackend)backend authToken:(NSString *)authToken completion:(SCCompletionBlock)completion {
+    [self loginWithSocialBackend:backend authToken:authToken usingAPIClient:[Syncano sharedAPIClient] completion:completion];
+}
+
++ (void)loginWithSocialBackend:(SCSocialAuthenticationBackend)backend authToken:(NSString *)authToken toSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion {
+    [self loginWithSocialBackend:backend authToken:authToken usingAPIClient:syncano.apiClient completion:completion];
+}
+
++ (void)loginWithSocialBackend:(SCSocialAuthenticationBackend)backend authToken:(NSString *)authToken usingAPIClient:(SCAPIClient *)apiClient completion:(SCCompletionBlock)completion {
+    [apiClient setSocialAuthTokenKey:authToken];
+    NSDictionary *params = @{@"backend" : [SCConstants socialAuthenticationBackendToString:backend]};
+    [apiClient postTaskWithPath:@"user/auth/" params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        if (error) {
+            completion(error);
+        } else {
+            [self saveJSONUserData:responseObject];
+            completion(nil);
+        }
+    }];
+
+}
+
 - (void)logout {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCurrentUser];
     [[NSUserDefaults standardUserDefaults] synchronize];

@@ -35,6 +35,9 @@ extern NSString * const kSCPermissionTypePublish;
 extern NSString * const kSCChannelTypeDefault;
 extern NSString * const kSCChannelTypeSeparateRooms;
 
+extern NSString * const kSCSocialBackendFacebook;
+extern NSString * const kSCSocialBackendGoogle;
+
 typedef NS_ENUM(NSUInteger, SCDataObjectPermissionType) {
     SCDataObjectPermissionTypeNone,
     SCDataObjectPermissionTypeRead,
@@ -53,11 +56,16 @@ typedef NS_ENUM(NSUInteger, SCChannelType) {
     SCChannelTypeSeparateRooms
 };
 
+typedef NS_ENUM(NSUInteger, SCSocialAuthenticationBackend) {
+    SCSocialAuthenticationBackendFacebook,
+    SCSocialAuthenticationBackendGoogle,
+};
 
 
 @interface SCConstants : NSObject
 + (SCDataObjectPermissionType)dataObjectPermissiontypeByString:(NSString *)typeString;
 + (SCChannelPermisionType)channelPermissionTypeByString:(NSString *)typeString;
 + (SCChannelType)channelTypeByString:(NSString *)typeString;
++ (NSString *)socialAuthenticationBackendToString:(SCSocialAuthenticationBackend)backend;
 + (NSValueTransformer *)SCDataObjectPermissionsValueTransformer;
 @end

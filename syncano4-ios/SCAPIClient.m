@@ -34,6 +34,10 @@
     return apiClient;
 }
 
+- (void)setSocialAuthTokenKey:(NSString *)authToken {
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"token %@",authToken] forHTTPHeaderField:@"Authorization"];
+}
+
 - (void)authorizeRequest {
    [self.requestSerializer setValue:[Syncano getApiKey] forHTTPHeaderField:@"X-API-KEY"];
     if ([SCUser currentUser]) {

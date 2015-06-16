@@ -16,6 +16,9 @@ NSString * const kSCPermissionTypePublish = @"publish";
 NSString * const kSCChannelTypeDefault = @"default";
 NSString * const kSCChannelTypeSeparateRooms = @"separate_rooms";
 
+NSString * const kSCSocialBackendFacebook = @"facebook";
+NSString * const kSCSocialBackendGoogle = @"google-oauth2";
+
 @implementation SCConstants
 
 + (SCDataObjectPermissionType)dataObjectPermissiontypeByString:(NSString *)typeString {
@@ -43,6 +46,10 @@ NSString * const kSCChannelTypeSeparateRooms = @"separate_rooms";
 
 + (SCChannelType)channelTypeByString:(NSString *)typeString {
     return ([typeString isEqualToString:kSCChannelTypeDefault]) ? SCChannelTypeDefault : SCChannelTypeSeparateRooms;
+}
+
++ (NSString *)socialAuthenticationBackendToString:(SCSocialAuthenticationBackend)backend {
+    return (backend == SCSocialAuthenticationBackendFacebook) ? kSCSocialBackendFacebook : kSCSocialBackendGoogle;
 }
 
 + (NSValueTransformer *)SCDataObjectPermissionsValueTransformer {

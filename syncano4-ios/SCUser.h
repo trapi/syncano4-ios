@@ -48,6 +48,25 @@
 + (void)loginWithUsername:(NSString *)username password:(NSString *)password toSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
 
 /**
+ *  Attempts to login user using social authentication into singleton Syncano
+ *
+ *  @param backend    SCSocialAuthenticationBackend type available options: SCSocialAuthenticationBackendFacebook, SCSocialAuthenticationBackendGoogle
+ *  @param authToken  authToken from social provider
+ *  @param completion completion block
+ */
++ (void)loginWithSocialBackend:(SCSocialAuthenticationBackend)backend authToken:(NSString *)authToken completion:(SCCompletionBlock)completion;
+
+/**
+ *  Attempts to login user using social authentication into singleton Syncano
+ *
+ *  @param backend    SCSocialAuthenticationBackend type available options: SCSocialAuthenticationBackendFacebook, SCSocialAuthenticationBackendGoogle
+ *  @param authToken  authToken from social provider
+ *  @param syncano    syncano instance for login in to
+ *  @param completion completion block
+ */
++ (void)loginWithSocialBackend:(SCSocialAuthenticationBackend)backend authToken:(NSString *)authToken toSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
+
+/**
  *  Attempts to register user into singleton Syncano
  *
  *  @param username   username for login
