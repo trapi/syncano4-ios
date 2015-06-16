@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Syncano. All rights reserved.
 //
 
-#import <objc/objc-runtime.h>
+#import <objc/runtime.h>
 #import "SCParseManager+SCUser.h"
 #import "SCParseManager+SCDataObject.h"
 #import "SCUser.h"
