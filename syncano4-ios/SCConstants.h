@@ -19,7 +19,7 @@ typedef void (^SCCodeBoxCompletionBlock)(SCTrace *trace,NSError *error);
 typedef void (^SCTraceCompletionBlock)(SCTrace *trace, NSError *error);
 typedef void (^SCWebhookCompletionBlock)(SCWebhookResponseObject *responseObject,NSError *error);
 typedef void (^SCPleaseResolveQueryParametersCompletionBlock)(NSDictionary *queryParameters,NSArray *includeKeys);
-typedef void (^SCChannelPollCallbackBlock)(SCChannelNotificationMessage *notificationMessage);
+typedef void (^SCChannelPublishCompletionBlock)(SCChannelNotificationMessage *notificationMessage, NSError *error);
 
 
 extern NSString * const kBaseURL;

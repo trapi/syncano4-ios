@@ -84,15 +84,15 @@
     }];
 }
 
-- (void)publishToChannelWithPayload:(NSDictionary *)payload {
-    [self publishToChannelUsingAPIClient:[Syncano sharedAPIClient] withPayload:payload];
+- (void)publishToChannelWithPayload:(NSDictionary *)payload completion:(SCChannelPublishCompletionBlock)completion {
+    [self publishToChannelUsingAPIClient:[Syncano sharedAPIClient] withPayload:payload completion:completion];
 }
 
-- (void)publishToChannelInSyncano:(Syncano *)syncano withPayload:(NSDictionary *)payload {
-    [self publishToChannelUsingAPIClient:syncano.apiClient withPayload:payload];
+- (void)publishToChannelInSyncano:(Syncano *)syncano withPayload:(NSDictionary *)payload completion:(SCChannelPublishCompletionBlock)completion {
+    [self publishToChannelUsingAPIClient:syncano.apiClient withPayload:payload completion:completion];
 }
 
-- (void)publishToChannelUsingAPIClient:(SCAPIClient *)apiClient withPayload:(NSDictionary *)payload {
+- (void)publishToChannelUsingAPIClient:(SCAPIClient *)apiClient withPayload:(NSDictionary *)payload completion:(SCChannelPublishCompletionBlock)completion {
     NSString *path = [NSString stringWithFormat:@"channels/%@/publish/",self.name];
     NSMutableDictionary *params = [NSMutableDictionary new];
     if (self.room.length > 0) {
@@ -104,8 +104,12 @@
     [apiClient postTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
         if (!error) {
             SCChannelNotificationMessage *message = [[SCChannelNotificationMessage alloc] initWithJSONObject:responseObject];
-            if ([self.delegate respondsToSelector:@selector(chanellDidReceivedNotificationMessage:)]) {
-                [self.delegate chanellDidReceivedNotificationMessage:message];
+            if (completion) {
+                completion(message,nil);
+            }
+        } else {
+            if (completion) {
+                completion(nil,error);
             }
         }
     }];

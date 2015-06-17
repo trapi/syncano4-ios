@@ -35,7 +35,7 @@
 - (void)subscribeToChannel;
 - (void)subscribeToChannelInSyncano:(Syncano *)syncano;
 
-- (void)publishToChannelWithPayload:(NSDictionary *)payload;
-- (void)publishToChannelInSyncano:(Syncano *)syncano withPayload:(NSDictionary *)payload;
+- (void)publishToChannelWithPayload:(NSDictionary *)payload completion:(SCChannelPublishCompletionBlock)completion;
+- (void)publishToChannelInSyncano:(Syncano *)syncano withPayload:(NSDictionary *)payload completion:(SCChannelPublishCompletionBlock)completion;
 
 @end
