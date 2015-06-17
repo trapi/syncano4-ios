@@ -36,6 +36,6 @@
 - (void)subscribeToChannelInSyncano:(Syncano *)syncano;
 
 - (void)publishToChannelWithPayload:(NSDictionary *)payload;
-
+- (void)publishToChannelInSyncano:(Syncano *)syncano withPayload:(NSDictionary *)payload;
 
 @end

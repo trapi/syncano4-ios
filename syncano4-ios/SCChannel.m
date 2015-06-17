@@ -84,4 +84,31 @@
     }];
 }
 
+- (void)publishToChannelWithPayload:(NSDictionary *)payload {
+    [self publishToChannelUsingAPIClient:[Syncano sharedAPIClient] withPayload:payload];
+}
+
+- (void)publishToChannelInSyncano:(Syncano *)syncano withPayload:(NSDictionary *)payload {
+    [self publishToChannelUsingAPIClient:syncano.apiClient withPayload:payload];
+}
+
+- (void)publishToChannelUsingAPIClient:(SCAPIClient *)apiClient withPayload:(NSDictionary *)payload {
+    NSString *path = [NSString stringWithFormat:@"channels/%@/publish/",self.name];
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    if (self.room.length > 0) {
+        [params setObject:self.room forKey:@"room"];
+    }
+    if (payload) {
+        [params setObject:payload forKey:@"payload"];
+    }
+    [apiClient postTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        if (!error) {
+            SCChannelNotificationMessage *message = [[SCChannelNotificationMessage alloc] initWithJSONObject:responseObject];
+            if ([self.delegate respondsToSelector:@selector(chanellDidReceivedNotificationMessage:)]) {
+                [self.delegate chanellDidReceivedNotificationMessage:message];
+            }
+        }
+    }];
+}
+
 @end
