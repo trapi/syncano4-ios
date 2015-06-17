@@ -142,23 +142,34 @@ static SCUser *_currentUser;
     [self.profile saveToSyncano:syncano withCompletion:completion];
 }
 
-- (void)updateValue:(id)value forKey:(NSString *)key withCompletion:(SCCompletionBlock)completion {
-    [self updateValue:value forKey:key usingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+- (void)updateUsername:(NSString *)username withCompletion:(SCCompletionBlock)completion {
+    [self updateUsername:username password:nil usingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
 }
-- (void)updateValue:(id)value forKey:(NSString *)key inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
-    [self updateValue:value forKey:key usingAPIClient:syncano.apiClient withCompletion:completion];
+- (void)updateUsername:(NSString *)username inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+    [self updateUsername:username password:nil usingAPIClient:syncano.apiClient withCompletion:completion];
 }
 
-- (void)updateValue:(id)value forKey:(NSString *)key usingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
-    if ([key isEqualToString:@"username"]) {
-        self.username = [value ph_stringOrEmpty];
-        NSString *path = [NSString stringWithFormat:@"users/%@",self.userId];
-        NSDictionary *params = @{key:value};
-        [apiClient patchTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
-            completion(error);
-        }];
-    } else {
-        [self.profile updateValue:value forKey:key usingAPIClient:apiClient withCompletion:completion];
+- (void)updatePassword:(NSString *)password withCompletion:(SCCompletionBlock)completion {
+    [self updateUsername:nil password:password usingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
+}
+- (void)updatePassword:(NSString *)password inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+    [self updateUsername:nil password:password usingAPIClient:syncano.apiClient withCompletion:completion];
+}
+
+
+- (void)updateUsername:(NSString *)username password:(NSString *)password usingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion {
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    if (username.length > 0) {
+        self.username = username;
+        [params setObject:username forKey:@"username"];
     }
+    if (password.length > 0) {
+        [params setObject:password forKey:@"password"];
+    }
+    NSString *path = @"user/";
+    [apiClient patchTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+        completion(error);
+    }];
+
 }
 @end

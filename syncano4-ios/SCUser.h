@@ -104,25 +104,10 @@
 
 - (void)logout;
 
-/**
- *  Saves object to API in background for singleton default Syncano instance
- *
- *  @param completion completion block
- *
- */
-- (void)saveWithCompletionBlock:(SCCompletionBlock)completion;
 
+- (void)updateUsername:(NSString *)username withCompletion:(SCCompletionBlock)completion;
+- (void)updateUsername:(NSString *)username inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 
-/**
- *  Saves object to API in background for chosen Syncano instance
- *
- *  @param syncano    Saves object to API in background for provided Syncano instance
- *  @param completion completion block
- *
- */
-- (void)saveToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
-
-
-- (void)updateValue:(id)value forKey:(NSString *)key withCompletion:(SCCompletionBlock)completion;
-- (void)updateValue:(id)value forKey:(NSString *)key inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
+- (void)updatePassword:(NSString *)username withCompletion:(SCCompletionBlock)completion;
+- (void)updatePassword:(NSString *)username inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 @end

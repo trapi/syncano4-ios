@@ -10,7 +10,7 @@
 #import "SCConstants.h"
 
 @interface SCChannelNotificationMessage : NSObject
-//TODO: add properties and initialize
+
 @property (nonatomic,copy) NSNumber *identifier;
 @property (nonatomic,copy) NSDate *createdAt;
 @property (nonatomic,copy) NSDictionary *author;
