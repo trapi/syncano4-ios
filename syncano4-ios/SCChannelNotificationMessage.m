@@ -15,6 +15,11 @@
     self = [super init];
     if (self) {
         self.identifier = [JSONObject[@"id"] ph_numberOrNil];
+        self.createdAt = [JSONObject[@"createdAt"] ph_dateOrNil];
+        self.author = [JSONObject[@"author"] ph_dictionaryOrNil];
+        self.action = [SCConstants channelNotificationMessageActionByString:[JSONObject[@"action"] ph_stringOrEmpty]];
+        self.payload = [JSONObject[@"payload"] ph_dictionaryOrNil];
+        self.metadata = [JSONObject[@"metadata"] ph_dictionaryOrNil];
     }
     return self;
 }

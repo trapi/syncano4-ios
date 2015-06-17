@@ -7,9 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCConstants.h"
 
 @interface SCChannelNotificationMessage : NSObject
 //TODO: add properties and initialize
-@property (nonatomic,retain) NSNumber *identifier;
+@property (nonatomic,copy) NSNumber *identifier;
+@property (nonatomic,copy) NSDate *createdAt;
+@property (nonatomic,copy) NSDictionary *author;
+@property (nonatomic) SCChannelNotificationMessageAction action;
+@property (nonatomic,copy) NSDictionary *payload;
+@property (nonatomic,copy) NSDictionary *metadata;
+
 - (instancetype)initWithJSONObject:(id)JSONObject;
 @end

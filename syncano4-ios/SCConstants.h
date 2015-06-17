@@ -38,6 +38,10 @@ extern NSString * const kSCChannelTypeSeparateRooms;
 extern NSString * const kSCSocialBackendFacebook;
 extern NSString * const kSCSocialBackendGoogle;
 
+extern NSString * const kSCChannelNotificationMessageActionCreate;
+extern NSString * const kSCChannelNotificationMessageActionUpdate;
+extern NSString * const kSCChannelNotificationMessageActionDelete;
+
 typedef NS_ENUM(NSUInteger, SCDataObjectPermissionType) {
     SCDataObjectPermissionTypeNone,
     SCDataObjectPermissionTypeRead,
@@ -61,6 +65,13 @@ typedef NS_ENUM(NSUInteger, SCSocialAuthenticationBackend) {
     SCSocialAuthenticationBackendGoogle,
 };
 
+typedef NS_ENUM(NSUInteger, SCChannelNotificationMessageAction) {
+    SCChannelNotificationMessageActionNone,
+    SCChannelNotificationMessageActionCreate,
+    SCChannelNotificationMessageActionUpdate,
+    SCChannelNotificationMessageActionDelete,
+};
+
 
 @interface SCConstants : NSObject
 + (SCDataObjectPermissionType)dataObjectPermissiontypeByString:(NSString *)typeString;
@@ -68,4 +79,5 @@ typedef NS_ENUM(NSUInteger, SCSocialAuthenticationBackend) {
 + (SCChannelType)channelTypeByString:(NSString *)typeString;
 + (NSString *)socialAuthenticationBackendToString:(SCSocialAuthenticationBackend)backend;
 + (NSValueTransformer *)SCDataObjectPermissionsValueTransformer;
++ (SCChannelNotificationMessageAction)channelNotificationMessageActionByString:(NSString *)actionString;
 @end

@@ -16,6 +16,10 @@ NSString * const kSCPermissionTypePublish = @"publish";
 NSString * const kSCChannelTypeDefault = @"default";
 NSString * const kSCChannelTypeSeparateRooms = @"separate_rooms";
 
+NSString * const kSCChannelNotificationMessageActionCreate = @"create";
+NSString * const kSCChannelNotificationMessageActionUpdate = @"update";
+NSString * const kSCChannelNotificationMessageActionDelete = @"delete";
+
 NSString * const kSCSocialBackendFacebook = @"facebook";
 NSString * const kSCSocialBackendGoogle = @"google-oauth2";
 
@@ -67,5 +71,17 @@ NSString * const kSCSocialBackendGoogle = @"google-oauth2";
     } reverseBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
         return [states allKeysForObject:value].lastObject;
     }];
+}
+
++ (SCChannelNotificationMessageAction)channelNotificationMessageActionByString:(NSString *)actionString {
+    if ([actionString isEqualToString:kSCChannelNotificationMessageActionCreate]) {
+        return SCChannelNotificationMessageActionCreate;
+    }
+    if ([actionString isEqualToString:kSCChannelNotificationMessageActionUpdate]) {
+        return SCChannelNotificationMessageActionUpdate;
+    } if ([actionString isEqualToString:kSCChannelNotificationMessageActionDelete]) {
+        return SCChannelNotificationMessageActionDelete;
+    }
+    return SCChannelNotificationMessageActionNone;
 }
 @end
