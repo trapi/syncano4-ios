@@ -9,21 +9,21 @@
 #import "NSObject+SCParseHelper.h"
 
 @implementation NSObject (SCParseHelper)
-- (NSString *)ph_stringOrEmpty {
+- (NSString *)sc_stringOrEmpty {
     if ([self isKindOfClass:[NSString class]] && (self != [NSNull null])) {
         return (NSString *)self;
     } else {
         return  nil;
     }
 }
-- (NSNumber *)ph_numberOrNil {
+- (NSNumber *)sc_numberOrNil {
     if ([self isKindOfClass:[NSNumber class]] && (self != [NSNull null])) {
         return (NSNumber *)self;
     } else {
         return  nil;
     }
 }
-- (NSArray *)ph_arrayOrNil {
+- (NSArray *)sc_arrayOrNil {
     if ([self isKindOfClass:[NSArray class]] && (self != [NSNull null])) {
         return (NSArray *)self;
     } else {
@@ -31,7 +31,7 @@
     }
 }
 
-- (NSDictionary *)ph_dictionaryOrNil {
+- (NSDictionary *)sc_dictionaryOrNil {
     if ([self isKindOfClass:[NSDictionary class]] && (self != [NSNull null])) {
         return (NSDictionary *)self;
     } else {
@@ -39,7 +39,7 @@
     }
 }
 
-- (NSDate *)ph_dateOrNil {
+- (NSDate *)sc_dateOrNil {
     if ([self isKindOfClass:[NSDate class]] && (self != [NSNull null])) {
         return (NSDate *)self;
     } else {
@@ -47,7 +47,7 @@
     }
 }
 
-- (id)ph_objectOrNil {
+- (id)sc_objectOrNil {
     if (self != [NSNull null]) {
         return self;
     } else {

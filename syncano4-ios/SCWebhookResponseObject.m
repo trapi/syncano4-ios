@@ -14,10 +14,10 @@
 - (instancetype)initWithJSONObject:(id)JSONObject {
     self = [super init];
     if (self) {
-        self.status = [JSONObject[@"status"] ph_stringOrEmpty];
-        self.duration = [JSONObject[@"duration"] ph_numberOrNil];
-        self.result = [JSONObject[@"result"] ph_objectOrNil];
-        self.executedAt = [JSONObject[@"executed_at"] ph_dateOrNil];
+        self.status = [JSONObject[@"status"] sc_stringOrEmpty];
+        self.duration = [JSONObject[@"duration"] sc_numberOrNil];
+        self.result = [JSONObject[@"result"] sc_objectOrNil];
+        self.executedAt = [JSONObject[@"executed_at"] sc_dateOrNil];
     }
     return self;
 }

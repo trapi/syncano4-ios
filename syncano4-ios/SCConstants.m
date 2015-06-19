@@ -3,6 +3,8 @@
 #import "SCConstants.h"
 #import <Mantle/Mantle.h>
 
+NSString * const SCDataObjectErrorDomain = @"com.syncano.DataObjectErrorDomain";
+
 NSString * const kBaseURL = @"https://api.syncano.rocks/v1/instances/";
 NSString * const kUserKeyKeychainKey = @"com.syncano.kUserKeyKeychain";
 

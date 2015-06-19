@@ -23,12 +23,12 @@
 }
 
 - (void)fillWithJSONObject:(id)JSONObject {
-    self.identifier = [JSONObject[@"id"] ph_numberOrNil];
-    self.status = [JSONObject[@"status"] ph_stringOrEmpty];
-    self.links = [JSONObject[@"links"] ph_dictionaryOrNil];
-    self.executedAt = [JSONObject[@"executed_at"] ph_dateOrNil];
-    self.result = [JSONObject[@"result"] ph_objectOrNil];
-    self.duration = [JSONObject[@"duration"] ph_numberOrNil];
+    self.identifier = [JSONObject[@"id"] sc_numberOrNil];
+    self.status = [JSONObject[@"status"] sc_stringOrEmpty];
+    self.links = [JSONObject[@"links"] sc_dictionaryOrNil];
+    self.executedAt = [JSONObject[@"executed_at"] sc_dateOrNil];
+    self.result = [JSONObject[@"result"] sc_objectOrNil];
+    self.duration = [JSONObject[@"duration"] sc_numberOrNil];
 }
 
 - (void)fetchWithCompletion:(SCTraceCompletionBlock)completion {

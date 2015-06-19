@@ -188,9 +188,9 @@
             } else {
                 NSDictionary *userInfo = @{
                                            NSLocalizedDescriptionKey: NSLocalizedString(@"Related object have to be sublass of SCDataObject", @""),
-                                           NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You can not add reference of non SCDataObject subclass object",@""),
+                                           NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You cannot add reference of non SCDataObject subclass object",@""),
                                            };
-                NSError *error = [NSError errorWithDomain:@"SCDataObjectErrorDomain" code:1 userInfo:userInfo];
+                NSError *error = [NSError errorWithDomain:SCDataObjectErrorDomain  code:SCErrorCodeDataObjectWrongParentClass userInfo:userInfo];
                 if (completion) {
                     completion(error);
                 }

@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject (SCParseHelper)
-- (NSString *)ph_stringOrEmpty;
-- (NSNumber *)ph_numberOrNil;
-- (NSArray *)ph_arrayOrNil;
-- (NSDictionary *)ph_dictionaryOrNil;
-- (NSDate *)ph_dateOrNil;
-- (id)ph_objectOrNil;
+- (NSString *)sc_stringOrEmpty;
+- (NSNumber *)sc_numberOrNil;
+- (NSArray *)sc_arrayOrNil;
+- (NSDictionary *)sc_dictionaryOrNil;
+- (NSDate *)sc_dateOrNil;
+- (id)sc_objectOrNil;
 @end

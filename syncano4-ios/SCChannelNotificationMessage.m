@@ -14,12 +14,12 @@
 - (instancetype)initWithJSONObject:(id)JSONObject {
     self = [super init];
     if (self) {
-        self.identifier = [JSONObject[@"id"] ph_numberOrNil];
-        self.createdAt = [JSONObject[@"createdAt"] ph_dateOrNil];
-        self.author = [JSONObject[@"author"] ph_dictionaryOrNil];
-        self.action = [SCConstants channelNotificationMessageActionByString:[JSONObject[@"action"] ph_stringOrEmpty]];
-        self.payload = [JSONObject[@"payload"] ph_dictionaryOrNil];
-        self.metadata = [JSONObject[@"metadata"] ph_dictionaryOrNil];
+        self.identifier = [JSONObject[@"id"] sc_numberOrNil];
+        self.createdAt = [JSONObject[@"createdAt"] sc_dateOrNil];
+        self.author = [JSONObject[@"author"] sc_dictionaryOrNil];
+        self.action = [SCConstants channelNotificationMessageActionByString:[JSONObject[@"action"] sc_stringOrEmpty]];
+        self.payload = [JSONObject[@"payload"] sc_dictionaryOrNil];
+        self.metadata = [JSONObject[@"metadata"] sc_dictionaryOrNil];
     }
     return self;
 }

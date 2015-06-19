@@ -210,6 +210,15 @@
 			name = DataObject;
 			sourceTree = "<group>";
 		};
+		1142F6581B332A8900A38A97 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				113C36A31B0224EF008723EC /* NSObject+SCParseHelper.h */,
+				113C36A41B0224EF008723EC /* NSObject+SCParseHelper.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		1184268E1AC986C6001035A7 /* ParseManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,8 +228,6 @@
 				119A93621AFB8D6E001ADA7C /* SCParseManager+SCDataObject.m */,
 				119A93641AFB911E001ADA7C /* SCParseManager+SCUser.h */,
 				119A93651AFB911E001ADA7C /* SCParseManager+SCUser.m */,
-				113C36A31B0224EF008723EC /* NSObject+SCParseHelper.h */,
-				113C36A41B0224EF008723EC /* NSObject+SCParseHelper.m */,
 			);
 			name = ParseManager;
 			sourceTree = "<group>";
@@ -290,6 +297,7 @@
 		11BE43D71AC552C600FE96C5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1142F6581B332A8900A38A97 /* Categories */,
 				1184268E1AC986C6001035A7 /* ParseManager */,
 				11BE43D81AC552D500FE96C5 /* APIClient */,
 				11BE43DC1AC5539600FE96C5 /* SCMacros.h */,

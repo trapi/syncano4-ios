@@ -21,6 +21,7 @@ typedef void (^SCWebhookCompletionBlock)(SCWebhookResponseObject *responseObject
 typedef void (^SCPleaseResolveQueryParametersCompletionBlock)(NSDictionary *queryParameters,NSArray *includeKeys);
 typedef void (^SCChannelPublishCompletionBlock)(SCChannelNotificationMessage *notificationMessage, NSError *error);
 
+extern NSString * const SCDataObjectErrorDomain;
 
 extern NSString * const kBaseURL;
 extern NSString * const kUserKeyKeychainKey;
@@ -70,6 +71,10 @@ typedef NS_ENUM(NSUInteger, SCChannelNotificationMessageAction) {
     SCChannelNotificationMessageActionCreate,
     SCChannelNotificationMessageActionUpdate,
     SCChannelNotificationMessageActionDelete,
+};
+
+typedef NS_ENUM(NSUInteger, SCErrorCode) {
+    SCErrorCodeDataObjectWrongParentClass = 1,
 };
 
 
