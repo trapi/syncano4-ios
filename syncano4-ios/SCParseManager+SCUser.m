@@ -35,8 +35,8 @@
     user.links = [JSONObject[@"links"] sc_dictionaryOrNil];
     NSDictionary *JSONProfile = [JSONObject[@"profile"] sc_dictionaryOrNil];
     if (JSONProfile) {
-        
-        SCUserProfile *profile = [self parsedObjectOfClass:(self.userProfileClass) ? self.userProfileClass : [SCUserProfile class] fromJSONObject:JSONProfile];
+        Class UserProfileClass = ([self userProfileClass]) ? [self userProfileClass] : [SCUserProfile class];
+        id profile = [self parsedObjectOfClass:(self.userProfileClass) ? self.userProfileClass : UserProfileClass fromJSONObject:JSONProfile];
         user.profile = profile;
     }
     NSString *userKey = [JSONObject[@"user_key"] sc_stringOrEmpty];

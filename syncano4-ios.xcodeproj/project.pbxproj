@@ -262,7 +262,12 @@
 				11055BA41B25CF0B004BB629 /* Codebox */,
 				11055BA51B25CF16004BB629 /* Webhook */,
 				11055BA21B25CED8004BB629 /* Realtime */,
-				11BE43D71AC552C600FE96C5 /* Helpers */,
+				1142F6581B332A8900A38A97 /* Categories */,
+				1184268E1AC986C6001035A7 /* ParseManager */,
+				11BE43D81AC552D500FE96C5 /* APIClient */,
+				11BE43DC1AC5539600FE96C5 /* SCMacros.h */,
+				11BE43E51AC57A0500FE96C5 /* SCConstants.h */,
+				115759331B300BCF00DDCC06 /* SCConstants.m */,
 			);
 			name = Syncano;
 			path = "syncano4-ios";
@@ -292,19 +297,6 @@
 				11BE43E11AC5732200FE96C5 /* circle.yml */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		11BE43D71AC552C600FE96C5 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				1142F6581B332A8900A38A97 /* Categories */,
-				1184268E1AC986C6001035A7 /* ParseManager */,
-				11BE43D81AC552D500FE96C5 /* APIClient */,
-				11BE43DC1AC5539600FE96C5 /* SCMacros.h */,
-				11BE43E51AC57A0500FE96C5 /* SCConstants.h */,
-				115759331B300BCF00DDCC06 /* SCConstants.m */,
-			);
-			name = Helpers;
 			sourceTree = "<group>";
 		};
 		11BE43D81AC552D500FE96C5 /* APIClient */ = {
