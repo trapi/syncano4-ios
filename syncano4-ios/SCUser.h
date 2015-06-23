@@ -28,10 +28,10 @@
  */
 + (instancetype)currentUser;
 
-+ (void)registerUserClass:(__unsafe_unretained Class)userClass;
++ (void)registerMe;
 
++ (void)registerMeWithProfileClass:(__unsafe_unretained Class)profileClass;
 
-+ (void)registerProfileClass:(__unsafe_unretained Class)userProfileClass;
 
 /**
  *  Attempts to login user into singleton Syncano
