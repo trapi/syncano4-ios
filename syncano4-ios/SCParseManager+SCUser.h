@@ -10,6 +10,14 @@
 @class SCUser;
 
 @interface SCParseManager (SCUser)
+
+/**
+ *  Registers class for user subclassing
+ *
+ *  @param classToRegister
+ */
+- (void)registerUserClass:(__unsafe_unretained Class)classToRegister;
+
 /**
  *  Registers class for subclassing user profile
  *
@@ -17,5 +25,5 @@
  */
 - (void)registerUserProfileClass:(__unsafe_unretained Class)classToRegister;
 
-- (SCUser *)parsedUserObjectFromJSONObject:(id)JSONObject;
+- (id)parsedUserObjectFromJSONObject:(id)JSONObject;
 @end

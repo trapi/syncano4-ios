@@ -11,7 +11,7 @@
 
 @class SCPlease;
 
-@interface SCUser : MTLModel
+@interface SCUser : NSObject
 @property (nonatomic,retain) NSNumber *userId;
 @property (nonatomic,retain) NSString *username;
 @property (nonatomic,readonly) NSString *userKey;
@@ -19,12 +19,17 @@
 @property (nonatomic,retain) NSDictionary *links;
 
 
+- (void)fillWithJSONObject:(id)JSONObject;
+
 /**
  *  Attempts to get the currently logged in user from disk and returns an instance of it.
  *
  *  @return SCUser instance of currently logged in user or nil
  */
 + (instancetype)currentUser;
+
++ (void)registerUserClass:(__unsafe_unretained Class)userClass;
+
 
 + (void)registerProfileClass:(__unsafe_unretained Class)userProfileClass;
 

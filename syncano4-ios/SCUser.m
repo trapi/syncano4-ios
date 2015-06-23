@@ -13,10 +13,18 @@
 #import "SCParseManager+SCUser.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import "NSObject+SCParseHelper.h"
+
+
 static NSString *const kCurrentUser = @"com.syncano.kCurrentUser";
-static SCUser *_currentUser;
+static id _currentUser;
 
 @implementation SCUser
+
+- (void)fillWithJSONObject:(id)JSONObject {
+    self.userId = [JSONObject[@"id"] sc_numberOrNil];
+    self.username = [JSONObject[@"username"] sc_stringOrEmpty];
+    self.links = [JSONObject[@"links"] sc_dictionaryOrNil];
+}
 
 - (NSString *)userKey {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.syncano"];
@@ -49,6 +57,10 @@ static SCUser *_currentUser;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:JSONUserData];
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:kCurrentUser];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)registerUserClass:(__unsafe_unretained Class)userClass {
+    [[SCParseManager sharedSCParseManager] registerUserClass:userClass];
 }
 
 + (void)registerProfileClass:(__unsafe_unretained Class)userProfileClass {
