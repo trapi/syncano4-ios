@@ -15,7 +15,7 @@
 
 @implementation SCDataObject
 
-+ (void)load {
++ (void)initialize {
     [self registerClass];
 }
 
