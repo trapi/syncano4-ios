@@ -15,6 +15,10 @@
 
 @implementation SCDataObject
 
++ (void)load {
+    [self registerClass];
+}
+
 + (NSString *)classNameForAPI {
     NSString *className = [NSStringFromClass([self class]) lowercaseString];
     if ([className rangeOfString:@"."].location!=NSNotFound) {

@@ -134,14 +134,6 @@ static SCUser *_currentUser;
     return [SCUser pleaseFromSyncano:syncano];
 }
 
-- (void)saveWithCompletionBlock:(SCCompletionBlock)completion {
-    [self.profile  saveWithCompletionBlock:completion];
-}
-
-- (void)saveToSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
-    [self.profile saveToSyncano:syncano withCompletion:completion];
-}
-
 - (void)updateUsername:(NSString *)username withCompletion:(SCCompletionBlock)completion {
     [self updateUsername:username password:nil usingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
 }

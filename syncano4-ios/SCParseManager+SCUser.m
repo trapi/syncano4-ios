@@ -34,10 +34,10 @@
     user.username = [JSONObject[@"username"] sc_stringOrEmpty];
     user.links = [JSONObject[@"links"] sc_dictionaryOrNil];
     NSDictionary *JSONProfile = [JSONObject[@"profile"] sc_dictionaryOrNil];
-    if (JSONProfile) {
+    if (JSONProfile && [user respondsToSelector:NSSelectorFromString(@"profile")]) {
         Class UserProfileClass = ([self userProfileClass]) ? [self userProfileClass] : [SCUserProfile class];
         id profile = [self parsedObjectOfClass:(self.userProfileClass) ? self.userProfileClass : UserProfileClass fromJSONObject:JSONProfile];
-        user.profile = profile;
+        SCValidateAndSetValue(user, @"profile", profile, YES, nil);
     }
     NSString *userKey = [JSONObject[@"user_key"] sc_stringOrEmpty];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.syncano"];
