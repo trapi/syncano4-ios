@@ -15,10 +15,6 @@
 
 @implementation SCDataObject
 
-+ (void)initialize {
-    [self registerClass];
-}
-
 + (NSString *)classNameForAPI {
     NSString *className = [NSStringFromClass([self class]) lowercaseString];
     if ([className rangeOfString:@"."].location!=NSNotFound) {
@@ -39,10 +35,6 @@
     return @{};
 }
 
-//+ (NSValueTransformer *)owner_permissionsJSONTransformer {
-//    return [SCConstants SCDataObjectPermissionsValueTransformer];
-//}
-
 + (NSValueTransformer *)JSONTransformerForKey:(NSString *)key {
     if ([key isEqualToString:@"owner_permissions"] ||
         [key isEqualToString:@"group_permissions"] ||
@@ -54,7 +46,7 @@
 
 
 + (void)registerClass {
-        [[SCParseManager sharedSCParseManager] registerClass:[self class]];
+    [[SCParseManager sharedSCParseManager] registerClass:[self class]];
 }
 
 + (SCPlease *)please {

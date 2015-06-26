@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://github.com/Syncano/syncano4-ios.git', :tag => s.version}
   
   s.public_header_files = 'syncano4-ios/*.h'
-  s.source_files = 'syncano4-ios/Syncano.h'
+  s.source_files = 'syncano4-ios/*.{h,m}'
 
   s.dependency 'AFNetworking', '~> 2.5'
   s.dependency 'Mantle', '~> 2.0'

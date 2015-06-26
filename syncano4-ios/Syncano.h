@@ -20,6 +20,7 @@
 #import "SCCodeBox.h"
 #import "SCWebhook.h"
 #import "SCChannel.h"
+#import "SCFile.h"
 
 @class SCAPIClient;
 /**

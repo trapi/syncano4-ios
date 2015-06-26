@@ -9,6 +9,7 @@
 #import "SCParseManager+SCDataObject.h"
 #import "SCDataObject.h"
 #import <objc/runtime.h>
+#import "SCFile.h"
 
 @implementation SCClassRegisterItem
 @end
@@ -24,10 +25,16 @@
 }
 
 - (id)parsedObjectOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)JSONObject {
+    //TODO change to send error
     NSError *error;
     id parsedobject = [MTLJSONAdapter modelOfClass:objectClass fromJSONDictionary:JSONObject error:&error];
-    
-    NSDictionary *relations = [self relationsForClass:objectClass];
+    [self resolveRelationsToObject:parsedobject withJSONObject:JSONObject];
+    [self resolveFilesForObject:parsedobject withJSONObject:JSONObject];
+    return parsedobject;
+}
+
+- (void)resolveRelationsToObject:(id)parsedObject withJSONObject:(id)JSONObject {
+    NSDictionary *relations = [self relationsForClass:[parsedObject class]];
     for (NSString *relationKeyProperty in relations.allKeys) {
         SCClassRegisterItem *relationRegisteredItem = relations[relationKeyProperty];
         Class relatedClass = NSClassFromString(relationRegisteredItem.className);
@@ -36,11 +43,22 @@
             NSNumber *relatedObjectId = JSONObject[relationKeyProperty][@"value"];
             if (relatedObjectId) {
                 [relatedObject setValue:relatedObjectId forKey:@"objectId"];
-                SCValidateAndSetValue(parsedobject, relationKeyProperty, relatedObject, YES, nil);
+                SCValidateAndSetValue(parsedObject, relationKeyProperty, relatedObject, YES, nil);
             }
         }
     }
-    return parsedobject;
+}
+
+- (void)resolveFilesForObject:(id)parsedObject withJSONObject:(id)JSONObject {
+    for (NSString *key in [JSONObject allKeys]) {
+        id object = JSONObject[key];
+        if ([object isKindOfClass:[NSDictionary class]] && object[@"type"] && [object[@"type"] isEqualToString:@"file"]) {
+            //TODO change to send error
+            NSError *error;
+            SCFile *file = [[SCFile alloc] initWithDictionary:object error:&error];
+            SCValidateAndSetValue(parsedObject, key, file, YES, nil);
+        }
+    }
 }
 
 - (NSArray *)parsedObjectsOfClass:(__unsafe_unretained Class)objectClass fromJSONObject:(id)responseObject {
