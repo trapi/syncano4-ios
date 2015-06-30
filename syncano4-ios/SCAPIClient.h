@@ -81,4 +81,5 @@
  *  @return NSURLSessionDataTask object
  */
 - (NSURLSessionDataTask *)deleteTaskWithPath:(NSString *)path params:(NSDictionary *)params completion:(SCAPICompletionBlock)completion;
+
 @end

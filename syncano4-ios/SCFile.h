@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Mantle/Mantle.h>
+#import "SCConstants.h"
 
 @interface SCFile : MTLModel<MTLJSONSerializing>
 @property (nonatomic,copy) NSURL *fileURL;
+
+- (void)fetchInBackgroundWithCompletion:(SCFileFetchCompletionBlock)completion;
 @end

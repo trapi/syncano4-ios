@@ -8,6 +8,8 @@
 
 #import "SCFile.h"
 #import "NSObject+SCParseHelper.h"
+#import "SCAPIClient+SCFile.h"
+
 @implementation SCFile
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
@@ -23,4 +25,20 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [NSDictionary mtl_identityPropertyMapWithModel:[self class]];
 }
+
+- (void)fetchInBackgroundWithCompletion:(SCFileFetchCompletionBlock)completion {
+    [SCAPIClient downloadFileFromURL:self.fileURL withCompletion:^(id responseObject, NSError *error) {
+        if (error) {
+            if (completion) {
+                completion(nil,error);
+            }
+        } else {
+            NSData *data = [[NSData alloc] initWithData:responseObject];
+            if (completion) {
+                completion(data,nil);
+            }
+        }
+    }];
+}
+
 @end
