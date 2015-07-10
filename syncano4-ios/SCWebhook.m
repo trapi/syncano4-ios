@@ -15,14 +15,23 @@
 @implementation SCWebhook
 
 + (void)runWebhookWithName:(NSString *)name completion:(SCWebhookCompletionBlock)completion {
-    [self runWebhookWithName:name usingAPIClient:[Syncano sharedAPIClient] completion:completion];
+    [self runWebhookWithName:name withPayload:nil usingAPIClient:[Syncano sharedAPIClient] completion:completion];
 }
 + (void)runWebhookWithName:(NSString *)name onSyncano:(Syncano *)syncano completion:(SCWebhookCompletionBlock)completion {
-    [self runWebhookWithName:name usingAPIClient:syncano.apiClient completion:completion];
+    [self runWebhookWithName:name withPayload:nil usingAPIClient:syncano.apiClient completion:completion];
 }
-+ (void)runWebhookWithName:(NSString *)name usingAPIClient:(SCAPIClient *)apiClient completion:(SCWebhookCompletionBlock)completion {
+
++ (void)runWebhookWithName:(NSString *)name withPayload:(NSDictionary *)payload completion:(SCWebhookCompletionBlock)completion {
+    [self runWebhookWithName:name withPayload:payload usingAPIClient:[Syncano sharedAPIClient] completion:completion];
+}
++ (void)runWebhookWithName:(NSString *)name withPayload:(NSDictionary *)payload onSyncano:(Syncano *)syncano completion:(SCWebhookCompletionBlock)completion {
+    [self runWebhookWithName:name withPayload:payload usingAPIClient:syncano.apiClient completion:completion];
+}
+
++ (void)runWebhookWithName:(NSString *)name withPayload:(NSDictionary *)payload usingAPIClient:(SCAPIClient *)apiClient completion:(SCWebhookCompletionBlock)completion {
     NSString *path = [NSString stringWithFormat:@"webhooks/%@/run/",name];
-   [apiClient postTaskWithPath:path params:nil completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
+    NSDictionary *params = (payload) ? @{@"payload":payload} : nil;
+   [apiClient postTaskWithPath:path params:params completion:^(NSURLSessionDataTask *task, id responseObject, NSError *error) {
        if (error) {
            if (completion) {
                completion(nil,error);
@@ -35,7 +44,6 @@
        }
    }];
 }
-
 
 + (void)runPublicWebhookWithHash:(NSString *)hashTag forInstanceName:(NSString *)instanceName completion:(SCWebhookCompletionBlock)completion {
     NSString *path = [NSString stringWithFormat:@"%@/webhooks/p/%@/",instanceName,hashTag];
