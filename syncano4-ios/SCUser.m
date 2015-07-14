@@ -59,11 +59,11 @@ static id _currentUser;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (void)registerMe {
-    [self registerMeWithProfileClass:nil];
++ (void)registerClass {
+    [self registerClassWithProfileClass:nil];
 }
 
-+(void)registerMeWithProfileClass:(__unsafe_unretained Class)profileClass {
++(void)registerClassWithProfileClass:(__unsafe_unretained Class)profileClass {
     [[SCParseManager sharedSCParseManager] registerUserClass:[self class]];
     if (profileClass) {
         [[SCParseManager sharedSCParseManager] registerUserProfileClass:profileClass];

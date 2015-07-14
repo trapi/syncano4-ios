@@ -28,9 +28,9 @@
  */
 + (instancetype)currentUser;
 
-+ (void)registerMe;
++ (void)registerClass;
 
-+ (void)registerMeWithProfileClass:(__unsafe_unretained Class)profileClass;
++ (void)registerClassWithProfileClass:(__unsafe_unretained Class)profileClass;
 
 
 /**
