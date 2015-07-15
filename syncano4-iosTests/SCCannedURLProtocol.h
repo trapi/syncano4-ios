@@ -21,4 +21,6 @@
 
 + (void)registerInAPIClient:(SCAPIClient *)apiClient;
 + (void)unregisterFromAPIClient:(SCAPIClient *)apiClient;
+
++ (void)setTimeoutError;
 @end

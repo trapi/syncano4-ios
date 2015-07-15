@@ -64,22 +64,28 @@ static NSError *SCCannedError = nil;
     NSURLRequest *request = [self request];
     id client = [self client];
     
-    if(SCCannedResponseData) {
-        NSData *data = SCCannedResponseData;
-        
-        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[request URL]
-                                                                  statusCode:SCCannedStatusCode
-                                                                 HTTPVersion:@"HTTP/1.1"
-                                                                headerFields:SCCannedHeaders];
-        
-        [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-        [self.client URLProtocol:self didLoadData:data];
-        [self.client URLProtocolDidFinishLoading:self];
-        
-    }
-    else if(SCCannedError) {
-        // Send the canned error
+    if(SCCannedError) {
         [client URLProtocol:self didFailWithError:SCCannedError];
     }
+    else {
+        [self mockRequest:request data:nil];
+    }
+}
+
+
+-(void) mockRequest:(NSURLRequest*)request data:(NSData*)data {
+    id client = [self client];
+    NSDictionary *headers = @{@"Access-Control-Allow-Origin" : @"*", @"Access-Control-Allow-Headers" : @"Content-Type" , @"Content-Type" : @"application/json"};
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:request.URL statusCode:SCCannedStatusCode HTTPVersion:@"1.1" headerFields:headers];
+    [client URLProtocol:self didReceiveResponse:response
+     cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    [client URLProtocol:self didLoadData:data];
+    [client URLProtocolDidFinishLoading:self];
+}
+
++ (void)setTimeoutError {
+    [self setCannedError:[NSError errorWithDomain:NSURLErrorDomain
+                                             code:kCFURLErrorTimedOut
+                                         userInfo:nil]];
 }
 @end

@@ -33,17 +33,14 @@ describe(@"SCUser", ^{
                                                              ofType:@"json"];
         NSData *responseData = [NSData dataWithContentsOfFile:jsonPath];
         [SCCannedURLProtocol setCannedResponseData:responseData];
-        //[SCCannedURLProtocol setCannedError:[NSError errorWithDomain:NSURLErrorDomain
-          //                                                      code:kCFURLErrorTimedOut
-            //                                                userInfo:nil]];
-        
-        __block NSError *terror = nil;
+                
+        __block NSError *terror = [NSError new];
         [SCUser loginWithUsername:@"janek" password:@"qaz123" toSyncano:syncano completion:^(NSError *error) {
             terror = error;
         }];
         
-        
         [[expectFutureValue(terror) shouldEventually] beNil];
+
     });
     
 });
