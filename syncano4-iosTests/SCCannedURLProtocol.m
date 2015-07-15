@@ -65,18 +65,13 @@ static NSError *SCCannedError = nil;
     id client = [self client];
     
     if(SCCannedResponseData) {
-        // Send the canned data
         NSData *data = SCCannedResponseData;
-        NSString *mimeType = cachedResponse.mimeType;
-        NSString *encoding = cachedResponse.encoding;
         
-        // 3.
-        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:self.request.URL
-                                                            MIMEType:mimeType
-                                               expectedContentLength:data.length
-                                                    textEncodingName:encoding];
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[request URL]
+                                                                  statusCode:SCCannedStatusCode
+                                                                 HTTPVersion:@"HTTP/1.1"
+                                                                headerFields:SCCannedHeaders];
         
-        // 4.
         [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
         [self.client URLProtocol:self didLoadData:data];
         [self.client URLProtocolDidFinishLoading:self];
