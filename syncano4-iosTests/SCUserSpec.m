@@ -8,7 +8,6 @@
 
 #import "Kiwi.h"
 #import "SCUser.h"
-#import "SCCannedURLProtocol.h"
 #import "KWSpec+WaitFor.h"
 #import "Syncano.h"
 #import <OHHTTPStubs.h>
