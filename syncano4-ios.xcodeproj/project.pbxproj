@@ -36,6 +36,7 @@
 		11A0E7A81B1756EB009CC2E1 /* SCWebhook.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0E7A71B1756EB009CC2E1 /* SCWebhook.m */; };
 		11A0E7AB1B175840009CC2E1 /* SCWebhookResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0E7AA1B175840009CC2E1 /* SCWebhookResponseObject.m */; };
 		11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */; };
+		11B1DAEB1B58B866000D8488 /* CustomUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B1DAEA1B58B866000D8488 /* CustomUserProfile.m */; };
 		11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */; };
 		11BE43DB1AC5532200FE96C5 /* SCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43DA1AC5532200FE96C5 /* SCAPIClient.m */; };
 		11BE43E01AC55BCA00FE96C5 /* SCDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43DF1AC55BCA00FE96C5 /* SCDataObject.m */; };
@@ -119,6 +120,8 @@
 		11A0E7A91B175840009CC2E1 /* SCWebhookResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWebhookResponseObject.h; sourceTree = "<group>"; };
 		11A0E7AA1B175840009CC2E1 /* SCWebhookResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWebhookResponseObject.m; sourceTree = "<group>"; };
 		11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAPISpec.m; sourceTree = "<group>"; };
+		11B1DAE91B58B866000D8488 /* CustomUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUserProfile.h; sourceTree = "<group>"; };
+		11B1DAEA1B58B866000D8488 /* CustomUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUserProfile.m; sourceTree = "<group>"; };
 		11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncanoSpec.m; sourceTree = "<group>"; };
 		11BE43D91AC5532200FE96C5 /* SCAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAPIClient.h; sourceTree = "<group>"; };
 		11BE43DA1AC5532200FE96C5 /* SCAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAPIClient.m; sourceTree = "<group>"; };
@@ -310,10 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				1193D7341B54EF4E000D665B /* Helpers */,
-				11F80C3C1ACEDF3600134A39 /* Author.h */,
-				11F80C3D1ACEDF3600134A39 /* Author.m */,
-				1109EF621ACD2E2100BD18A6 /* Book.h */,
-				1109EF611ACD2E2100BD18A6 /* Book.m */,
+				11B1DAE81B58B838000D8488 /* SCDataObjects */,
 				119991701AC446E4007B994C /* Supporting Files */,
 				11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */,
 				1193D7391B553119000D665B /* SCUser */,
@@ -332,6 +332,19 @@
 				11BE43E11AC5732200FE96C5 /* circle.yml */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		11B1DAE81B58B838000D8488 /* SCDataObjects */ = {
+			isa = PBXGroup;
+			children = (
+				11F80C3C1ACEDF3600134A39 /* Author.h */,
+				11F80C3D1ACEDF3600134A39 /* Author.m */,
+				1109EF621ACD2E2100BD18A6 /* Book.h */,
+				1109EF611ACD2E2100BD18A6 /* Book.m */,
+				11B1DAE91B58B866000D8488 /* CustomUserProfile.h */,
+				11B1DAEA1B58B866000D8488 /* CustomUserProfile.m */,
+			);
+			name = SCDataObjects;
 			sourceTree = "<group>";
 		};
 		11BE43D81AC552D500FE96C5 /* APIClient */ = {
@@ -558,6 +571,7 @@
 				11F80C3E1ACEDF3600134A39 /* Author.m in Sources */,
 				1104DAA51AEA5A8F0088F45E /* SCPredicateSpec.m in Sources */,
 				11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */,
+				11B1DAEB1B58B866000D8488 /* CustomUserProfile.m in Sources */,
 				1193D7331B54E7AF000D665B /* KWSpec+WaitFor.m in Sources */,
 				11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */,
 				1184268D1AC9851C001035A7 /* SCDataObjectSpec.m in Sources */,
