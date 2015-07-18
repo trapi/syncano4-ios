@@ -15,7 +15,7 @@
 @property (nonatomic,retain) NSNumber *userId;
 @property (nonatomic,retain) NSString *username;
 @property (nonatomic,readonly) NSString *userKey;
-//@property (nonatomic,retain) SCUserProfile *profile;
+@property (nonatomic,retain) SCUserProfile *profile;
 @property (nonatomic,retain) NSDictionary *links;
 
 
@@ -111,7 +111,7 @@
 
 
 - (void)updateUsername:(NSString *)username withCompletion:(SCCompletionBlock)completion;
-- (void)updateUsername:(NSString *)username inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
+- (void)updateUsername:(NSString *)username inSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 
 - (void)updatePassword:(NSString *)username withCompletion:(SCCompletionBlock)completion;
 - (void)updatePassword:(NSString *)username inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;

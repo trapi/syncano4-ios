@@ -57,13 +57,13 @@
     if (self) {
         self.apiKey = apiKey;
         self.instanceName = instanceName;
+        self.apiClient = [SCAPIClient apiClientForSyncano:self];
     }
     return self;
 }
 
 + (Syncano *)newSyncanoWithApiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
     Syncano *syncano = [[Syncano alloc] initWithApiKey:apiKey instanceName:instanceName];
-    syncano.apiClient = [SCAPIClient apiClientForSyncano:syncano];
     return syncano;
 }
 

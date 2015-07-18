@@ -15,7 +15,7 @@ SPEC_BEGIN(SCAPISpec)
 describe(@"SCAPI", ^{
     
     beforeAll(^{
-        [Syncano testInstance];
+        //[Syncano testInstance];
     });
     it(@"sending authenticated GET classes request", ^{
         __block NSError *_error;

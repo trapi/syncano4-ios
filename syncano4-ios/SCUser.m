@@ -67,6 +67,8 @@ static id _currentUser;
     [[SCParseManager sharedSCParseManager] registerUserClass:[self class]];
     if (profileClass) {
         [[SCParseManager sharedSCParseManager] registerUserProfileClass:profileClass];
+    } else {
+        [[SCParseManager sharedSCParseManager] registerUserProfileClass:[SCUserProfile class]];
     }
 }
 
@@ -146,13 +148,13 @@ static id _currentUser;
 }
 
 + (SCPlease *)pleaseFromSyncano:(Syncano *)syncano {
-    return [SCUser pleaseFromSyncano:syncano];
+    return [SCUserProfile pleaseFromSyncano:syncano];
 }
 
 - (void)updateUsername:(NSString *)username withCompletion:(SCCompletionBlock)completion {
     [self updateUsername:username password:nil usingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
 }
-- (void)updateUsername:(NSString *)username inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+- (void)updateUsername:(NSString *)username inSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
     [self updateUsername:username password:nil usingAPIClient:syncano.apiClient withCompletion:completion];
 }
 
