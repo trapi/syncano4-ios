@@ -101,6 +101,6 @@
 - (void)deleteFromSyncano:(Syncano *)syncano completion:(SCCompletionBlock)completion;
 
 - (void)updateValue:(id)value forKey:(NSString *)key withCompletion:(SCCompletionBlock)completion;
-- (void)updateValue:(id)value forKey:(NSString *)key inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
+- (void)updateValue:(id)value forKey:(NSString *)key inSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion;
 - (void)updateValue:(id)value forKey:(NSString *)key usingAPIClient:(SCAPIClient *)apiClient withCompletion:(SCCompletionBlock)completion;
 @end

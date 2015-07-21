@@ -146,7 +146,7 @@
 - (void)updateValue:(id)value forKey:(NSString *)key withCompletion:(SCCompletionBlock)completion {
     [self updateValue:value forKey:key usingAPIClient:[Syncano sharedAPIClient] withCompletion:completion];
 }
-- (void)updateValue:(id)value forKey:(NSString *)key inSyncno:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
+- (void)updateValue:(id)value forKey:(NSString *)key inSyncano:(Syncano *)syncano withCompletion:(SCCompletionBlock)completion {
     [self updateValue:value forKey:key usingAPIClient:syncano.apiClient withCompletion:completion];
 }
 
