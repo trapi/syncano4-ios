@@ -282,7 +282,7 @@ describe(@"SCUser", ^{
     
     context(@"custom user profile", ^{
         it(@"should register class", ^{
-            __block NSString *customProfileClassName;
+            __block SCUser *user;
             __block BOOL _blockFinished;
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
@@ -293,13 +293,12 @@ describe(@"SCUser", ^{
             [SCUser registerClassWithProfileClass:[CustomUserProfile class]];
             [[SCUser currentUser] logout];
             [SCUser loginWithUsername:@"janek" password:@"qaz123" completion:^(NSError *error) {
-                SCUser *user = [SCUser currentUser];
-                customProfileClassName = NSStringFromClass(user.profile.class);
+                user = [SCUser currentUser];
                 _blockFinished = YES;
                 
             }];
             [[expectFutureValue(theValue(_blockFinished)) shouldEventually] beYes];
-            [[customProfileClassName should] equal:@"CustomUserProfile"];
+            [[user.profile should] beKindOfClass:[CustomUserProfile class]];
         });
     });
     
@@ -307,7 +306,7 @@ describe(@"SCUser", ^{
     context(@"default user profile", ^{
         it(@"should register class", ^{
             
-            __block NSString *profileClassName;
+            __block SCUser *user;
             __block BOOL _blockFinished;
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
@@ -318,13 +317,11 @@ describe(@"SCUser", ^{
             [SCUser registerClass];
             [[SCUser currentUser] logout];
             [SCUser loginWithUsername:@"janek" password:@"qaz123" completion:^(NSError *error) {
-                SCUser *user = [SCUser currentUser];
-                profileClassName = NSStringFromClass(user.profile.class);
+                user = [SCUser currentUser];
                 _blockFinished = YES;
-                
             }];
             [[expectFutureValue(theValue(_blockFinished)) shouldEventually] beYes];
-            [[profileClassName should] equal:@"SCUserProfile"];
+            [[user.profile should] beKindOfClass:[SCUserProfile class]];
             
         });
     });

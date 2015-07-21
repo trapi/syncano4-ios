@@ -10,9 +10,13 @@
 		1104DAA51AEA5A8F0088F45E /* SCPredicateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1104DAA41AEA5A8F0088F45E /* SCPredicateSpec.m */; };
 		11055B9E1B25C393004BB629 /* SCChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11055B9D1B25C393004BB629 /* SCChannel.m */; };
 		11055BA11B25C8BD004BB629 /* SCChannelNotificationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11055BA01B25C8BD004BB629 /* SCChannelNotificationMessage.m */; };
+		1106CE511B5CEB7700CEA452 /* SCUserProfileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106CE501B5CEB7700CEA452 /* SCUserProfileSpec.m */; };
+		1106CE861B5DFF5D00CEA452 /* Book.json in Resources */ = {isa = PBXBuildFile; fileRef = 1106CE851B5DFF5D00CEA452 /* Book.json */; };
+		1106CE881B5DFF9500CEA452 /* Books.json in Resources */ = {isa = PBXBuildFile; fileRef = 1106CE871B5DFF9500CEA452 /* Books.json */; };
+		1106CE8A1B5E005800CEA452 /* SCPleaseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106CE891B5E005800CEA452 /* SCPleaseSpec.m */; };
+		1106CE8C1B5E065B00CEA452 /* SCParseManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106CE8B1B5E065B00CEA452 /* SCParseManagerSpec.m */; };
 		1109EF5D1ACD257300BD18A6 /* SCAPIClient+SCDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109EF5C1ACD257300BD18A6 /* SCAPIClient+SCDataObject.m */; };
 		1109EF631ACD2E2100BD18A6 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109EF611ACD2E2100BD18A6 /* Book.m */; };
-		1109EF651ACD2F5700BD18A6 /* SCBookDataObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109EF641ACD2F5700BD18A6 /* SCBookDataObjectSpec.m */; };
 		113C36A51B0224EF008723EC /* NSObject+SCParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 113C36A41B0224EF008723EC /* NSObject+SCParseHelper.m */; };
 		11487E471ADE94D200627EFD /* SCPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11487E461ADE94D200627EFD /* SCPredicate.m */; };
 		115018901ACC49E50064465C /* SCDataObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 11BE43DE1AC55BCA00FE96C5 /* SCDataObject.h */; };
@@ -80,11 +84,15 @@
 		11055B9F1B25C8BD004BB629 /* SCChannelNotificationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelNotificationMessage.h; sourceTree = "<group>"; };
 		11055BA01B25C8BD004BB629 /* SCChannelNotificationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelNotificationMessage.m; sourceTree = "<group>"; };
 		11055BA71B25CF78004BB629 /* SCChannelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChannelDelegate.h; sourceTree = "<group>"; };
+		1106CE501B5CEB7700CEA452 /* SCUserProfileSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUserProfileSpec.m; sourceTree = "<group>"; };
+		1106CE851B5DFF5D00CEA452 /* Book.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Book.json; sourceTree = "<group>"; };
+		1106CE871B5DFF9500CEA452 /* Books.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Books.json; sourceTree = "<group>"; };
+		1106CE891B5E005800CEA452 /* SCPleaseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPleaseSpec.m; sourceTree = "<group>"; };
+		1106CE8B1B5E065B00CEA452 /* SCParseManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCParseManagerSpec.m; sourceTree = "<group>"; };
 		1109EF5B1ACD257300BD18A6 /* SCAPIClient+SCDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCAPIClient+SCDataObject.h"; sourceTree = "<group>"; };
 		1109EF5C1ACD257300BD18A6 /* SCAPIClient+SCDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCAPIClient+SCDataObject.m"; sourceTree = "<group>"; };
 		1109EF611ACD2E2100BD18A6 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		1109EF621ACD2E2100BD18A6 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
-		1109EF641ACD2F5700BD18A6 /* SCBookDataObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBookDataObjectSpec.m; sourceTree = "<group>"; };
 		113C36A31B0224EF008723EC /* NSObject+SCParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SCParseHelper.h"; sourceTree = "<group>"; };
 		113C36A41B0224EF008723EC /* NSObject+SCParseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SCParseHelper.m"; sourceTree = "<group>"; };
 		11487E451ADE94D200627EFD /* SCPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPredicate.h; sourceTree = "<group>"; };
@@ -227,6 +235,16 @@
 			name = DataObject;
 			sourceTree = "<group>";
 		};
+		1106CE841B5DFF3700CEA452 /* SCDataObject */ = {
+			isa = PBXGroup;
+			children = (
+				1184268C1AC9851C001035A7 /* SCDataObjectSpec.m */,
+				1106CE851B5DFF5D00CEA452 /* Book.json */,
+				1106CE871B5DFF9500CEA452 /* Books.json */,
+			);
+			name = SCDataObject;
+			sourceTree = "<group>";
+		};
 		1142F6581B332A8900A38A97 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				1193D72C1B53FDCE000D665B /* SCUserSpec.m */,
+				1106CE501B5CEB7700CEA452 /* SCUserProfileSpec.m */,
 				1193D73A1B553140000D665B /* SCUserLogin_200.json */,
 				1150CF9B1B5789DF0080D5E3 /* SCUserRegister_200.json */,
 			);
@@ -313,14 +332,15 @@
 			isa = PBXGroup;
 			children = (
 				1193D7341B54EF4E000D665B /* Helpers */,
-				11B1DAE81B58B838000D8488 /* SCDataObjects */,
+				11B1DAE81B58B838000D8488 /* MockClasses */,
 				119991701AC446E4007B994C /* Supporting Files */,
 				11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */,
 				1193D7391B553119000D665B /* SCUser */,
 				11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */,
-				1184268C1AC9851C001035A7 /* SCDataObjectSpec.m */,
-				1109EF641ACD2F5700BD18A6 /* SCBookDataObjectSpec.m */,
+				1106CE841B5DFF3700CEA452 /* SCDataObject */,
 				1104DAA41AEA5A8F0088F45E /* SCPredicateSpec.m */,
+				1106CE8B1B5E065B00CEA452 /* SCParseManagerSpec.m */,
+				1106CE891B5E005800CEA452 /* SCPleaseSpec.m */,
 			);
 			path = "syncano4-iosTests";
 			sourceTree = "<group>";
@@ -334,7 +354,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		11B1DAE81B58B838000D8488 /* SCDataObjects */ = {
+		11B1DAE81B58B838000D8488 /* MockClasses */ = {
 			isa = PBXGroup;
 			children = (
 				11F80C3C1ACEDF3600134A39 /* Author.h */,
@@ -344,7 +364,7 @@
 				11B1DAE91B58B866000D8488 /* CustomUserProfile.h */,
 				11B1DAEA1B58B866000D8488 /* CustomUserProfile.m */,
 			);
-			name = SCDataObjects;
+			name = MockClasses;
 			sourceTree = "<group>";
 		};
 		11BE43D81AC552D500FE96C5 /* APIClient */ = {
@@ -463,6 +483,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1106CE881B5DFF9500CEA452 /* Books.json in Resources */,
+				1106CE861B5DFF5D00CEA452 /* Book.json in Resources */,
 				1150CF9C1B5789DF0080D5E3 /* SCUserRegister_200.json in Resources */,
 				1193D73B1B553140000D665B /* SCUserLogin_200.json in Resources */,
 			);
@@ -567,12 +589,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1109EF631ACD2E2100BD18A6 /* Book.m in Sources */,
-				1109EF651ACD2F5700BD18A6 /* SCBookDataObjectSpec.m in Sources */,
+				1106CE511B5CEB7700CEA452 /* SCUserProfileSpec.m in Sources */,
 				11F80C3E1ACEDF3600134A39 /* Author.m in Sources */,
 				1104DAA51AEA5A8F0088F45E /* SCPredicateSpec.m in Sources */,
 				11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */,
 				11B1DAEB1B58B866000D8488 /* CustomUserProfile.m in Sources */,
+				1106CE8C1B5E065B00CEA452 /* SCParseManagerSpec.m in Sources */,
 				1193D7331B54E7AF000D665B /* KWSpec+WaitFor.m in Sources */,
+				1106CE8A1B5E005800CEA452 /* SCPleaseSpec.m in Sources */,
 				11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */,
 				1184268D1AC9851C001035A7 /* SCDataObjectSpec.m in Sources */,
 				1193D72D1B53FDCE000D665B /* SCUserSpec.m in Sources */,
