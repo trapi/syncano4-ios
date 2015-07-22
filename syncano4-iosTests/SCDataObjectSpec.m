@@ -27,7 +27,7 @@ describe(@"SCDataObject", ^{
     
     it(@"should register class", ^{
         [Book registerClass];
-        SCClassRegisterItem *registerOfClass = [[SCParseManager sharedSCParseManager] registerItemForClass:[Book class]];
+        SCClassRegisterItem *registerOfClass = [[SCParseManager sharedSCParseManager] registeredItemForClass:[Book class]];
         [[registerOfClass shouldNot] beNil];
     });
     

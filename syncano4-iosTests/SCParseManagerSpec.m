@@ -15,14 +15,86 @@ SPEC_BEGIN(SCParseManagerSpec)
 
 describe(@"SCParseManager", ^{
     
-    it(@"should create object from JSON NSDictionary", ^{
-        NSError *error;
+    it(@"should return type name string of provided property name inside provided class", ^{
+        NSString *typeName =  [[SCParseManager sharedSCParseManager] typeOfPropertyNamed:@"author" fromClass:[Book class]];
+        [[typeName should] equal:@"Author"];
+    });
+    
+    it(@"should validate and set value to object", ^{
+        Book *book = [Book new];
+        SCValidateAndSetValue(book, @"objectId", @12, YES, nil);
+        [[book.objectId should] equal:@12];
+    });
+    
+    it(@"should parse object from JSON NSDictionary", ^{
         NSDictionary *JSON = @{@"id" : @123,};
-        SCDataObject *dataObject = [MTLJSONAdapter modelOfClass:[SCDataObject class] fromJSONDictionary:JSON error:&error];
-        [[error should] beNil];
+        Book *dataObject = [[SCParseManager sharedSCParseManager] parsedObjectOfClass:[Book class] fromJSONObject:JSON];
         [[dataObject.objectId should] equal:@123];
     });
+    
+    it(@"should parse objects from of JSON NSDictionary with more than one object", ^{
+        NSArray *JSON = @[@{@"id" : @123}, @{@"id" : @124}];
+        NSArray *dataObjects = [[SCParseManager sharedSCParseManager] parsedObjectsOfClass:[Book class] fromJSONObject:JSON];
+        [[theValue(dataObjects.count) should] equal:theValue(2)];
+        Book *book = [dataObjects lastObject];
+        [[book.objectId should] equal:@124];
+    });
 
+    it(@"should fill object from JSON NSDictionary", ^{
+        NSDictionary *JSON = @{@"id" : @12,@"numofpages" : @223 , @"title" : @"syncano for geeks"};
+        Book *book = [Book new];
+        book.objectId = @12;
+        book.numOfPages = @123;
+        [[SCParseManager sharedSCParseManager] fillObject:book withDataFromJSONObject:JSON];
+        [[book.numOfPages should] equal:@223];
+        [[book.title should] equal:@"syncano for geeks"];
+        [[book.objectId should] equal:@12];
+    });
+    
+    it(@"should convert data object to NSDictionary representation", ^{
+        NSError *error;
+        
+        Book *book = [Book new];
+        book.objectId = @12;
+        book.numOfPages = @123;
+        book.title = @"syncano for geeks";
+
+        NSDictionary *dictionaryRepresentation = [[SCParseManager sharedSCParseManager] JSONSerializedDictionaryFromDataObject:book error:&error];
+        
+        [[dictionaryRepresentation should] beNonNil];
+        [[dictionaryRepresentation[@"numofpages"] should] equal:@123];
+        [[dictionaryRepresentation[@"title"] should] equal:@"syncano for geeks"];
+        [[error should] beNil];
+        
+    });
+    
+    it(@"should register class", ^{
+        SCParseManager *parsemanager = [SCParseManager sharedSCParseManager];
+       
+        NSUInteger count = parsemanager.registeredClasses.count;
+        
+        [parsemanager registerClass:[Book class]];
+        
+        SCClassRegisterItem *registeredItem = [parsemanager registeredItemForClass:[Book class]];
+        
+        [[registeredItem should] beNonNil];
+        [[registeredItem.className should] equal:@"Book"];
+        [[registeredItem.classNameForAPI should] equal:@"book"];
+        [[registeredItem.properties[@"author"] should] equal:@"Author"];
+        [[theValue(parsemanager.registeredClasses.count) should] equal:theValue(count+1)];
+    });
+    
+    it(@"should return realtions for Book class", ^{
+        SCParseManager *parsemanager = [SCParseManager sharedSCParseManager];
+        [parsemanager registerClass:[Book class]];
+        [parsemanager registerClass:[Author class]];
+        
+        NSDictionary *relations = [parsemanager relationsForClass:[Book class]];
+ 
+        [[relations should] beNonNil];
+        [[relations[@"author"] should] beKindOfClass:[SCClassRegisterItem class]];
+    });
+    
 });
 
 SPEC_END

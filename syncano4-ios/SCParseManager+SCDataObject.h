@@ -58,7 +58,7 @@
 
 
 /**
- *  Attempt to fill provided SCDataObject wit data from JSON response object. 
+ *  Attempt to fill provided SCDataObject with data from JSON response object. 
  *
  *  @param object         SCDataObject to update
  *  @param responseObject JSON response object to update from
@@ -66,7 +66,7 @@
 - (void)fillObject:(SCDataObject *)object withDataFromJSONObject:(id)responseObject;
 
 /**
- *  Converts SCDataObject to JSON representation
+ *  Converts SCDataObject to NSDictionary representation
  *
  *  @param dataObject SCDataObject to convert
  *
@@ -88,7 +88,7 @@
  *
  *  @return SCClassRegisterItem for provided class or nil
  */
-- (SCClassRegisterItem *)registerItemForClass:(__unsafe_unretained Class)registeredClass;
+- (SCClassRegisterItem *)registeredItemForClass:(__unsafe_unretained Class)registeredClass;
 
 /**
  *  Returns relations for provided class

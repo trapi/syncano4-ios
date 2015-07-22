@@ -105,7 +105,7 @@
 }
 
 - (NSDictionary *)relationsForClass:(__unsafe_unretained Class)class {
-    SCClassRegisterItem *registerForClass = [self registerItemForClass:class];
+    SCClassRegisterItem *registerForClass = [self registeredItemForClass:class];
     NSMutableDictionary *relations = [NSMutableDictionary new];
     for (NSString *propertyName in registerForClass.properties.allKeys) {
         NSString *propertyType = registerForClass.properties[propertyName];
@@ -147,7 +147,7 @@
  *
  *  @return SCClassRegisterItem or nil
  */
-- (SCClassRegisterItem *)registerItemForClass:(__unsafe_unretained Class)registeredClass {
+- (SCClassRegisterItem *)registeredItemForClass:(__unsafe_unretained Class)registeredClass {
     return [self registerItemForClassName:NSStringFromClass(registeredClass)];
 }
 

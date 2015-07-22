@@ -61,7 +61,7 @@ extern NSString *const SCPleaseParameterIncludeKeys;
 + (SCPlease *)pleaseInstanceForDataObjectWithClass:(Class)dataObjectClass forSyncano:(Syncano *)syncano;
 
 /**
- *  Creates a new SCPlease object for provided class for singleton Syncano instance.
+ *  Creates a new SCPlease object for User class.
  *
  *  @param dataObjectClass SCDataObject scope class
  *
@@ -70,7 +70,7 @@ extern NSString *const SCPleaseParameterIncludeKeys;
 + (SCPlease *)pleaseInstanceForUserClass;
 
 /**
- *  Creates a new SCPlease object for provided class for provided Syncano instance
+ *  Creates a new SCPlease object for User class for provided Syncano instance
  *
  *  @param dataObjectClass SCDataObject scope class
  *  @param syncano         Syncano instance
