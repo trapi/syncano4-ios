@@ -194,10 +194,10 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
 }
 
 - (void)handleResponse:(id)responseObject error:(NSError *)error completion:(SCDataObjectsCompletionBlock)completion includeKeys:(NSArray *)includeKeys {
-    if (responseObject[@"prev"]) {
+    if (responseObject[@"prev"] && responseObject[@"prev"]!=[NSNull null]) {
         self.previousUrlString = responseObject[@"prev"];
     }
-    if (responseObject[@"next"]) {
+    if (responseObject[@"next"] && responseObject[@"next"]!=[NSNull null]) {
         self.nextUrlString = responseObject[@"next"];
     }
     if (responseObject[@"objects"]) {
