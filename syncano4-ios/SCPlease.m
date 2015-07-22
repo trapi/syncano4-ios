@@ -194,6 +194,8 @@ NSString *const SCPleaseParameterIncludeKeys = @"include_keys";
 }
 
 - (void)handleResponse:(id)responseObject error:(NSError *)error completion:(SCDataObjectsCompletionBlock)completion includeKeys:(NSArray *)includeKeys {
+    self.previousUrlString = nil;
+    self.nextUrlString = nil;
     if (responseObject[@"prev"] && responseObject[@"prev"]!=[NSNull null]) {
         self.previousUrlString = responseObject[@"prev"];
     }
