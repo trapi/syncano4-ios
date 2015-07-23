@@ -29,7 +29,7 @@ describe(@"SCUser", ^{
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
                 // Stub it with our "wsresponse.json" stub file
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserRegister_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserRegister.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             
@@ -56,7 +56,7 @@ describe(@"SCUser", ^{
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             
@@ -88,7 +88,7 @@ describe(@"SCUser", ^{
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             
@@ -120,7 +120,7 @@ describe(@"SCUser", ^{
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             
@@ -160,7 +160,7 @@ describe(@"SCUser", ^{
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
                 // Stub it with our "wsresponse.json" stub file
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserRegister_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserRegister.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             
@@ -187,7 +187,7 @@ describe(@"SCUser", ^{
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             
@@ -219,7 +219,7 @@ describe(@"SCUser", ^{
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             
@@ -251,7 +251,7 @@ describe(@"SCUser", ^{
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             
@@ -287,7 +287,7 @@ describe(@"SCUser", ^{
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             [SCUser registerClassWithProfileClass:[CustomUserProfile class]];
@@ -311,7 +311,7 @@ describe(@"SCUser", ^{
             [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
                 return YES;
             } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+                return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                         statusCode:200 headers:@{@"Content-Type":@"application/json"}];
             }];
             [SCUser registerClass];

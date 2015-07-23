@@ -19,7 +19,7 @@ describe(@"SCUserProfile", ^{
         [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
             return YES;
         } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
-            return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin_200.json",self.class)
+            return [OHHTTPStubsResponse responseWithFileAtPath:OHPathForFile(@"SCUserLogin.json",self.class)
                                                     statusCode:200 headers:@{@"Content-Type":@"application/json"}];
         }];
         

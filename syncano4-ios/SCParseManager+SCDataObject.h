@@ -32,7 +32,7 @@
 /**
  *  Array of SCClassRegisterItems
  */
-@property (nonatomic,retain) NSMutableArray *registeredClasses;
+@property (nonatomic,readonly) NSMutableArray *registeredClasses;
 
 
 /**

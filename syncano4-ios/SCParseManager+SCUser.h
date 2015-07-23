@@ -11,6 +11,11 @@
 
 @interface SCParseManager (SCUser)
 
+
+@property (nonatomic,readonly) Class userClass;
+@property (nonatomic,readonly) Class userProfileClass;
+
+
 /**
  *  Registers class for user subclassing
  *
