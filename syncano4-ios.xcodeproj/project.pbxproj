@@ -41,6 +41,8 @@
 		119A93661AFB911E001ADA7C /* SCParseManager+SCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 119A93651AFB911E001ADA7C /* SCParseManager+SCUser.m */; };
 		11A0E7A81B1756EB009CC2E1 /* SCWebhook.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0E7A71B1756EB009CC2E1 /* SCWebhook.m */; };
 		11A0E7AB1B175840009CC2E1 /* SCWebhookResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0E7AA1B175840009CC2E1 /* SCWebhookResponseObject.m */; };
+		11A7C6571B67B62C00EDC3CE /* SCChannelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A7C6561B67B62C00EDC3CE /* SCChannelSpec.m */; };
+		11A7C65C1B67C00D00EDC3CE /* ChannelNotificationMessage.json in Resources */ = {isa = PBXBuildFile; fileRef = 11A7C65B1B67C00D00EDC3CE /* ChannelNotificationMessage.json */; };
 		11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */; };
 		11B1DAEB1B58B866000D8488 /* CustomUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B1DAEA1B58B866000D8488 /* CustomUserProfile.m */; };
 		11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */; };
@@ -140,6 +142,8 @@
 		11A0E7A71B1756EB009CC2E1 /* SCWebhook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWebhook.m; sourceTree = "<group>"; };
 		11A0E7A91B175840009CC2E1 /* SCWebhookResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWebhookResponseObject.h; sourceTree = "<group>"; };
 		11A0E7AA1B175840009CC2E1 /* SCWebhookResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWebhookResponseObject.m; sourceTree = "<group>"; };
+		11A7C6561B67B62C00EDC3CE /* SCChannelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelSpec.m; sourceTree = "<group>"; };
+		11A7C65B1B67C00D00EDC3CE /* ChannelNotificationMessage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ChannelNotificationMessage.json; sourceTree = "<group>"; };
 		11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAPISpec.m; sourceTree = "<group>"; };
 		11B1DAE91B58B866000D8488 /* CustomUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUserProfile.h; sourceTree = "<group>"; };
 		11B1DAEA1B58B866000D8488 /* CustomUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUserProfile.m; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 				1150CF9B1B5789DF0080D5E3 /* SCUserRegister.json */,
 				11F9AEDD1B62113D00B51341 /* Trace.json */,
 				11D7D1B31B660CD700466E66 /* Webhook.json */,
+				11A7C65B1B67C00D00EDC3CE /* ChannelNotificationMessage.json */,
 			);
 			name = "Response mock files";
 			sourceTree = "<group>";
@@ -378,6 +383,7 @@
 				1106CE841B5DFF3700CEA452 /* SCDataObject */,
 				11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */,
 				11D7D1B11B660C4A00466E66 /* SCWebhookSpec.m */,
+				11A7C6561B67B62C00EDC3CE /* SCChannelSpec.m */,
 				11F9AEE11B62128500B51341 /* CodeBox */,
 				1106CE8B1B5E065B00CEA452 /* SCParseManagerSpec.m */,
 			);
@@ -537,6 +543,7 @@
 				11F9AEDE1B62113D00B51341 /* Trace.json in Resources */,
 				11F9AED21B61F98200B51341 /* syncano-white.png in Resources */,
 				11D7D1B41B660CD700466E66 /* Webhook.json in Resources */,
+				11A7C65C1B67C00D00EDC3CE /* ChannelNotificationMessage.json in Resources */,
 				1106CE881B5DFF9500CEA452 /* Books.json in Resources */,
 				1106CE861B5DFF5D00CEA452 /* Book.json in Resources */,
 				1150CF9C1B5789DF0080D5E3 /* SCUserRegister.json in Resources */,
@@ -647,6 +654,7 @@
 				1106CE511B5CEB7700CEA452 /* SCUserProfileSpec.m in Sources */,
 				11F80C3E1ACEDF3600134A39 /* Author.m in Sources */,
 				1104DAA51AEA5A8F0088F45E /* SCPredicateSpec.m in Sources */,
+				11A7C6571B67B62C00EDC3CE /* SCChannelSpec.m in Sources */,
 				1143A5C41B60D83100A720D6 /* SCJSONHelper.m in Sources */,
 				11F9AEDC1B62105C00B51341 /* SCCodeBoxSpec.m in Sources */,
 				11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */,

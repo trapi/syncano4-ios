@@ -15,13 +15,10 @@
     if (*error != nil) {
         NSMutableDictionary *userInfo = [(*error).userInfo mutableCopy];
         if (data == nil) {
-            //			// NOTE: You might want to convert data to a string here too, up to you.
-            //			userInfo[JSONResponseSerializerWithDataKey] = @"";
-            userInfo[kSyncanoRepsonseErrorKey] = [NSDictionary new];//[NSData data];
+            userInfo[kSyncanoRepsonseErrorKey] = [NSDictionary new];
         } else {
-            //			// NOTE: You might want to convert data to a string here too, up to you.
-            //			userInfo[JSONResponseSerializerWithDataKey] = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            userInfo[kSyncanoRepsonseErrorKey] = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]; //data;
+            id errorData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            userInfo[kSyncanoRepsonseErrorKey] = errorData ? errorData : [NSDictionary new];
         }
         NSError *newError = [NSError errorWithDomain:(*error).domain code:(*error).code userInfo:userInfo];
         (*error) = newError;
