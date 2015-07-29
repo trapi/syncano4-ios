@@ -17,11 +17,20 @@
 
 @implementation SCAPIClient
 
+- (instancetype)initWithBaseURL:(NSURL *)url apiKey:(NSString *)apiKey instanceName:(NSString *)instanceName {
+    self = [self initWithBaseURL:url];
+    if (self) {
+        self.apiKey = apiKey;
+        self.instanceName = instanceName;
+    }
+    return self;
+}
+
 - (instancetype)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
     if (self) {
         self.requestSerializer = [AFJSONRequestSerializer serializer];
-//        [self authorizeRequest];
+        //        [self authorizeRequest];
         self.securityPolicy.allowInvalidCertificates = YES;
         self.responseSerializer = [SCJSONResponseSerializer serializer];
     }
@@ -30,7 +39,7 @@
 
 + (SCAPIClient *)apiClientForSyncano:(Syncano *)syncano {
     NSURL *instanceURL = [NSURL URLWithString:syncano.instanceName relativeToURL:[NSURL URLWithString:kBaseURL]];
-    SCAPIClient *apiClient = [[SCAPIClient alloc] initWithBaseURL:instanceURL];
+    SCAPIClient *apiClient = [[SCAPIClient alloc] initWithBaseURL:instanceURL apiKey:syncano.apiKey instanceName:syncano.instanceName];
     return apiClient;
 }
 
@@ -39,7 +48,8 @@
 }
 
 - (void)authorizeRequest {
-   [self.requestSerializer setValue:[Syncano getApiKey] forHTTPHeaderField:@"X-API-KEY"];
+    NSString *apiKey = (self.apiKey.length > 0) ? self.apiKey : [Syncano getApiKey];
+   [self.requestSerializer setValue:apiKey forHTTPHeaderField:@"X-API-KEY"];
     if ([SCUser currentUser]) {
         NSString *userKey = [SCUser currentUser].userKey;
         [self.requestSerializer setValue:userKey forHTTPHeaderField:@"X-USER-KEY"];

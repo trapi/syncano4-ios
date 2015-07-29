@@ -43,7 +43,7 @@
 		11A0E7AB1B175840009CC2E1 /* SCWebhookResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0E7AA1B175840009CC2E1 /* SCWebhookResponseObject.m */; };
 		11A7C6571B67B62C00EDC3CE /* SCChannelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A7C6561B67B62C00EDC3CE /* SCChannelSpec.m */; };
 		11A7C65C1B67C00D00EDC3CE /* ChannelNotificationMessage.json in Resources */ = {isa = PBXBuildFile; fileRef = 11A7C65B1B67C00D00EDC3CE /* ChannelNotificationMessage.json */; };
-		11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */; };
+		11AFBC891AC58B5F002B1F2F /* SCAPIClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AFBC881AC58B5F002B1F2F /* SCAPIClientSpec.m */; };
 		11B1DAEB1B58B866000D8488 /* CustomUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B1DAEA1B58B866000D8488 /* CustomUserProfile.m */; };
 		11BE43D41AC458EC00FE96C5 /* SyncanoSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */; };
 		11BE43DB1AC5532200FE96C5 /* SCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BE43DA1AC5532200FE96C5 /* SCAPIClient.m */; };
@@ -144,7 +144,7 @@
 		11A0E7AA1B175840009CC2E1 /* SCWebhookResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWebhookResponseObject.m; sourceTree = "<group>"; };
 		11A7C6561B67B62C00EDC3CE /* SCChannelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChannelSpec.m; sourceTree = "<group>"; };
 		11A7C65B1B67C00D00EDC3CE /* ChannelNotificationMessage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ChannelNotificationMessage.json; sourceTree = "<group>"; };
-		11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAPISpec.m; sourceTree = "<group>"; };
+		11AFBC881AC58B5F002B1F2F /* SCAPIClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAPIClientSpec.m; sourceTree = "<group>"; };
 		11B1DAE91B58B866000D8488 /* CustomUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUserProfile.h; sourceTree = "<group>"; };
 		11B1DAEA1B58B866000D8488 /* CustomUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUserProfile.m; sourceTree = "<group>"; };
 		11BE43D31AC458EC00FE96C5 /* SyncanoSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncanoSpec.m; sourceTree = "<group>"; };
@@ -381,7 +381,7 @@
 				1143A5C11B60D5D900A720D6 /* Response mock files */,
 				1193D7391B553119000D665B /* SCUser */,
 				1106CE841B5DFF3700CEA452 /* SCDataObject */,
-				11AFBC881AC58B5F002B1F2F /* SCAPISpec.m */,
+				11AFBC881AC58B5F002B1F2F /* SCAPIClientSpec.m */,
 				11D7D1B11B660C4A00466E66 /* SCWebhookSpec.m */,
 				11A7C6561B67B62C00EDC3CE /* SCChannelSpec.m */,
 				11F9AEE11B62128500B51341 /* CodeBox */,
@@ -665,7 +665,7 @@
 				1193D7331B54E7AF000D665B /* KWSpec+WaitFor.m in Sources */,
 				1106CE8A1B5E005800CEA452 /* SCPleaseSpec.m in Sources */,
 				11F9AED01B61F92700B51341 /* SCFileSpec.m in Sources */,
-				11AFBC891AC58B5F002B1F2F /* SCAPISpec.m in Sources */,
+				11AFBC891AC58B5F002B1F2F /* SCAPIClientSpec.m in Sources */,
 				1184268D1AC9851C001035A7 /* SCDataObjectSpec.m in Sources */,
 				1193D72D1B53FDCE000D665B /* SCUserSpec.m in Sources */,
 			);

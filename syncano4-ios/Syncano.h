@@ -16,6 +16,7 @@
 #import "SCParseManager+SCDataObject.h"
 #import "SCParseManager+SCUser.h"
 #import "SCAPIClient.h"
+#import "SCAPIClient+SCFile.h"
 #import "SCUser.h" 
 #import "SCCodeBox.h"
 #import "SCWebhook.h"

@@ -18,6 +18,10 @@ SPEC_BEGIN(SCUserSpec)
 
 describe(@"SCUser", ^{
     
+    afterAll(^{
+        [[SCUser currentUser] logout];
+    });
+    
     context(@"singleton syncano instance", ^{
         beforeAll(^{
             [Syncano sharedInstanceWithApiKey:@"API-KEY" instanceName:@"INSTANCE-NAME"];
@@ -153,6 +157,10 @@ describe(@"SCUser", ^{
     
     context(@"custom syncano instance", ^{
         Syncano *syncano = [[Syncano alloc] initWithApiKey:@"API-KEY" instanceName:@"INSTANCE-NAME"];
+        
+        afterAll(^{
+            [[SCUser currentUser] logout];
+        });
         
         it(@"should register", ^{
             
@@ -299,6 +307,7 @@ describe(@"SCUser", ^{
             }];
             [[expectFutureValue(theValue(_blockFinished)) shouldEventually] beYes];
             [[user.profile should] beKindOfClass:[CustomUserProfile class]];
+            [[SCUser currentUser] logout];
         });
     });
     
